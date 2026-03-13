@@ -1,0 +1,4145 @@
+{
+  "version": 2,
+  "skills": [
+    {
+      "id": "agent/agent-browser-automation",
+      "name": "Agent Browser Automation",
+      "description": "Automate browser interactions for development testing using Puppeteer MCP",
+      "skillPath": "agent/agent-browser-automation/SKILL.md",
+      "filePath": "agent/agent-browser-automation/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Automate browser interactions for development testing using Puppeteer MCP",
+        "argument-hint": null,
+        "allowed-tools": "mcp__puppeteer__puppeteer_navigate, mcp__puppeteer__puppeteer_screenshot, mcp__puppeteer__puppeteer_click, mcp__puppeteer__puppeteer_fill, mcp__puppeteer__puppeteer_select, mcp__puppeteer__puppeteer_hover, mcp__puppeteer__puppeteer_evaluate, Write, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/merge/agent-prep-merge",
+      "name": "Agent Prep Merge",
+      "description": "Prepare branches for merging across multiple worktrees and coordinate integration",
+      "skillPath": "agent/merge/agent-prep-merge/SKILL.md",
+      "filePath": "agent/merge/agent-prep-merge/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "merge"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Prepare branches for merging across multiple worktrees and coordinate integration",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git:*), Bash(gh:*), Bash(rg:*), Bash(fd:*), Bash(jq:*), Read, Grep, Write, TodoWrite",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-accessibility-expert",
+      "name": "Agent Persona Accessibility Expert",
+      "description": "Transform into accessibility expert for WCAG compliance and inclusive design",
+      "skillPath": "agent/persona/agent-persona-accessibility-expert/SKILL.md",
+      "filePath": "agent/persona/agent-persona-accessibility-expert/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into accessibility expert for WCAG compliance and inclusive design",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(axe-core:*), Bash(lighthouse:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-api-designer",
+      "name": "Agent Persona Api Designer",
+      "description": "Transform into an API design specialist who creates well-structured, developer-friendly APIs",
+      "skillPath": "agent/persona/agent-persona-api-designer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-api-designer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into an API design specialist who creates well-structured, developer-friendly APIs",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-backend-specialist",
+      "name": "Agent Persona Backend Specialist",
+      "description": "Transform into backend specialist for scalable API and system design",
+      "skillPath": "agent/persona/agent-persona-backend-specialist/SKILL.md",
+      "filePath": "agent/persona/agent-persona-backend-specialist/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into backend specialist for scalable API and system design",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, Grep, Bash(fd:*), Bash(rg:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-cloud-architect",
+      "name": "Agent Persona Cloud Architect",
+      "description": "Cloud architect persona for designing scalable, secure cloud infrastructure using modern cloud-native technologies",
+      "skillPath": "agent/persona/agent-persona-cloud-architect/SKILL.md",
+      "filePath": "agent/persona/agent-persona-cloud-architect/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Cloud architect persona for designing scalable, secure cloud infrastructure using modern cloud-native technologies",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Bash(kubectl:*), Bash(aws:*), Bash(gcloud:*), Bash(az:*), Bash(terraform:*), Bash(pulumi:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-code-reviewer",
+      "name": "Agent Persona Code Reviewer",
+      "description": "Comprehensive code review with security, quality, and maintainability analysis",
+      "skillPath": "agent/persona/agent-persona-code-reviewer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-code-reviewer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive code review with security, quality, and maintainability analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Grep, Task, Bash(rg:*), Bash(fd:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-compliance-officer",
+      "name": "Agent Persona Compliance Officer",
+      "description": "Transform into a compliance officer for regulatory and security framework implementation",
+      "skillPath": "agent/persona/agent-persona-compliance-officer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-compliance-officer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a compliance officer for regulatory and security framework implementation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Grep, Edit, MultiEdit, Write, Bash(jq:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(docker:*), Bash(kubectl:*), Bash(openssl:*), Bash(curl:*), Bash(aws:*), Bash(gcloud:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-data-engineer",
+      "name": "Agent Persona Data Engineer",
+      "description": "Activate data engineer persona for scalable pipeline and ETL development",
+      "skillPath": "agent/persona/agent-persona-data-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-data-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate data engineer persona for scalable pipeline and ETL development",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-database-architect",
+      "name": "Agent Persona Database Architect",
+      "description": "Transform into a database architect for efficient schema design and data management",
+      "skillPath": "agent/persona/agent-persona-database-architect/SKILL.md",
+      "filePath": "agent/persona/agent-persona-database-architect/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a database architect for efficient schema design and data management",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Grep, Edit, MultiEdit, Write, Bash(jq:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(psql:*), Bash(mysql:*), Bash(mongosh:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-debugger",
+      "name": "Agent Persona Debugger",
+      "description": "Transform into a systematic debugger for methodical bug investigation and resolution",
+      "skillPath": "agent/persona/agent-persona-debugger/SKILL.md",
+      "filePath": "agent/persona/agent-persona-debugger/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a systematic debugger for methodical bug investigation and resolution",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Grep, Edit, MultiEdit, Write, Bash(go:*), Bash(cargo:*), Bash(java:*), Bash(deno:*), Bash(node:*), Bash(dlv:*), Bash(gdb:*), Bash(jdb:*), Bash(rg:*), Bash(fd:*), Bash(ps:*), Bash(lsof:*), Bash(netstat:*), Bash(strace:*), Bash(dtrace:*), Bash(docker:*), Bash(kubectl:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-devops-engineer",
+      "name": "Agent Persona Devops Engineer",
+      "description": "Transform into a DevOps engineer for CI/CD pipelines, infrastructure automation, and deployment strategies",
+      "skillPath": "agent/persona/agent-persona-devops-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-devops-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a DevOps engineer for CI/CD pipelines, infrastructure automation, and deployment strategies",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(kubectl:*), Bash(docker:*), Bash(terraform:*), Bash(helm:*), Bash(gh:*), Bash(jq:*), Bash(yq:*), Bash(fd:*), Bash(rg:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-frontend-specialist",
+      "name": "Agent Persona Frontend Specialist",
+      "description": "Transform into a frontend specialist for modern, performant UI development",
+      "skillPath": "agent/persona/agent-persona-frontend-specialist/SKILL.md",
+      "filePath": "agent/persona/agent-persona-frontend-specialist/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a frontend specialist for modern, performant UI development",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(jq:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-implementation-engineer",
+      "name": "Agent Persona Implementation Engineer",
+      "description": "Activate implementation engineer persona for production-ready code development",
+      "skillPath": "agent/persona/agent-persona-implementation-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-implementation-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate implementation engineer persona for production-ready code development",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(cargo:*), Bash(go:*), Bash(npm:*), Bash(deno:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-infrastructure-engineer",
+      "name": "Agent Persona Infrastructure Engineer",
+      "description": "Activate infrastructure engineer persona for cloud-native infrastructure design",
+      "skillPath": "agent/persona/agent-persona-infrastructure-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-infrastructure-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate infrastructure engineer persona for cloud-native infrastructure design",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(terraform:*), Bash(kubectl:*), Bash(helm:*), Bash(docker:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-localization-engineer",
+      "name": "Agent Persona Localization Engineer",
+      "description": "Activate localization engineer persona for global i18n and l10n implementation",
+      "skillPath": "agent/persona/agent-persona-localization-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-localization-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate localization engineer persona for global i18n and l10n implementation",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-machine-learning-engineer",
+      "name": "Agent Persona Machine Learning Engineer",
+      "description": "Activate ML engineer persona for production ML systems and MLOps",
+      "skillPath": "agent/persona/agent-persona-machine-learning-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-machine-learning-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate ML engineer persona for production ML systems and MLOps",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(python:*), Bash(pip:*), Bash(conda:*), Bash(jupyter:*), Bash(mlflow:*), Bash(docker:*), Bash(kubectl:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-mobile-developer",
+      "name": "Agent Persona Mobile Developer",
+      "description": "Systematic mobile app development workflow with cross-platform optimization and device integration",
+      "skillPath": "agent/persona/agent-persona-mobile-developer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-mobile-developer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic mobile app development workflow with cross-platform optimization and device integration",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Task, Bash(gdate:*), Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(deno:*), Bash(cargo:*), Bash(java:*), Bash(npx:*), Bash(react-native:*), Bash(flutter:*), Bash(xcodebuild:*), Bash(gradle:*), Bash(adb:*), Bash(ios-deploy:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-performance-engineer",
+      "name": "Agent Persona Performance Engineer",
+      "description": "Systematic performance optimization with measurement, profiling, and scalable solutions",
+      "skillPath": "agent/persona/agent-persona-performance-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-performance-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic performance optimization with measurement, profiling, and scalable solutions",
+        "argument-hint": null,
+        "allowed-tools": "Bash(ps:*), Bash(top:*), Bash(htop:*), Bash(btop:*), Bash(fd:*), Bash(rg:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(java:*), Bash(curl:*), Bash(wrk:*), Bash(ab:*), Bash(gdate:*), Task, Read, Write, Edit, MultiEdit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-product-manager",
+      "name": "Agent Persona Product Manager",
+      "description": "Activate product manager persona for strategic product development and stakeholder management",
+      "skillPath": "agent/persona/agent-persona-product-manager/SKILL.md",
+      "filePath": "agent/persona/agent-persona-product-manager/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate product manager persona for strategic product development and stakeholder management",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(jq:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-qa-analyst",
+      "name": "Agent Persona Qa Analyst",
+      "description": "Systematic quality assurance analysis with comprehensive testing strategies and defect management",
+      "skillPath": "agent/persona/agent-persona-qa-analyst/SKILL.md",
+      "filePath": "agent/persona/agent-persona-qa-analyst/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic quality assurance analysis with comprehensive testing strategies and defect management",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(gdate:*), Bash(find:*), Bash(ls:*), Bash(grep:*), Bash(curl:*), Bash(jq:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-refactoring-specialist",
+      "name": "Agent Persona Refactoring Specialist",
+      "description": "Activate refactoring specialist persona for systematic code quality improvement",
+      "skillPath": "agent/persona/agent-persona-refactoring-specialist/SKILL.md",
+      "filePath": "agent/persona/agent-persona-refactoring-specialist/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate refactoring specialist persona for systematic code quality improvement",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Grep, Bash(rg:*), Bash(fd:*), Bash(jq:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-release-manager",
+      "name": "Agent Persona Release Manager",
+      "description": "Activate release manager persona for orchestrating software deployments",
+      "skillPath": "agent/persona/agent-persona-release-manager/SKILL.md",
+      "filePath": "agent/persona/agent-persona-release-manager/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Activate release manager persona for orchestrating software deployments",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(gh:*), Bash(kubectl:*), Bash(git:*), Bash(docker:*), Bash(argocd:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-requirements-analyst",
+      "name": "Agent Persona Requirements Analyst",
+      "description": "Transform into a requirements analyst for comprehensive system requirements gathering and documentation",
+      "skillPath": "agent/persona/agent-persona-requirements-analyst/SKILL.md",
+      "filePath": "agent/persona/agent-persona-requirements-analyst/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a requirements analyst for comprehensive system requirements gathering and documentation",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-security-auditor",
+      "name": "Agent Persona Security Auditor",
+      "description": "Transform into a security auditor for comprehensive vulnerability assessment and risk analysis",
+      "skillPath": "agent/persona/agent-persona-security-auditor/SKILL.md",
+      "filePath": "agent/persona/agent-persona-security-auditor/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a security auditor for comprehensive vulnerability assessment and risk analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-site-reliability-engineer",
+      "name": "Agent Persona Site Reliability Engineer",
+      "description": "Transform into an SRE persona for reliability engineering, monitoring, and incident response",
+      "skillPath": "agent/persona/agent-persona-site-reliability-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-site-reliability-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into an SRE persona for reliability engineering, monitoring, and incident response",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, Bash(kubectl:*), Bash(docker:*), Bash(prometheus:*), Bash(grafana:*), Bash(helm:*), Bash(jq:*), Bash(curl:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-software-architect",
+      "name": "Agent Persona Software Architect",
+      "description": "Transform into a software architect for comprehensive system design, technology evaluation, and architectural standards establishment",
+      "skillPath": "agent/persona/agent-persona-software-architect/SKILL.md",
+      "filePath": "agent/persona/agent-persona-software-architect/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a software architect for comprehensive system design, technology evaluation, and architectural standards establishment",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(jq:*), Bash(gdate:*), Bash(kubectl:*), Bash(docker:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-system-integration-engineer",
+      "name": "Agent Persona System Integration Engineer",
+      "description": "Transform into a system integration engineer for designing and implementing robust integrations between disparate systems and services",
+      "skillPath": "agent/persona/agent-persona-system-integration-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-system-integration-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a system integration engineer for designing and implementing robust integrations between disparate systems and services",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*), Bash(kubectl:*), Bash(docker:*), Bash(curl:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-technical-writer",
+      "name": "Agent Persona Technical Writer",
+      "description": "Transform into a technical writer for comprehensive documentation creation, content strategy, and information architecture",
+      "skillPath": "agent/persona/agent-persona-technical-writer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-technical-writer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a technical writer for comprehensive documentation creation, content strategy, and information architecture",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(jq:*), Grep",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-test-automation-engineer",
+      "name": "Agent Persona Test Automation Engineer",
+      "description": "Transform into a test automation engineer for designing and implementing comprehensive automated testing frameworks and CI/CD integration",
+      "skillPath": "agent/persona/agent-persona-test-automation-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-test-automation-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a test automation engineer for designing and implementing comprehensive automated testing frameworks and CI/CD integration",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*), Bash(git:*), Bash(docker:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-test-engineer",
+      "name": "Agent Persona Test Engineer",
+      "description": "Transform into a comprehensive test engineer for designing robust testing strategies, implementing automated test suites, and ensuring quality gates across all testing levels",
+      "skillPath": "agent/persona/agent-persona-test-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-test-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a comprehensive test engineer for designing robust testing strategies, implementing automated test suites, and ensuring quality gates across all testing levels",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(jq:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(kubectl:*), Grep",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "agent/persona/agent-persona-ux-engineer",
+      "name": "Agent Persona Ux Engineer",
+      "description": "Transform into a UX engineer for user-centered interface design, accessibility implementation, and design system development",
+      "skillPath": "agent/persona/agent-persona-ux-engineer/SKILL.md",
+      "filePath": "agent/persona/agent-persona-ux-engineer/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "agent",
+        "persona"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform into a UX engineer for user-centered interface design, accessibility implementation, and design system development",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(git:*), Bash(eza:*), Grep",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/code/elaborate",
+      "name": "Elaborate",
+      "description": "Generate comprehensive technical analysis and implementation guide with adaptive research and project-specific optimization",
+      "skillPath": "analyze/code/elaborate/SKILL.md",
+      "filePath": "analyze/code/elaborate/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "code"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive technical analysis and implementation guide with adaptive research and project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(gdate:*), Bash(jq:*), Bash(wc:*), Task, WebFetch",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/code/map",
+      "name": "Map",
+      "description": "Ultra-fast strategic roadmap generation using 8 parallel sub-agents for comprehensive analysis",
+      "skillPath": "analyze/code/map/SKILL.md",
+      "filePath": "analyze/code/map/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "code"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast strategic roadmap generation using 8 parallel sub-agents for comprehensive analysis",
+        "argument-hint": null,
+        "allowed-tools": "Write, Read, Bash(gdate:*), Bash(date:*), Bash(pwd:*), Bash(fd:*), Bash(rg:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/code/schema",
+      "name": "Schema",
+      "description": "Ultra-fast parallel database schema analysis using 8 sub-agents for comprehensive coverage",
+      "skillPath": "analyze/code/schema/SKILL.md",
+      "filePath": "analyze/code/schema/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "code"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel database schema analysis using 8 sub-agents for comprehensive coverage",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, Bash, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/data/data-flow",
+      "name": "Data Flow",
+      "description": "Analyze and design data processing pipelines with automatic source detection and transformation logic",
+      "skillPath": "analyze/data/data-flow/SKILL.md",
+      "filePath": "analyze/data/data-flow/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "data"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Analyze and design data processing pipelines with automatic source detection and transformation logic",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(git:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/data/data-viz",
+      "name": "Data Viz",
+      "description": "Generate interactive data visualizations and dashboards with intelligent chart selection and real-time updates",
+      "skillPath": "analyze/data/data-viz/SKILL.md",
+      "filePath": "analyze/data/data-viz/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "data"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate interactive data visualizations and dashboards with intelligent chart selection and real-time updates",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(wc:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/data/visualize",
+      "name": "Visualize",
+      "description": "Generate explanatory diagrams from code and architecture analysis",
+      "skillPath": "analyze/data/visualize/SKILL.md",
+      "filePath": "analyze/data/visualize/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "data"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate explanatory diagrams from code and architecture analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Grep, Bash(fd:*), Bash(rg:*), Bash(bat:*), Bash(jq:*), Bash(git:*), Bash(gdate:*), Write, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/db/db-optimize",
+      "name": "Db Optimize",
+      "description": "Comprehensive database performance optimization with intelligent analysis and automated improvements",
+      "skillPath": "analyze/db/db-optimize/SKILL.md",
+      "filePath": "analyze/db/db-optimize/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "db"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive database performance optimization with intelligent analysis and automated improvements",
+        "argument-hint": null,
+        "allowed-tools": "Bash(psql:*), Bash(mysql:*), Bash(mongosh:*), Bash(sqlite3:*), Read, Write, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/research/deep-dive",
+      "name": "Deep Dive",
+      "description": "Systematic multi-perspective investigation with extended thinking and state management",
+      "skillPath": "analyze/research/deep-dive/SKILL.md",
+      "filePath": "analyze/research/deep-dive/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "research"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic multi-perspective investigation with extended thinking and state management",
+        "argument-hint": null,
+        "allowed-tools": "Read, Task, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(wc:*), Bash(sort:*), Bash(head:*), Bash(jq:*), Bash(gdate:*), Bash(npm:*), Bash(cargo:*), Bash(go:*), Bash(strace:*), Bash(perf:*), Bash(time:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/research/deep-web-research",
+      "name": "Deep Web Research",
+      "description": "Comprehensive parallel web research with multi-agent analysis and synthesis",
+      "skillPath": "analyze/research/deep-web-research/SKILL.md",
+      "filePath": "analyze/research/deep-web-research/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "research"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive parallel web research with multi-agent analysis and synthesis",
+        "argument-hint": null,
+        "allowed-tools": "Task, WebSearch, WebFetch, Write, Bash(gdate:*), Bash(pwd:*), Bash(fd:*), Bash(rg:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/research/investigate",
+      "name": "Investigate",
+      "description": "Conduct thorough investigation using codebase analysis and web research for optimal solutions",
+      "skillPath": "analyze/research/investigate/SKILL.md",
+      "filePath": "analyze/research/investigate/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "research"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Conduct thorough investigation using codebase analysis and web research for optimal solutions",
+        "argument-hint": null,
+        "allowed-tools": "Task, WebFetch, Read, Grep, Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(jq:*), Bash(git:status), Bash(git:branch), Bash(pwd:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/research/quick-web-research",
+      "name": "Quick Web Research",
+      "description": "Ultra-fast parallel web research using sub-agents for 5-10x speedup",
+      "skillPath": "analyze/research/quick-web-research/SKILL.md",
+      "filePath": "analyze/research/quick-web-research/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "research"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel web research using sub-agents for 5-10x speedup",
+        "argument-hint": null,
+        "allowed-tools": "Task, WebSearch, WebFetch, Write, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "analyze/think/think",
+      "name": "Think",
+      "description": "Engage in deep, structured reasoning using sequential thinking",
+      "skillPath": "analyze/think/think/SKILL.md",
+      "filePath": "analyze/think/think/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "analyze",
+        "think"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Engage in deep, structured reasoning using sequential thinking",
+        "argument-hint": null,
+        "allowed-tools": "mcp__sequential-thinking__sequentialthinking, Write, Read, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/analyze/analyze-deps",
+      "name": "Analyze Deps",
+      "description": "Comprehensive dependency analysis with security auditing and maintenance insights",
+      "skillPath": "code/analyze/analyze-deps/SKILL.md",
+      "filePath": "code/analyze/analyze-deps/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive dependency analysis with security auditing and maintenance insights",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(npm:*), Bash(yarn:*), Bash(cargo:*), Bash(go:*), Bash(deno:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/analyze/bottleneck",
+      "name": "Bottleneck",
+      "description": "Systematic performance bottleneck analysis and optimization across application stack",
+      "skillPath": "code/analyze/bottleneck/SKILL.md",
+      "filePath": "code/analyze/bottleneck/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic performance bottleneck analysis and optimization across application stack",
+        "argument-hint": null,
+        "allowed-tools": "Bash(top:*), Bash(htop:*), Bash(iostat:*), Bash(free:*), Bash(uptime:*), Bash(ps:*), Bash(netstat:*), Bash(rg:*), Bash(fd:*), Bash(jq:*), Bash(gdate:*), Bash(psql:*), Bash(mysql:*), Read, Write, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/analyze/dependencies",
+      "name": "Dependencies",
+      "description": "Ultra-fast parallel dependency analysis using 10 sub-agents for 10x speedup",
+      "skillPath": "code/analyze/dependencies/SKILL.md",
+      "filePath": "code/analyze/dependencies/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel dependency analysis using 10 sub-agents for 10x speedup",
+        "argument-hint": null,
+        "allowed-tools": "Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(npm:*), Bash(cargo:*), Bash(go:*), Bash(jq:*), Bash(gdate:*), Read, Write, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/analyze/deps",
+      "name": "Deps",
+      "description": "Intelligent dependency analysis and management with security auditing",
+      "skillPath": "code/analyze/deps/SKILL.md",
+      "filePath": "code/analyze/deps/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent dependency analysis and management with security auditing",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(mvn:*), Bash(gradle:*), Bash(go:*), Bash(cargo:*), Bash(npm:*), Bash(yarn:*), Bash(deno:*), Bash(helm:*), Bash(trivy:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/analyze/technical-debt",
+      "name": "Technical Debt",
+      "description": "Comprehensive technical debt analysis with actionable remediation strategies",
+      "skillPath": "code/analyze/technical-debt/SKILL.md",
+      "filePath": "code/analyze/technical-debt/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive technical debt analysis with actionable remediation strategies",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(jq:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/fix/bug-fix",
+      "name": "Bug Fix",
+      "description": "Systematic bug investigation and fix workflow with GitHub integration",
+      "skillPath": "code/fix/bug-fix/SKILL.md",
+      "filePath": "code/fix/bug-fix/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "fix"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic bug investigation and fix workflow with GitHub integration",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git:*), Bash(gh:*), Read, Write, Edit, MultiEdit, Task, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/generate/api",
+      "name": "Api",
+      "description": "Generate comprehensive API endpoint with framework detection, implementation, tests, and documentation",
+      "skillPath": "code/generate/api/SKILL.md",
+      "filePath": "code/generate/api/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive API endpoint with framework detection, implementation, tests, and documentation",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(jq:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/migrate/deno-ify",
+      "name": "Deno Ify",
+      "description": "Convert existing shell scripts to Deno TypeScript scripts with cross-platform compatibility and type safety",
+      "skillPath": "code/migrate/deno-ify/SKILL.md",
+      "filePath": "code/migrate/deno-ify/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "migrate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Convert existing shell scripts to Deno TypeScript scripts with cross-platform compatibility and type safety",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/migrate/migrate",
+      "name": "Migrate",
+      "description": "Ultra-fast parallel migration planning using 10 sub-agents for comprehensive impact analysis",
+      "skillPath": "code/migrate/migrate/SKILL.md",
+      "filePath": "code/migrate/migrate/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "migrate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel migration planning using 10 sub-agents for comprehensive impact analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Task, Bash(gdate:*), Bash(date:*), Bash(pwd:*), Bash(fd:*), Bash(rg:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/navigate/related",
+      "name": "Related",
+      "description": "Navigate intelligently between related files across the codebase",
+      "skillPath": "code/navigate/related/SKILL.md",
+      "filePath": "code/navigate/related/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "navigate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Navigate intelligently between related files across the codebase",
+        "argument-hint": null,
+        "allowed-tools": "Read, Grep, Glob, Bash(fd:*), Bash(rg:*), Bash(bat:*), Edit, MultiEdit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/refactor/refactor",
+      "name": "Refactor",
+      "description": "Ultra-fast parallel refactoring analysis with 8-10x speedup through concurrent smell detection and intelligent improvement strategies",
+      "skillPath": "code/refactor/refactor/SKILL.md",
+      "filePath": "code/refactor/refactor/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "refactor"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel refactoring analysis with 8-10x speedup through concurrent smell detection and intelligent improvement strategies",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(git:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/refactor/simplify",
+      "name": "Simplify",
+      "description": "Ultra-fast parallel code simplification using 10 sub-agents for 10x speedup",
+      "skillPath": "code/refactor/simplify/SKILL.md",
+      "filePath": "code/refactor/simplify/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "refactor"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel code simplification using 10 sub-agents for 10x speedup",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Bash(rg:*), Bash(fd:*), Bash(git:*), Bash(wc:*), Bash(gdate:*), Bash(head:*), Bash(grep:*), Bash(xargs:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "code/refactor/standardize",
+      "name": "Standardize",
+      "description": "Apply consistent coding standards, naming conventions, and architectural patterns across codebase",
+      "skillPath": "code/refactor/standardize/SKILL.md",
+      "filePath": "code/refactor/standardize/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "code",
+        "refactor"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Apply consistent coding standards, naming conventions, and architectural patterns across codebase",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Task, Grep, Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(jq:*), Bash(git:*), Bash(deno:*), Bash(go:*), Bash(cargo:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/db/context-load-dragonfly",
+      "name": "Context Load Dragonfly",
+      "description": "Load comprehensive DragonflyDB documentation context for development",
+      "skillPath": "context/db/context-load-dragonfly/SKILL.md",
+      "filePath": "context/db/context-load-dragonfly/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "db"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive DragonflyDB documentation context for development",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Write, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/db/context-load-postgres",
+      "name": "Context Load Postgres",
+      "description": "Load comprehensive PostgreSQL documentation context with intelligent caching and state management",
+      "skillPath": "context/db/context-load-postgres/SKILL.md",
+      "filePath": "context/db/context-load-postgres/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "db"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive PostgreSQL documentation context with intelligent caching and state management",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Write, Bash(gdate:*), Read",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/db/context-load-redpanda",
+      "name": "Context Load Redpanda",
+      "description": "Load comprehensive Redpanda streaming platform documentation context",
+      "skillPath": "context/db/context-load-redpanda/SKILL.md",
+      "filePath": "context/db/context-load-redpanda/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "db"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Redpanda streaming platform documentation context",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Read, Write, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/db/context-load-scylla",
+      "name": "Context Load Scylla",
+      "description": "Load comprehensive ScyllaDB documentation context for development",
+      "skillPath": "context/db/context-load-scylla/SKILL.md",
+      "filePath": "context/db/context-load-scylla/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "db"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive ScyllaDB documentation context for development",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Write, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/deno/context-load-deno-fresh",
+      "name": "Context Load Deno Fresh",
+      "description": "Load comprehensive Deno Fresh framework context with islands architecture and modern styling",
+      "skillPath": "context/deno/context-load-deno-fresh/SKILL.md",
+      "filePath": "context/deno/context-load-deno-fresh/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "deno"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Deno Fresh framework context with islands architecture and modern styling",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Read, Write, Bash(fd:*), Bash(rg:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/deno/context-load-deno-scripting",
+      "name": "Context Load Deno Scripting",
+      "description": "Load comprehensive Deno scripting documentation context with project-specific optimization",
+      "skillPath": "context/deno/context-load-deno-scripting/SKILL.md",
+      "filePath": "context/deno/context-load-deno-scripting/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "deno"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Deno scripting documentation context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/docs/context-load-docusaurus",
+      "name": "Context Load Docusaurus",
+      "description": "Load comprehensive Docusaurus v3 documentation context with parallel sub-agents for maximum performance",
+      "skillPath": "context/docs/context-load-docusaurus/SKILL.md",
+      "filePath": "context/docs/context-load-docusaurus/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "docs"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Docusaurus v3 documentation context with parallel sub-agents for maximum performance",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Read, Write, Task, Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(node:*), Bash(npm:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/fedora-basics",
+      "name": "Fedora Basics",
+      "description": "Load essential Fedora Linux knowledge for daily system usage",
+      "skillPath": "context/fedora-basics/SKILL.md",
+      "filePath": "context/fedora-basics/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load essential Fedora Linux knowledge for daily system usage",
+        "argument-hint": null,
+        "allowed-tools": "Read, Bash(cat:*), Bash(echo:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/go/context-load-go-concurrency",
+      "name": "Context Load Go Concurrency",
+      "description": "Systematic Go concurrency documentation loading with comprehensive context analysis",
+      "skillPath": "context/go/context-load-go-concurrency/SKILL.md",
+      "filePath": "context/go/context-load-go-concurrency/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "go"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic Go concurrency documentation loading with comprehensive context analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, WebFetch, Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(git:*), mcp__context7__resolve-library-id, mcp__context7__get-library-docs",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/go/context-load-go-connectrpc",
+      "name": "Context Load Go Connectrpc",
+      "description": "Load comprehensive Go ConnectRPC documentation context with project-specific optimization",
+      "skillPath": "context/go/context-load-go-connectrpc/SKILL.md",
+      "filePath": "context/go/context-load-go-connectrpc/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "go"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Go ConnectRPC documentation context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(go:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/go/context-load-go-web",
+      "name": "Context Load Go Web",
+      "description": "Load comprehensive Go web development documentation context with framework-specific optimization",
+      "skillPath": "context/go/context-load-go-web/SKILL.md",
+      "filePath": "context/go/context-load-go-web/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "go"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Go web development documentation context with framework-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(go:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/java/context-load-java-quarkus",
+      "name": "Context Load Java Quarkus",
+      "description": "Load comprehensive Java Quarkus documentation context with project-specific optimization",
+      "skillPath": "context/java/context-load-java-quarkus/SKILL.md",
+      "filePath": "context/java/context-load-java-quarkus/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "java"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Java Quarkus documentation context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(mvn:*), Bash(gradle:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/java/context-load-java-spring",
+      "name": "Context Load Java Spring",
+      "description": "Load comprehensive Java Spring Framework documentation context for development",
+      "skillPath": "context/java/context-load-java-spring/SKILL.md",
+      "filePath": "context/java/context-load-java-spring/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "java"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Java Spring Framework documentation context for development",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Write, Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/java/context-load-java-temporal",
+      "name": "Context Load Java Temporal",
+      "description": "Load comprehensive Java Temporal workflow documentation with project-specific optimization",
+      "skillPath": "context/java/context-load-java-temporal/SKILL.md",
+      "filePath": "context/java/context-load-java-temporal/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "java"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Java Temporal workflow documentation with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Task, WebFetch, Read, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(mvn:*), Bash(gradle:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/k8s/context-load-cilium",
+      "name": "Context Load Cilium",
+      "description": "Load comprehensive Cilium eBPF networking and security documentation with project-specific optimization",
+      "skillPath": "context/k8s/context-load-cilium/SKILL.md",
+      "filePath": "context/k8s/context-load-cilium/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "k8s"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Cilium eBPF networking and security documentation with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(kubectl:*), Bash(helm:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(yq:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/k8s/context-load-flux",
+      "name": "Context Load Flux",
+      "description": "Load comprehensive Flux GitOps documentation context with intelligent project analysis and state management",
+      "skillPath": "context/k8s/context-load-flux/SKILL.md",
+      "filePath": "context/k8s/context-load-flux/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "k8s"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Flux GitOps documentation context with intelligent project analysis and state management",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Write, Read, Bash(fd:*), Bash(rg:*), Bash(kubectl:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/k8s/context-load-k8s",
+      "name": "Context Load K8s",
+      "description": "Load comprehensive Kubernetes documentation context with cluster-specific optimization",
+      "skillPath": "context/k8s/context-load-k8s/SKILL.md",
+      "filePath": "context/k8s/context-load-k8s/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "k8s"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Kubernetes documentation context with cluster-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(kubectl:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(helm:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/k8s/context-load-talos",
+      "name": "Context Load Talos",
+      "description": "Load comprehensive Talos Linux Kubernetes documentation with environment-specific optimization",
+      "skillPath": "context/k8s/context-load-talos/SKILL.md",
+      "filePath": "context/k8s/context-load-talos/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "k8s"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Talos Linux Kubernetes documentation with environment-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(kubectl:*), Bash(talosctl:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/observability/context-load-logging",
+      "name": "Context Load Logging",
+      "description": "Load comprehensive logging and observability documentation context with project-specific optimization",
+      "skillPath": "context/observability/context-load-logging/SKILL.md",
+      "filePath": "context/observability/context-load-logging/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "observability"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive logging and observability documentation context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/observability/context-load-observability",
+      "name": "Context Load Observability",
+      "description": "Load comprehensive observability documentation with project-specific optimization and strategic context loading",
+      "skillPath": "context/observability/context-load-observability/SKILL.md",
+      "filePath": "context/observability/context-load-observability/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "observability"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive observability documentation with project-specific optimization and strategic context loading",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(kubectl:*), Bash(docker:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/ops/context-load-fedora",
+      "name": "Context Load Fedora",
+      "description": "Load Fedora Linux expertise with system information and configuration guidance",
+      "skillPath": "context/ops/context-load-fedora/SKILL.md",
+      "filePath": "context/ops/context-load-fedora/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "ops"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load Fedora Linux expertise with system information and configuration guidance",
+        "argument-hint": null,
+        "allowed-tools": "Bash(cat:*), Bash(rpm:*), Bash(dnf:*), Bash(systemctl:*), Bash(hostnamectl:*), Bash(date:*), Bash(jq:*), Read, WebFetch, Task, TodoWrite",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/project/auto",
+      "name": "Auto",
+      "description": "Automatically detect and load comprehensive project context with intelligent environment analysis",
+      "skillPath": "context/project/auto/SKILL.md",
+      "filePath": "context/project/auto/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Automatically detect and load comprehensive project context with intelligent environment analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Grep, Glob, Bash(git:*), Bash(rg:*), Bash(fd:*), Bash(jq:*), Bash(bat:*), Bash(eza:*), Bash(gdate:*), TodoWrite, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/rust/context-load-rust-async",
+      "name": "Context Load Rust Async",
+      "description": "Load comprehensive Rust async programming context with project-specific optimization",
+      "skillPath": "context/rust/context-load-rust-async/SKILL.md",
+      "filePath": "context/rust/context-load-rust-async/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "rust"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Rust async programming context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(cargo:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/rust/context-load-rust-db",
+      "name": "Context Load Rust Db",
+      "description": "Load comprehensive Rust database documentation context with project-specific ORM optimization",
+      "skillPath": "context/rust/context-load-rust-db/SKILL.md",
+      "filePath": "context/rust/context-load-rust-db/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "rust"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Rust database documentation context with project-specific ORM optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(cargo:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/rust/context-load-rust-web",
+      "name": "Context Load Rust Web",
+      "description": "Load comprehensive Rust web development documentation context with project-specific optimization",
+      "skillPath": "context/rust/context-load-rust-web/SKILL.md",
+      "filePath": "context/rust/context-load-rust-web/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "rust"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Rust web development documentation context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(cargo:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/security/context-load-security",
+      "name": "Context Load Security",
+      "description": "Load comprehensive Kubernetes security documentation context with cluster-aware analysis",
+      "skillPath": "context/security/context-load-security/SKILL.md",
+      "filePath": "context/security/context-load-security/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "security"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Kubernetes security documentation context with cluster-aware analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(kubectl:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/testing/context-load-testing-deno",
+      "name": "Context Load Testing Deno",
+      "description": "Load comprehensive Deno testing documentation context with project-specific optimization",
+      "skillPath": "context/testing/context-load-testing-deno/SKILL.md",
+      "filePath": "context/testing/context-load-testing-deno/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "testing"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Deno testing documentation context with project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, WebFetch, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(deno:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/testing/context-load-testing-go",
+      "name": "Context Load Testing Go",
+      "description": "Load comprehensive Go testing documentation with adaptive project analysis and framework detection",
+      "skillPath": "context/testing/context-load-testing-go/SKILL.md",
+      "filePath": "context/testing/context-load-testing-go/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "testing"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Go testing documentation with adaptive project analysis and framework detection",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(gdate:*), Bash(jq:*), Bash(wc:*), WebFetch, Task, mcp__context7__resolve-library-id, mcp__context7__get-library-docs",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/testing/context-load-testing-java",
+      "name": "Context Load Testing Java",
+      "description": "Load comprehensive Java testing documentation with project-specific analysis and adaptive context loading",
+      "skillPath": "context/testing/context-load-testing-java/SKILL.md",
+      "filePath": "context/testing/context-load-testing-java/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "testing"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Java testing documentation with project-specific analysis and adaptive context loading",
+        "argument-hint": null,
+        "allowed-tools": "WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(jq:*), Bash(wc:*), Read, Write, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/testing/context-load-testing-rust",
+      "name": "Context Load Testing Rust",
+      "description": "Load comprehensive Rust testing documentation with adaptive framework detection and project-specific optimization",
+      "skillPath": "context/testing/context-load-testing-rust/SKILL.md",
+      "filePath": "context/testing/context-load-testing-rust/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "testing"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Rust testing documentation with adaptive framework detection and project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(wc:*), Bash(git:*), Read, Write, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/web/context-load-fresh-connect-stack",
+      "name": "Context Load Fresh Connect Stack",
+      "description": "Load comprehensive context about Fresh + ConnectRPC full-stack architecture with project-specific analysis",
+      "skillPath": "context/web/context-load-fresh-connect-stack/SKILL.md",
+      "filePath": "context/web/context-load-fresh-connect-stack/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "web"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive context about Fresh + ConnectRPC full-stack architecture with project-specific analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), WebFetch, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/web/context-load-gh-cli",
+      "name": "Context Load Gh Cli",
+      "description": "Load comprehensive GitHub CLI context with dynamic repository analysis and workflow optimization",
+      "skillPath": "context/web/context-load-gh-cli/SKILL.md",
+      "filePath": "context/web/context-load-gh-cli/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "web"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive GitHub CLI context with dynamic repository analysis and workflow optimization",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(gh:*), Bash(git:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/web/context-load-github-actions",
+      "name": "Context Load Github Actions",
+      "description": "Load comprehensive GitHub Actions CI/CD documentation with adaptive project-specific context and modern workflow patterns",
+      "skillPath": "context/web/context-load-github-actions/SKILL.md",
+      "filePath": "context/web/context-load-github-actions/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "web"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive GitHub Actions CI/CD documentation with adaptive project-specific context and modern workflow patterns",
+        "argument-hint": null,
+        "allowed-tools": "WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs, Read, Bash(fd:*), Bash(rg:*), Bash(yq:*), Bash(gdate:*), Bash(git:*), Bash(wc:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/web/context-load-offline-data-platform",
+      "name": "Context Load Offline Data Platform",
+      "description": "Load comprehensive lakehouse architecture context with parallel documentation loading and project-specific optimization",
+      "skillPath": "context/web/context-load-offline-data-platform/SKILL.md",
+      "filePath": "context/web/context-load-offline-data-platform/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "web"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive lakehouse architecture context with parallel documentation loading and project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "mcp__context7__resolve-library-id, mcp__context7__get-library-docs, WebFetch, Task, Read, Write, Bash(gdate:*), Bash(fd:*), Bash(rg:*), Bash(kubectl:*), Bash(jq:*), Bash(wc:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/web/context-load-tailwind",
+      "name": "Context Load Tailwind",
+      "description": "Load comprehensive Tailwind CSS documentation context with adaptive framework integration and project-specific optimization",
+      "skillPath": "context/web/context-load-tailwind/SKILL.md",
+      "filePath": "context/web/context-load-tailwind/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "web"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Tailwind CSS documentation context with adaptive framework integration and project-specific optimization",
+        "argument-hint": null,
+        "allowed-tools": "WebFetch, Read, Bash(fd:*), Bash(rg:*), Bash(wc:*), mcp__context7__resolve-library-id, mcp__context7__get-library-docs",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "context/web/context-load-temporal",
+      "name": "Context Load Temporal",
+      "description": "Load comprehensive Temporal workflow orchestration context with adaptive research and enterprise-grade implementation patterns",
+      "skillPath": "context/web/context-load-temporal/SKILL.md",
+      "filePath": "context/web/context-load-temporal/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "context",
+        "web"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Load comprehensive Temporal workflow orchestration context with adaptive research and enterprise-grade implementation patterns",
+        "argument-hint": null,
+        "allowed-tools": "WebFetch, Read, Write, Bash(curl:*), Bash(jq:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/analyze/explain",
+      "name": "Explain",
+      "description": "Ultra-fast parallel technical explanations using 10 sub-agents for comprehensive multi-angle analysis",
+      "skillPath": "docs/analyze/explain/SKILL.md",
+      "filePath": "docs/analyze/explain/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel technical explanations using 10 sub-agents for comprehensive multi-angle analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(gdate:*), Bash(jq:*), Bash(wc:*), Task, WebFetch",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/generate/api-docs",
+      "name": "Api Docs",
+      "description": "Generate comprehensive API documentation with OpenAPI specs and interactive sites",
+      "skillPath": "docs/generate/api-docs/SKILL.md",
+      "filePath": "docs/generate/api-docs/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive API documentation with OpenAPI specs and interactive sites",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/generate/changelog",
+      "name": "Changelog",
+      "description": "Ultra-fast parallel changelog generation using 10 sub-agents for instant comprehensive analysis",
+      "skillPath": "docs/generate/changelog/SKILL.md",
+      "filePath": "docs/generate/changelog/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel changelog generation using 10 sub-agents for instant comprehensive analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(git:*), Bash(jq:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/generate/document",
+      "name": "Document",
+      "description": "Generate comprehensive user-facing documentation with intelligent analysis and state management",
+      "skillPath": "docs/generate/document/SKILL.md",
+      "filePath": "docs/generate/document/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive user-facing documentation with intelligent analysis and state management",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(jq:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/generate/onboard",
+      "name": "Onboard",
+      "description": "Lightning-fast parallel environment setup using 10 sub-agents for 10x speedup",
+      "skillPath": "docs/generate/onboard/SKILL.md",
+      "filePath": "docs/generate/onboard/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Lightning-fast parallel environment setup using 10 sub-agents for 10x speedup",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(which:*), Bash(cargo:*), Bash(go:*), Bash(deno:*), Bash(docker:*), Bash(kubectl:*), Bash(gdate:*), Bash(cp:*), Bash(ln:*), Bash(git:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/manage/docs-add",
+      "name": "Docs Add",
+      "description": "Generate comprehensive documentation with intelligent content organization and Docusaurus integration",
+      "skillPath": "docs/manage/docs-add/SKILL.md",
+      "filePath": "docs/manage/docs-add/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive documentation with intelligent content organization and Docusaurus integration",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), WebFetch, Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/manage/docs-init",
+      "name": "Docs Init",
+      "description": "Initialize Docusaurus documentation site with Deno lifecycle integration",
+      "skillPath": "docs/manage/docs-init/SKILL.md",
+      "filePath": "docs/manage/docs-init/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Initialize Docusaurus documentation site with Deno lifecycle integration",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, Bash(git:*), Bash(npm:*), Bash(node:*), Bash(fd:*), Bash(jq:*), Bash(gdate:*), Bash(mkdir:*), Bash(cp:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "docs/manage/docs-update",
+      "name": "Docs Update",
+      "description": "Update and maintain Docusaurus documentation by analyzing codebase changes with automated content refresh",
+      "skillPath": "docs/manage/docs-update/SKILL.md",
+      "filePath": "docs/manage/docs-update/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "docs",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Update and maintain Docusaurus documentation by analyzing codebase changes with automated content refresh",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(jq:*), Bash(gdate:*), Bash(node:*), Bash(npm:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/commit/commit",
+      "name": "Commit",
+      "description": "Create a git commit",
+      "skillPath": "git/commit/commit/SKILL.md",
+      "filePath": "git/commit/commit/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "commit"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Create a git commit",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git add:*), Bash(git status:*), Bash(git commit:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/commit/commit-push",
+      "name": "Commit Push",
+      "description": "Create a git commit and push to remote",
+      "skillPath": "git/commit/commit-push/SKILL.md",
+      "filePath": "git/commit/commit-push/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "commit"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Create a git commit and push to remote",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git branch:*), Bash(git log:*), Bash(git remote:*), Bash(git rev-parse:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/merge/merge-main",
+      "name": "Merge Main",
+      "description": "Merge the main git branch into the current git branch and resolve merge conflicts",
+      "skillPath": "git/merge/merge-main/SKILL.md",
+      "filePath": "git/merge/merge-main/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "merge"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Merge the main git branch into the current git branch and resolve merge conflicts",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git:*), Read, Write, Edit, MultiEdit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/pr/pr-check",
+      "name": "Pr Check",
+      "description": "Ultra-fast parallel PR validation with 7-9x speedup through concurrent multi-agent analysis",
+      "skillPath": "git/pr/pr-check/SKILL.md",
+      "filePath": "git/pr/pr-check/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "pr"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast parallel PR validation with 7-9x speedup through concurrent multi-agent analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(gh:*), Bash(git:*), Bash(jq:*), Bash(gdate:*), Bash(osascript:*), Write, Read, Grep",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/pr/pr-create",
+      "name": "Pr Create",
+      "description": "Create pull requests with intelligent analysis and programmatic workflow",
+      "skillPath": "git/pr/pr-create/SKILL.md",
+      "filePath": "git/pr/pr-create/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "pr"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Create pull requests with intelligent analysis and programmatic workflow",
+        "argument-hint": null,
+        "allowed-tools": "Bash(gh pr create:*), Bash(gh pr list:*), Bash(gh auth status:*), Bash(git status:*), Bash(git push:*), Bash(git branch:*), Bash(git diff:*), Bash(git log:*), Bash(gh issue view:*), Bash(gdate:*), Bash(jq:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/pr/pr-review",
+      "name": "Pr Review",
+      "description": "Ultra-fast PR review with 8-10x speedup through parallel sub-agent analysis",
+      "skillPath": "git/pr/pr-review/SKILL.md",
+      "filePath": "git/pr/pr-review/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "pr"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast PR review with 8-10x speedup through parallel sub-agent analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(gh pr view:*), Bash(gh pr list:*), Bash(gh pr review:*), Bash(gh pr diff:*), Bash(gh pr checks:*), Bash(gh pr edit:*), Bash(gh api:*), Bash(git branch:*), Bash(rg:*), Bash(delta:*), Bash(jq:*), Bash(gdate:*), Read, Write, Grep",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/pr/pr-update",
+      "name": "Pr Update",
+      "description": "Update existing pull requests with comprehensive metadata management",
+      "skillPath": "git/pr/pr-update/SKILL.md",
+      "filePath": "git/pr/pr-update/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "pr"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Update existing pull requests with comprehensive metadata management",
+        "argument-hint": null,
+        "allowed-tools": "Bash(gh pr edit:*), Bash(gh pr view:*), Bash(gh pr list:*), Bash(gh pr ready:*), Bash(gh pr close:*), Bash(gh pr reopen:*), Bash(gh label list:*), Bash(git branch:*), Bash(git status:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/resolve-merge-conflicts",
+      "name": "Resolve Merge Conflicts",
+      "description": "Resolve git merge conflicts with intelligent context analysis",
+      "skillPath": "git/resolve-merge-conflicts/SKILL.md",
+      "filePath": "git/resolve-merge-conflicts/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Resolve git merge conflicts with intelligent context analysis",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git status:*), Bash(git show:*), Bash(git log:*), Bash(git diff:*), Bash(git merge:*), Bash(git add:*), Bash(git commit:*), Bash(rg:*), Bash(fd:*), Read, Write, Edit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "git/review/review-git",
+      "name": "Review Git",
+      "description": "Comprehensive automated git repository review with security analysis and quality assessment",
+      "skillPath": "git/review/review-git/SKILL.md",
+      "filePath": "git/review/review-git/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "git",
+        "review"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive automated git repository review with security analysis and quality assessment",
+        "argument-hint": null,
+        "allowed-tools": "Read, Bash(git:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(jq:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "github/github-codesearch",
+      "name": "Github Codesearch",
+      "description": "Search GitHub for code using GitHub CLI with precise line number permalinks",
+      "skillPath": "github/github-codesearch/SKILL.md",
+      "filePath": "github/github-codesearch/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "github"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Search GitHub for code using GitHub CLI with precise line number permalinks",
+        "argument-hint": null,
+        "allowed-tools": "Bash(gh api:*), Bash(gh auth:*), Bash(base64:*), Bash(grep:*), Bash(head:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "kubernetes/k8s-debug",
+      "name": "K8s Debug",
+      "description": "Systematically diagnose and troubleshoot Kubernetes issues",
+      "skillPath": "kubernetes/k8s-debug/SKILL.md",
+      "filePath": "kubernetes/k8s-debug/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "kubernetes"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematically diagnose and troubleshoot Kubernetes issues",
+        "argument-hint": null,
+        "allowed-tools": "Bash(kubectl:*), Bash(jq:*), Bash(rg:*), Read, Write",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/command/generate-command",
+      "name": "Generate Command",
+      "description": "Intelligent slash command generator with parallel analysis and gold standard best practices",
+      "skillPath": "meta/command/generate-command/SKILL.md",
+      "filePath": "meta/command/generate-command/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "command"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent slash command generator with parallel analysis and gold standard best practices",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Task, Bash(mkdir:*), Bash(fd:*), Bash(ls:*), Bash(git:*), Bash(gdate:*), Bash(jq:*), Bash(rg:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/command/ideate-commands",
+      "name": "Ideate Commands",
+      "description": "Generate intelligent project-specific slash command ideas through comprehensive codebase analysis",
+      "skillPath": "meta/command/ideate-commands/SKILL.md",
+      "filePath": "meta/command/ideate-commands/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "command"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate intelligent project-specific slash command ideas through comprehensive codebase analysis",
+        "argument-hint": null,
+        "allowed-tools": "Read, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(jq:*), Bash(yq:*), Bash(gdate:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/extract/knowledge-extract",
+      "name": "Knowledge Extract",
+      "description": "Extract comprehensive domain knowledge and architectural patterns using parallel analysis",
+      "skillPath": "meta/extract/knowledge-extract/SKILL.md",
+      "filePath": "meta/extract/knowledge-extract/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "extract"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Extract comprehensive domain knowledge and architectural patterns using parallel analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/ideate/ideate-new",
+      "name": "Ideate New",
+      "description": "Discover and propose new Claude command opportunities through systematic analysis and parallel research",
+      "skillPath": "meta/ideate/ideate-new/SKILL.md",
+      "filePath": "meta/ideate/ideate-new/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "ideate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Discover and propose new Claude command opportunities through systematic analysis and parallel research",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Bash(fd:*), Bash(rg:*), Bash(wc:*), Bash(jq:*), Bash(gdate:*), Bash(eza:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/reflect/reflection",
+      "name": "Reflection",
+      "description": "Ultra-fast comprehensive retrospective analysis using parallel reflection agents - 6-8x faster than sequential analysis",
+      "skillPath": "meta/reflect/reflection/SKILL.md",
+      "filePath": "meta/reflect/reflection/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "reflect"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast comprehensive retrospective analysis using parallel reflection agents - 6-8x faster than sequential analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Bash(git log:*), Bash(git diff:*), Bash(git branch:*), Bash(gh pr list:*), Bash(gh issue list:*), Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(jq:*), Write",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/search/search-smart",
+      "name": "Search Smart",
+      "description": "Intelligent code search orchestrator using modern tools with parallel analysis capabilities",
+      "skillPath": "meta/search/search-smart/SKILL.md",
+      "filePath": "meta/search/search-smart/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "search"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent code search orchestrator using modern tools with parallel analysis capabilities",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(rg:*), Bash(fd:*), Bash(bat:*), Bash(fzf:*), Bash(eza:*), Bash(jq:*), Bash(gdate:*), Bash(wc:*), Bash(head:*), Bash(tail:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "meta/util/translate",
+      "name": "Translate",
+      "description": "Convert code between programming languages with 8x faster performance using parallel translation agents",
+      "skillPath": "meta/util/translate/SKILL.md",
+      "filePath": "meta/util/translate/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "meta",
+        "util"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Convert code between programming languages with 8x faster performance using parallel translation agents",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(cargo:*), Bash(go:*), Bash(deno:*), Bash(mvn:*), Bash(gradle:*), Task",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/ci/ci-gen",
+      "name": "Ci Gen",
+      "description": "Generate comprehensive CI/CD workflows with intelligent technology stack detection and best practices",
+      "skillPath": "ops/ci/ci-gen/SKILL.md",
+      "filePath": "ops/ci/ci-gen/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "ci"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive CI/CD workflows with intelligent technology stack detection and best practices",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(git:*), Bash(jq:*), Bash(yq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/deploy/containerize",
+      "name": "Containerize",
+      "description": "Production-ready containerization orchestrator with multi-stage builds, security hardening, and Kubernetes optimization",
+      "skillPath": "ops/deploy/containerize/SKILL.md",
+      "filePath": "ops/deploy/containerize/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "deploy"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Production-ready containerization orchestrator with multi-stage builds, security hardening, and Kubernetes optimization",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(docker:*), Bash(kubectl:*), Bash(mvn:*), Bash(gradle:*), Bash(cargo:*), Bash(go:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/deploy/deploy",
+      "name": "Deploy",
+      "description": "Intelligent Kubernetes deployment orchestrator with manifest generation and CI/CD integration",
+      "skillPath": "ops/deploy/deploy/SKILL.md",
+      "filePath": "ops/deploy/deploy/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "deploy"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent Kubernetes deployment orchestrator with manifest generation and CI/CD integration",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(kubectl:*), Bash(helm:*), Bash(git:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(yq:*), Bash(gdate:*), Bash(docker:*), Bash(gh:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/fedora/fedora-expert",
+      "name": "Fedora Expert",
+      "description": "Comprehensive Fedora Linux expertise with instant parallel analysis",
+      "skillPath": "ops/fedora/fedora-expert/SKILL.md",
+      "filePath": "ops/fedora/fedora-expert/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "fedora"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive Fedora Linux expertise with instant parallel analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Bash(*), Grep, Edit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/infra/health-check",
+      "name": "Health Check",
+      "description": "Comprehensive health monitoring orchestrator with parallel system assessment and automated alerting",
+      "skillPath": "ops/infra/health-check/SKILL.md",
+      "filePath": "ops/infra/health-check/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "infra"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive health monitoring orchestrator with parallel system assessment and automated alerting",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(kubectl:*), Bash(docker:*), Bash(curl:*), Bash(jq:*), Bash(systemctl:*), Bash(gdate:*), Bash(rg:*), Bash(fd:*), Read, Write",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/infra/infra-status",
+      "name": "Infra Status",
+      "description": "Comprehensive Talos Kubernetes cluster health monitoring with parallel infrastructure analysis",
+      "skillPath": "ops/infra/infra-status/SKILL.md",
+      "filePath": "ops/infra/infra-status/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "infra"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive Talos Kubernetes cluster health monitoring with parallel infrastructure analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(kubectl:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(curl:*), Bash(top:*), Bash(df:*), Bash(uname:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/monitor/monitor",
+      "name": "Monitor",
+      "description": "Comprehensive monitoring and observability orchestrator with parallel deployment automation",
+      "skillPath": "ops/monitor/monitor/SKILL.md",
+      "filePath": "ops/monitor/monitor/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "monitor"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive monitoring and observability orchestrator with parallel deployment automation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(kubectl:*), Bash(docker:*), Bash(helm:*), Bash(rg:*), Bash(fd:*), Bash(jq:*), Bash(gdate:*), Bash(curl:*), Bash(nc:*), Read, Write, Edit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/monitor/observe",
+      "name": "Observe",
+      "description": "Transform applications into fully observable systems with comprehensive metrics, logging, tracing, and monitoring dashboards",
+      "skillPath": "ops/monitor/observe/SKILL.md",
+      "filePath": "ops/monitor/observe/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "monitor"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Transform applications into fully observable systems with comprehensive metrics, logging, tracing, and monitoring dashboards",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(docker:*), Bash(kubectl:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/perf/benchmark",
+      "name": "Benchmark",
+      "description": "Comprehensive performance analysis and optimization orchestrator with parallel benchmarking capabilities",
+      "skillPath": "ops/perf/benchmark/SKILL.md",
+      "filePath": "ops/perf/benchmark/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "perf"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive performance analysis and optimization orchestrator with parallel benchmarking capabilities",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(hyperfine:*), Bash(rg:*), Bash(fd:*), Bash(wrk:*), Bash(k6:*), Bash(perf:*), Bash(jq:*), Bash(gdate:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(deno:*), Bash(valgrind:*), Bash(time:*), Bash(docker:*), Bash(curl:*), Bash(psql:*), Bash(dragonfly-cli:*), Bash(stress:*), Read, Write",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/perf/perf",
+      "name": "Perf",
+      "description": "Comprehensive performance analysis and optimization with intelligent profiling and sub-agent coordination",
+      "skillPath": "ops/perf/perf/SKILL.md",
+      "filePath": "ops/perf/perf/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "perf"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive performance analysis and optimization with intelligent profiling and sub-agent coordination",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Bash(rg:*), Bash(fd:*), Bash(ps:*), Bash(htop:*), Bash(jq:*), Bash(gdate:*), Bash(kubectl:*), Bash(docker:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(gradle:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/project/project-status-deno",
+      "name": "Project Status Deno",
+      "description": "Ultra-fast Deno TypeScript project health check using 8 parallel sub-agents for comprehensive analysis",
+      "skillPath": "ops/project/project-status-deno/SKILL.md",
+      "filePath": "ops/project/project-status-deno/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast Deno TypeScript project health check using 8 parallel sub-agents for comprehensive analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(deno:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(which:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/project/project-status-go",
+      "name": "Project Status Go",
+      "description": "Ultra-fast Go project health check using 8 parallel sub-agents for comprehensive analysis",
+      "skillPath": "ops/project/project-status-go/SKILL.md",
+      "filePath": "ops/project/project-status-go/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast Go project health check using 8 parallel sub-agents for comprehensive analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(go:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(which:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/project/project-status-java",
+      "name": "Project Status Java",
+      "description": "Ultra-fast Java project health check using 8 parallel sub-agents for comprehensive Gradle/Maven analysis",
+      "skillPath": "ops/project/project-status-java/SKILL.md",
+      "filePath": "ops/project/project-status-java/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast Java project health check using 8 parallel sub-agents for comprehensive Gradle/Maven analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(java:*), Bash(javac:*), Bash(gradle:*), Bash(mvn:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(which:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/project/project-status-k8s",
+      "name": "Project Status K8s",
+      "description": "Ultra-fast Kubernetes cluster health check using 8 parallel sub-agents for comprehensive state inspection",
+      "skillPath": "ops/project/project-status-k8s/SKILL.md",
+      "filePath": "ops/project/project-status-k8s/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast Kubernetes cluster health check using 8 parallel sub-agents for comprehensive state inspection",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(kubectl:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(which:*), Bash(eza:*), Bash(yq:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/project/project-status-pnpm",
+      "name": "Project Status Pnpm",
+      "description": "Ultra-fast pnpm TypeScript project health check using 8 parallel sub-agents for comprehensive analysis",
+      "skillPath": "ops/project/project-status-pnpm/SKILL.md",
+      "filePath": "ops/project/project-status-pnpm/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast pnpm TypeScript project health check using 8 parallel sub-agents for comprehensive analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(pnpm:*), Bash(node:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(which:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "ops/project/project-status-rust",
+      "name": "Project Status Rust",
+      "description": "Ultra-fast Rust project health check using 8 parallel sub-agents for comprehensive analysis",
+      "skillPath": "ops/project/project-status-rust/SKILL.md",
+      "filePath": "ops/project/project-status-rust/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "ops",
+        "project"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Ultra-fast Rust project health check using 8 parallel sub-agents for comprehensive analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(cargo:*), Bash(rustc:*), Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(echo:*), Bash(which:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "other/directory-cleanup",
+      "name": "Directory Cleanup",
+      "description": "Organize and restructure project directories following framework best practices",
+      "skillPath": "other/directory-cleanup/SKILL.md",
+      "filePath": "other/directory-cleanup/SKILL.md",
+      "author": "github.com/kingler",
+      "tags": [
+        "organization",
+        "cleanup",
+        "structure",
+        "refactoring",
+        "maintenance"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Organize and restructure project directories following framework best practices",
+        "argument-hint": null,
+        "allowed-tools": null,
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "other/lyra",
+      "name": "Lyra",
+      "description": "AI prompt optimization specialist that transforms vague requests into precision-crafted prompts",
+      "skillPath": "other/lyra/SKILL.md",
+      "filePath": "other/lyra/SKILL.md",
+      "author": "CharlyWargnier",
+      "tags": [
+        "ai",
+        "prompt-engineering",
+        "optimization",
+        "productivity"
+      ],
+      "created_at": "2025-01-15T00:00:00Z",
+      "updated_at": "2025-01-15T00:00:00Z",
+      "frontmatter": {
+        "description": "AI prompt optimization specialist that transforms vague requests into precision-crafted prompts",
+        "argument-hint": null,
+        "allowed-tools": null,
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "other/task-manager",
+      "name": "Task Manager",
+      "description": "Manage context isolation and focused task execution for complex projects",
+      "skillPath": "other/task-manager/SKILL.md",
+      "filePath": "other/task-manager/SKILL.md",
+      "author": "github.com/grahama1970",
+      "tags": [
+        "productivity",
+        "project-management",
+        "tasks",
+        "workflow"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Manage context isolation and focused task execution for complex projects",
+        "argument-hint": null,
+        "allowed-tools": null,
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "other/test-generator",
+      "name": "Test Generator",
+      "description": "Intelligent test case generation for any codebase",
+      "skillPath": "other/test-generator/SKILL.md",
+      "filePath": "other/test-generator/SKILL.md",
+      "author": "Testing Team",
+      "tags": [
+        "testing",
+        "automation",
+        "quality"
+      ],
+      "created_at": "2024-01-12T11:00:00Z",
+      "updated_at": "2024-01-19T13:30:00Z",
+      "frontmatter": {
+        "description": "Intelligent test case generation for any codebase",
+        "argument-hint": null,
+        "allowed-tools": null,
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "other/universal",
+      "name": "Universal Development Principles",
+      "description": "Comprehensive development principles and best practices for AI assistants working on any project",
+      "skillPath": "other/universal/SKILL.md",
+      "filePath": "other/universal/SKILL.md",
+      "author": "rishabhsonker",
+      "tags": [
+        "development",
+        "best-practices",
+        "workflow",
+        "mcp",
+        "git",
+        "code-quality"
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive development principles and best practices for AI assistants working on any project",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash, Read, Write, Edit, MultiEdit, Grep, Glob, LS",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/deno/scaffold-deno-fresh",
+      "name": "Scaffold Deno Fresh",
+      "description": "Scaffold production-ready Deno Fresh 2.0 application with islands architecture and modern development workflow",
+      "skillPath": "scaffold/deno/scaffold-deno-fresh/SKILL.md",
+      "filePath": "scaffold/deno/scaffold-deno-fresh/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "deno"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold production-ready Deno Fresh 2.0 application with islands architecture and modern development workflow",
+        "argument-hint": null,
+        "allowed-tools": "Bash(deno:*), Bash(cd:*), Bash(eza:*), Bash(fd:*), Bash(bat:*), Bash(gdate:*), Bash(jq:*), Write, Read",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/deno/scaffold-deno-script",
+      "name": "Scaffold Deno Script",
+      "description": "Scaffold production-ready Deno automation script with Dax integration and deno.json task registration",
+      "skillPath": "scaffold/deno/scaffold-deno-script/SKILL.md",
+      "filePath": "scaffold/deno/scaffold-deno-script/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "deno"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold production-ready Deno automation script with Dax integration and deno.json task registration",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, MultiEdit, Bash(deno:*), Bash(fd:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(mkdir:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/generate-project-claude-settings",
+      "name": "Generate Project Claude Settings",
+      "description": "Generate project-specific .claude/settings.json based on project context with appropriate hooks and configurations",
+      "skillPath": "scaffold/generate-project-claude-settings/SKILL.md",
+      "filePath": "scaffold/generate-project-claude-settings/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate project-specific .claude/settings.json based on project context with appropriate hooks and configurations",
+        "argument-hint": null,
+        "allowed-tools": "Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(which:*), Read, Write, MultiEdit, WebFetch",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/go/scaffold-go-connect",
+      "name": "Scaffold Go Connect",
+      "description": "Scaffold production-ready Go ConnectRPC server with Protocol Buffers and type-safe service definitions",
+      "skillPath": "scaffold/go/scaffold-go-connect/SKILL.md",
+      "filePath": "scaffold/go/scaffold-go-connect/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "go"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold production-ready Go ConnectRPC server with Protocol Buffers and type-safe service definitions",
+        "argument-hint": null,
+        "allowed-tools": "Write, MultiEdit, Bash(go:*), Bash(buf:*), Bash(mkdir:*), Bash(cd:*), Bash(gdate:*), Bash(which:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/go/scaffold-go-http-server",
+      "name": "Scaffold Go Http Server",
+      "description": "Scaffold production-ready Go HTTP server with Grafana-inspired patterns and comprehensive best practices",
+      "skillPath": "scaffold/go/scaffold-go-http-server/SKILL.md",
+      "filePath": "scaffold/go/scaffold-go-http-server/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "go"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold production-ready Go HTTP server with Grafana-inspired patterns and comprehensive best practices",
+        "argument-hint": null,
+        "allowed-tools": "Write, MultiEdit, Bash(go:*), Bash(gdate:*), Bash(mkdir:*), Bash(cd:*), Bash(pwd:*), Bash(touch:*), Bash(echo:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/java/scaffold-java-quarkus",
+      "name": "Scaffold Java Quarkus",
+      "description": "Scaffold production-ready Java Quarkus project with Spring Boot compatibility layer",
+      "skillPath": "scaffold/java/scaffold-java-quarkus/SKILL.md",
+      "filePath": "scaffold/java/scaffold-java-quarkus/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "java"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold production-ready Java Quarkus project with Spring Boot compatibility layer",
+        "argument-hint": null,
+        "allowed-tools": "Write, MultiEdit, Bash(mvn:*), Bash(mkdir:*), Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(pwd:*), Bash(eza:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/rust/scaffold-rust-axum",
+      "name": "Scaffold Rust Axum",
+      "description": "Scaffold production-ready Rust Axum web server with modern async patterns, dependency injection, and comprehensive testing setup",
+      "skillPath": "scaffold/rust/scaffold-rust-axum/SKILL.md",
+      "filePath": "scaffold/rust/scaffold-rust-axum/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "rust"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold production-ready Rust Axum web server with modern async patterns, dependency injection, and comprehensive testing setup",
+        "argument-hint": null,
+        "allowed-tools": "Write, Bash(cargo:*), Bash(mkdir:*), Bash(cd:*), Bash(gdate:*), Bash(jq:*), Bash(pwd:*), Bash(eza:*), Bash(fd:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/rust/scaffold-rust-cli",
+      "name": "Scaffold Rust Cli",
+      "description": "Generate production-ready Rust CLI application with modern architecture and comprehensive scaffolding",
+      "skillPath": "scaffold/rust/scaffold-rust-cli/SKILL.md",
+      "filePath": "scaffold/rust/scaffold-rust-cli/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold",
+        "rust"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate production-ready Rust CLI application with modern architecture and comprehensive scaffolding",
+        "argument-hint": null,
+        "allowed-tools": "Bash(cargo:*), Write, Read, Bash(mkdir:*), Bash(fd:*), Bash(rg:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "scaffold/scaffold-docusaurus-setup",
+      "name": "Scaffold Docusaurus Setup",
+      "description": "Scaffold a minimal Docusaurus documentation site with TypeScript and diagram support",
+      "skillPath": "scaffold/scaffold-docusaurus-setup/SKILL.md",
+      "filePath": "scaffold/scaffold-docusaurus-setup/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "scaffold"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Scaffold a minimal Docusaurus documentation site with TypeScript and diagram support",
+        "argument-hint": null,
+        "allowed-tools": "Bash(pwd:*), Bash(basename:*), Bash(git config:*), Bash(npx create-docusaurus:*), Bash(npm install:*), Bash(npm run:*), Write, MultiEdit, Read",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "security/audit/audit",
+      "name": "Audit",
+      "description": "Comprehensive security audit with parallel analysis using modern tools and sub-agent coordination",
+      "skillPath": "security/audit/audit/SKILL.md",
+      "filePath": "security/audit/audit/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "security",
+        "audit"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive security audit with parallel analysis using modern tools and sub-agent coordination",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Bash(rg:*), Bash(fd:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(docker:*), Bash(trivy:*), Bash(gosec:*), Bash(cargo:*), Bash(mvn:*), Bash(gradle:*), Bash(npm:*), Bash(kubectl:*), Bash(helm:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "security/audit/secrets-audit",
+      "name": "Secrets Audit",
+      "description": "Comprehensive security audit for leaked credentials with parallel analysis and state management",
+      "skillPath": "security/audit/secrets-audit/SKILL.md",
+      "filePath": "security/audit/secrets-audit/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "security",
+        "audit"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive security audit for leaked credentials with parallel analysis and state management",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(rg:*), Bash(fd:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(eza:*), Bash(wc:*), Bash(head:*), Bash(tail:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "security/model/harden",
+      "name": "Harden",
+      "description": "Proactive security hardening orchestrator with multi-layer threat mitigation",
+      "skillPath": "security/model/harden/SKILL.md",
+      "filePath": "security/model/harden/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "security",
+        "model"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Proactive security hardening orchestrator with multi-layer threat mitigation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(docker:*), Bash(kubectl:*), Bash(jq:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "security/model/threat-model",
+      "name": "Threat Model",
+      "description": "Generate comprehensive threat models using STRIDE methodology with parallel analysis and session management",
+      "skillPath": "security/model/threat-model/SKILL.md",
+      "filePath": "security/model/threat-model/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "security",
+        "model"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate comprehensive threat models using STRIDE methodology with parallel analysis and session management",
+        "argument-hint": null,
+        "allowed-tools": "Task, Bash(kubectl:*), Bash(docker:*), Bash(rg:*), Bash(fd:*), Bash(yq:*), Bash(jq:*), Bash(gdate:*), Read, Write",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/analyze/coverage",
+      "name": "Coverage",
+      "description": "Comprehensive code coverage orchestrator with intelligent gap analysis, multi-format reporting, and automated improvement recommendations",
+      "skillPath": "test/analyze/coverage/SKILL.md",
+      "filePath": "test/analyze/coverage/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "analyze"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive code coverage orchestrator with intelligent gap analysis, multi-format reporting, and automated improvement recommendations",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(bat:*), Bash(eza:*), Bash(jq:*), Bash(gdate:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(npm:*), Bash(jest:*), Bash(vitest:*), Bash(coverage:*), Bash(tarpaulin:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/debug/debug",
+      "name": "Debug",
+      "description": "Systematic debugging orchestrator with multi-language support and intelligent root cause analysis",
+      "skillPath": "test/debug/debug/SKILL.md",
+      "filePath": "test/debug/debug/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "debug"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Systematic debugging orchestrator with multi-language support and intelligent root cause analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, Bash(rg:*), Bash(fd:*), Bash(bat:*), Bash(eza:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(docker:*), Bash(kubectl:*), Bash(ps:*), Bash(netstat:*), Bash(lsof:*), Bash(strace:*), Bash(gdb:*), Bash(lldb:*), Bash(jstack:*), Bash(jcmd:*), Bash(delve:*), Bash(go:*), Bash(cargo:*), Bash(mvn:*), Bash(gradle:*), Bash(deno:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/fix/flaky-fix",
+      "name": "Flaky Fix",
+      "description": "Intelligent flaky test detection and stabilization system with automated pattern recognition and framework-specific fixes",
+      "skillPath": "test/fix/flaky-fix/SKILL.md",
+      "filePath": "test/fix/flaky-fix/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "fix"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent flaky test detection and stabilization system with automated pattern recognition and framework-specific fixes",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(gh:*), Bash(docker:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(gradle:*), Bash(python:*), Bash(pytest:*), Bash(jest:*), Bash(wc:*), Bash(head:*), Bash(tail:*), Bash(sort:*), Bash(uniq:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/generate/integration-test",
+      "name": "Integration Test",
+      "description": "Comprehensive integration testing orchestrator with parallel technology analysis and strategy generation",
+      "skillPath": "test/generate/integration-test/SKILL.md",
+      "filePath": "test/generate/integration-test/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive integration testing orchestrator with parallel technology analysis and strategy generation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(bat:*), Bash(eza:*), Bash(jq:*), Bash(gdate:*), Bash(docker:*), Bash(wc:*), Bash(head:*), Bash(mvn:*), Bash(gradle:*), Bash(cargo:*), Bash(go:*), Bash(npm:*), Bash(deno:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/generate/test-gen",
+      "name": "Test Gen",
+      "description": "Intelligent test suite generator with framework detection, programmatic structure analysis, and comprehensive test creation",
+      "skillPath": "test/generate/test-gen/SKILL.md",
+      "filePath": "test/generate/test-gen/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "generate"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent test suite generator with framework detection, programmatic structure analysis, and comprehensive test creation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(bat:*), Bash(eza:*), Bash(gdate:*), Bash(wc:*), Bash(head:*), Bash(mvn:*), Bash(gradle:*), Bash(cargo:*), Bash(go:*), Bash(deno:*), Bash(npm:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/run/load-test",
+      "name": "Load Test",
+      "description": "Comprehensive load testing orchestrator with intelligent scenario generation, performance baselines, and automated analysis",
+      "skillPath": "test/run/load-test/SKILL.md",
+      "filePath": "test/run/load-test/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "run"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive load testing orchestrator with intelligent scenario generation, performance baselines, and automated analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(gdate:*), Bash(k6:*), Bash(artillery:*), Bash(docker:*), Bash(curl:*), Bash(eza:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/run/tdd",
+      "name": "Tdd",
+      "description": "Comprehensive test-driven development orchestrator with language-aware test generation and Red-Green-Refactor workflow automation",
+      "skillPath": "test/run/tdd/SKILL.md",
+      "filePath": "test/run/tdd/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "run"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive test-driven development orchestrator with language-aware test generation and Red-Green-Refactor workflow automation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(mvn:*), Bash(gradle:*), Bash(cargo:*), Bash(go:*), Bash(deno:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "test/run/validate",
+      "name": "Validate",
+      "description": "Comprehensive validation orchestrator with intelligent project detection, parallel validation execution, and actionable remediation",
+      "skillPath": "test/run/validate/SKILL.md",
+      "filePath": "test/run/validate/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "test",
+        "run"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive validation orchestrator with intelligent project detection, parallel validation execution, and actionable remediation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(yq:*), Bash(gdate:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(gradle:*), Bash(kubectl:*), Bash(docker:*), Bash(hadolint:*), Bash(npm:*), Bash(pnpm:*), Bash(yarn:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "tool/cpr",
+      "name": "Cpr",
+      "description": "Create commit, push, and open pull request",
+      "skillPath": "tool/cpr/SKILL.md",
+      "filePath": "tool/cpr/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "tool"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Create commit, push, and open pull request",
+        "argument-hint": null,
+        "allowed-tools": "Bash(git status:*), Bash(git diff:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(git branch:*), Bash(gh pr create:*), Bash(git log:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "tool/diagram",
+      "name": "Diagram",
+      "description": "Generate architecture and flow diagrams with ASCII art and Mermaid",
+      "skillPath": "tool/diagram/SKILL.md",
+      "filePath": "tool/diagram/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "tool"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate architecture and flow diagrams with ASCII art and Mermaid",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(fd:*), Bash(rg:*), Bash(mmdc:*), Bash(gdate:*), Agent",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "tool/five",
+      "name": "Five",
+      "description": "Apply five why's root cause analysis to a problem",
+      "skillPath": "tool/five/SKILL.md",
+      "filePath": "tool/five/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "tool"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Apply five why's root cause analysis to a problem",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, mcp__sequential-thinking__sequentialthinking",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "tool/review",
+      "name": "Review",
+      "description": "Comprehensive code review with context-aware analysis and architectural insights",
+      "skillPath": "tool/review/SKILL.md",
+      "filePath": "tool/review/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "tool"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive code review with context-aware analysis and architectural insights",
+        "argument-hint": null,
+        "allowed-tools": "Read, Grep, Task, Bash(rg:*), Bash(fd:*), Bash(git:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(npm:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "tool/zed-task",
+      "name": "Zed Task",
+      "description": "Generate optimized Zed task configuration with intelligent defaults",
+      "skillPath": "tool/zed-task/SKILL.md",
+      "filePath": "tool/zed-task/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "tool"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate optimized Zed task configuration with intelligent defaults",
+        "argument-hint": null,
+        "allowed-tools": "Read, Write, Bash(test:*), Bash(eza:*), Bash(fd:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/create/epic",
+      "name": "Epic",
+      "description": "Orchestrates large-scale, cross-repository architectural epics with parallel coordination and dependency management",
+      "skillPath": "workflow/create/epic/SKILL.md",
+      "filePath": "workflow/create/epic/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "create"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Orchestrates large-scale, cross-repository architectural epics with parallel coordination and dependency management",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(git:*), Bash(gh:*), Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(jq:*), Bash(gdate:*), Bash(docker:*), Bash(kubectl:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/create/prototype",
+      "name": "Prototype",
+      "description": "Intelligent prototyping orchestrator with technology detection, rapid scaffolding, and validation automation",
+      "skillPath": "workflow/create/prototype/SKILL.md",
+      "filePath": "workflow/create/prototype/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "create"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent prototyping orchestrator with technology detection, rapid scaffolding, and validation automation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Write, Edit, MultiEdit, Bash(mkdir:*), Bash(cd:*), Bash(deno:*), Bash(cargo:*), Bash(go:*), Bash(npm:*), Bash(fd:*), Bash(rg:*), Bash(gdate:*), Bash(jq:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/manage/clean",
+      "name": "Clean",
+      "description": "Comprehensive technical debt cleanup orchestrator with parallel analysis and safe automation",
+      "skillPath": "workflow/manage/clean/SKILL.md",
+      "filePath": "workflow/manage/clean/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive technical debt cleanup orchestrator with parallel analysis and safe automation",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(rg:*), Bash(fd:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(eza:*), Bash(wc:*), Bash(head:*), Bash(deno:*), Bash(npm:*), Bash(cargo:*), Bash(go:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/manage/integrate",
+      "name": "Integrate",
+      "description": "Intelligent integration orchestrator for services, APIs, databases, and tools with error handling and monitoring",
+      "skillPath": "workflow/manage/integrate/SKILL.md",
+      "filePath": "workflow/manage/integrate/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent integration orchestrator for services, APIs, databases, and tools with error handling and monitoring",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(docker:*), Bash(kubectl:*), Bash(curl:*), Bash(git:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/manage/organize",
+      "name": "Organize",
+      "description": "Intelligent project organization orchestrator with language-specific conventions and parallel analysis",
+      "skillPath": "workflow/manage/organize/SKILL.md",
+      "filePath": "workflow/manage/organize/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent project organization orchestrator with language-specific conventions and parallel analysis",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(mv:*), Bash(mkdir:*), Bash(rmdir:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/manage/plan",
+      "name": "Plan",
+      "description": "Comprehensive project analysis and hierarchical planning orchestrator with integrated task management",
+      "skillPath": "workflow/manage/plan/SKILL.md",
+      "filePath": "workflow/manage/plan/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Comprehensive project analysis and hierarchical planning orchestrator with integrated task management",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(git:*), Bash(gh:*), Bash(wc:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/manage/release",
+      "name": "Release",
+      "description": "Production-ready release orchestrator with semantic versioning, changelog generation, and multi-platform distribution",
+      "skillPath": "workflow/manage/release/SKILL.md",
+      "filePath": "workflow/manage/release/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Production-ready release orchestrator with semantic versioning, changelog generation, and multi-platform distribution",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(git:*), Bash(gh:*), Bash(npm:*), Bash(cargo:*), Bash(go:*), Bash(mvn:*), Bash(gradle:*), Bash(deno:*), Bash(docker:*), Bash(jq:*), Bash(gdate:*), Bash(fd:*), Bash(rg:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/manage/sync",
+      "name": "Sync",
+      "description": "Orchestrate multi-editor configuration synchronization with intelligent conflict resolution and rollback capabilities",
+      "skillPath": "workflow/manage/sync/SKILL.md",
+      "filePath": "workflow/manage/sync/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "manage"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Orchestrate multi-editor configuration synchronization with intelligent conflict resolution and rollback capabilities",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Write, Edit, MultiEdit, Bash(fd:*), Bash(rg:*), Bash(jq:*), Bash(eza:*), Bash(bat:*), Bash(gdate:*), Bash(deno:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/start/start",
+      "name": "Start",
+      "description": "Intelligent workflow orchestration with state management, error recovery, and sub-agent coordination",
+      "skillPath": "workflow/start/start/SKILL.md",
+      "filePath": "workflow/start/start/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "start"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent workflow orchestration with state management, error recovery, and sub-agent coordination",
+        "argument-hint": null,
+        "allowed-tools": "TodoWrite, TodoRead, Bash(git:*), Bash(deno:task:*), Bash(jq:*), Bash(gdate:*), Read, Write, Task, Grep, Glob, Edit, MultiEdit",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/view/next-steps",
+      "name": "Next Steps",
+      "description": "Intelligent project state analyzer with priority-based task recommendations and sub-agent coordination",
+      "skillPath": "workflow/view/next-steps/SKILL.md",
+      "filePath": "workflow/view/next-steps/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "view"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Intelligent project state analyzer with priority-based task recommendations and sub-agent coordination",
+        "argument-hint": null,
+        "allowed-tools": "Task, TodoRead, Read, Write, Bash(git:*), Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(gh:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/view/options",
+      "name": "Options",
+      "description": "Strategic decision analysis framework with multi-approach evaluation and recommendation scoring",
+      "skillPath": "workflow/view/options/SKILL.md",
+      "filePath": "workflow/view/options/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "view"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Strategic decision analysis framework with multi-approach evaluation and recommendation scoring",
+        "argument-hint": null,
+        "allowed-tools": "Task, Read, Bash(rg:*), Bash(fd:*), Bash(gdate:*), Bash(jq:*), Bash(bat:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/view/progress",
+      "name": "Progress",
+      "description": "Development progress tracker with timestamped entries and intelligent organization",
+      "skillPath": "workflow/view/progress/SKILL.md",
+      "filePath": "workflow/view/progress/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "view"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Development progress tracker with timestamped entries and intelligent organization",
+        "argument-hint": null,
+        "allowed-tools": "Bash(gdate:*), Bash(date:*), Bash(mkdir:*), Bash(fd:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Write, Read",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/view/summary",
+      "name": "Summary",
+      "description": "Generate structured conversation summary with key decisions, action items, and essential code snippets",
+      "skillPath": "workflow/view/summary/SKILL.md",
+      "filePath": "workflow/view/summary/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "view"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate structured conversation summary with key decisions, action items, and essential code snippets",
+        "argument-hint": null,
+        "allowed-tools": "Read, Bash(jq:*), Bash(gdate:*), Bash(wc:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    },
+    {
+      "id": "workflow/view/tldr",
+      "name": "Tldr",
+      "description": "Generate concise, actionable TL;DR summaries with progressive disclosure and strategic thinking",
+      "skillPath": "workflow/view/tldr/SKILL.md",
+      "filePath": "workflow/view/tldr/SKILL.md",
+      "author": "wcygan",
+      "tags": [
+        "workflow",
+        "view"
+      ],
+      "created_at": "2025-07-14T00:00:00Z",
+      "updated_at": "2025-07-14T00:00:00Z",
+      "frontmatter": {
+        "description": "Generate concise, actionable TL;DR summaries with progressive disclosure and strategic thinking",
+        "argument-hint": null,
+        "allowed-tools": "Read, Task, Bash(fd:*), Bash(rg:*), Bash(bat:*), Bash(wc:*), Bash(head:*), Bash(tail:*), Bash(eza:*), Bash(gdate:*)",
+        "model": null,
+        "context": null,
+        "disable-model-invocation": null,
+        "user-invocable": null
+      }
+    }
+  ]
+}
