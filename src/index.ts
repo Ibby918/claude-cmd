@@ -12,6 +12,7 @@ import { login, whoami, logout } from './commands/auth-manager';
 import { publish } from './commands/publish-manager';
 import { SubAgentFrontMatter, AVAILABLE_TOOLS, DEFAULT_SUB_AGENT_TOOLS } from './types';
 import { MemoryManager } from './commands/memory-manager';
+import { RulesManager } from './commands/rules-manager';
 import * as path from 'path';
 import * as os from 'os';
 
@@ -370,6 +371,57 @@ async function agentInfo(name: string): Promise<void> {
   if (truncated) console.log('  ...(truncated)');
 }
 
+async function rulesCommand(args: string[]): Promise<void> {
+  const subCmd = args[0];
+  const manager = new RulesManager();
+
+  switch (subCmd) {
+    case 'list': {
+      const scopeIdx = args.indexOf('--scope');
+      const scopeArg = scopeIdx !== -1 ? args[scopeIdx + 1] : undefined;
+      const scope = scopeArg === 'global' || scopeArg === 'project' || scopeArg === 'local' ? scopeArg : undefined;
+      manager.list(scope);
+      break;
+    }
+    case 'add': {
+      const scopeIdx = args.indexOf('--scope');
+      const scopeArg = scopeIdx !== -1 ? args[scopeIdx + 1] : 'project';
+      const scope = scopeArg === 'global' || scopeArg === 'project' || scopeArg === 'local' ? scopeArg : 'project';
+      // Exclude --scope and its value from the rule text
+      const ruleArgs = args.slice(1).filter((a, i, arr) => {
+        if (a.startsWith('--')) return false;
+        if (i > 0 && arr[i - 1] === '--scope') return false;
+        return true;
+      });
+      const ruleText = ruleArgs.join(' ');
+      if (!ruleText.trim()) {
+        console.error(colorize.error('Usage: claude-cmd rules add <rule text> [--scope project|global|local]'));
+        process.exit(1);
+      }
+      manager.add(ruleText.trim(), scope);
+      break;
+    }
+    case 'remove': {
+      const ruleText = args.slice(1).filter(a => !a.startsWith('--')).join(' ');
+      await manager.remove(ruleText.trim() || undefined);
+      break;
+    }
+    case 'import': {
+      const skillName = args[1];
+      if (!skillName) {
+        console.error(colorize.error('Usage: claude-cmd rules import <skill-name>'));
+        process.exit(1);
+      }
+      manager.importFromSkill(skillName);
+      break;
+    }
+    default:
+      console.error(colorize.error(`Unknown rules subcommand: ${subCmd || '(none)'}`));
+      console.log('Usage: claude-cmd rules <list|add|remove|import> [options]');
+      process.exit(1);
+  }
+}
+
 async function memoryCommand(args: string[]): Promise<void> {
   const subCmd = args[0];
   const scopeIdx = args.indexOf('--scope');
@@ -432,6 +484,12 @@ COMMANDS:
   agent install <name>          Install a community agent from the registry
   agent install <name> --local  Install to project ./.claude/agents/ instead of global
   agent info <name>             Show agent capabilities, model, tools, and system prompt preview
+  rules list                    Show all rules from CLAUDE.md files with scope (global/project/local)
+  rules list --scope <s>        Filter by scope (global, project, local)
+  rules add <rule>              Append rule to project CLAUDE.md (no duplicates)
+  rules add <rule> --scope <s>  Append rule to specified scope's CLAUDE.md
+  rules remove [rule]           Interactively remove a rule, or remove by text
+  rules import <skill-name>     Import rules from a skill's CLAUDE.md block
   memory list                   List all auto-memory files (global + project scopes)
   memory list --scope global    List only global memory files
   memory list --scope project   List only project memory files
@@ -728,6 +786,8 @@ async function main(): Promise<void> {
         whoami();
       } else if (filteredArgs[0] === 'logout') {
         logout();
+      } else if (filteredArgs[0] === 'rules') {
+        await rulesCommand(filteredArgs.slice(1));
       } else if (filteredArgs[0] === 'memory') {
         await memoryCommand(filteredArgs.slice(1));
       } else if (filteredArgs[0] === 'publish') {
