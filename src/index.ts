@@ -218,6 +218,158 @@ ${description}
   }
 }
 
+async function agentList(): Promise<void> {
+  const fs = new FileSystemManager();
+  const globalAgents = fs.fileExists(fs.agentsDir) ? require('fs').readdirSync(fs.agentsDir).filter((f: string) => f.endsWith('.md')).map((f: string) => f.replace('.md', '')) : [];
+  const localAgents = fs.fileExists(fs.projectAgentsDir) ? require('fs').readdirSync(fs.projectAgentsDir).filter((f: string) => f.endsWith('.md')).map((f: string) => f.replace('.md', '')) : [];
+
+  if (globalAgents.length === 0 && localAgents.length === 0) {
+    console.log('No agents installed.');
+    console.log('Use "claude-cmd agent init" to create one or "claude-cmd agent install <name>" to install from registry.');
+    return;
+  }
+
+  if (globalAgents.length > 0) {
+    console.log(`\nGlobal agents (~/.claude/agents/):`);
+    for (const name of globalAgents) {
+      const agent = fs.getSubAgent(name);
+      const desc = agent?.description ? `  ${agent.description}` : '';
+      const model = (agent as any)?.model ? ` [${(agent as any).model}]` : '';
+      console.log(`  ${name}${model}${desc}`);
+    }
+  }
+
+  if (localAgents.length > 0) {
+    console.log(`\nProject agents (./.claude/agents/):`);
+    for (const name of localAgents) {
+      const localPath = require('path').join(fs.projectAgentsDir, `${name}.md`);
+      const parsed = fs.parseSubAgentFile(localPath);
+      const desc = parsed.frontMatter.description ? `  ${parsed.frontMatter.description}` : '';
+      const model = parsed.frontMatter.model ? ` [${parsed.frontMatter.model}]` : '';
+      console.log(`  ${name}${model}${desc}`);
+    }
+  }
+
+  console.log(`\nTotal: ${globalAgents.length + localAgents.length} agent(s)`);
+}
+
+async function agentValidate(name: string): Promise<void> {
+  const fs = new FileSystemManager();
+
+  if (!name) {
+    console.error(colorize.error('Usage: claude-cmd agent validate <name>'));
+    process.exit(1);
+  }
+
+  const agent = fs.getSubAgent(name);
+  if (!agent) {
+    console.error(colorize.error(`Agent '${name}' not found in ~/.claude/agents/ or ./.claude/agents/`));
+    process.exit(1);
+  }
+
+  const issues: string[] = [];
+
+  if (!agent.name.trim()) issues.push('name: required');
+  if (!agent.description.trim()) issues.push('description: required');
+  if (!agent.systemPrompt.trim()) issues.push('system prompt: required (body after frontmatter)');
+  if (!/^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$/.test(agent.name)) {
+    issues.push('name: must be lowercase letters, numbers, and hyphens only');
+  }
+  if (agent.tools) {
+    const invalid = agent.tools.filter(t => !AVAILABLE_TOOLS.includes(t));
+    if (invalid.length > 0) issues.push(`tools: unknown tool(s): ${invalid.join(', ')}`);
+  }
+
+  if (issues.length === 0) {
+    console.log(`✓ ${name} is valid`);
+    console.log(`  Location: ${agent.location}`);
+    console.log(`  Tools: ${agent.tools?.join(', ') || '(none specified)'}`);
+  } else {
+    console.error(`✗ ${name} has validation errors:`);
+    issues.forEach(i => console.error(`  - ${i}`));
+    process.exit(1);
+  }
+}
+
+async function agentInstall(args: string[]): Promise<void> {
+  const name = args[0];
+  const localFlag = args.includes('--local');
+  const targetLocation: 'global' | 'local' = localFlag ? 'local' : 'global';
+
+  if (!name) {
+    console.error(colorize.error('Usage: claude-cmd agent install <registry-name> [--local]'));
+    process.exit(1);
+  }
+
+  const fs = new FileSystemManager();
+  const commandsUrl = process.env.CLAUDE_CMD_URL || DEFAULT_COMMANDS_URL;
+  const api = new ClaudeCommandAPI(commandsUrl);
+
+  console.log(`Installing agent '${name}'...`);
+
+  try {
+    const subAgentData = await api.getSubAgent(name);
+    if (!subAgentData || !subAgentData.filePath) {
+      console.error(colorize.error(`Agent '${name}' not found in registry.`));
+      process.exit(1);
+    }
+
+    const content = await (async () => {
+      const localPath = `commands/${subAgentData.filePath}`;
+      if (fs.fileExists(localPath)) return fs.readFile(localPath);
+      const baseUrl = commandsUrl.replace('/commands.json', '');
+      const res = await fetch(`${baseUrl}/${subAgentData.filePath}`);
+      return res.ok ? res.text() : null;
+    })();
+
+    if (!content) {
+      console.error(colorize.error(`Failed to fetch agent content for '${name}'.`));
+      process.exit(1);
+    }
+
+    const parsed = fs.parseSubAgentContent(content);
+    fs.saveSubAgent(name, parsed.frontMatter, parsed.systemPrompt, targetLocation);
+    const locationText = targetLocation === 'global' ? '~/.claude/agents/' : './.claude/agents/';
+    console.log(`✓ Installed '${name}' to ${locationText}`);
+  } catch (error) {
+    console.error(colorize.error(`Install failed: ${(error as Error).message}`));
+    process.exit(1);
+  }
+}
+
+async function agentInfo(name: string): Promise<void> {
+  const fs = new FileSystemManager();
+
+  if (!name) {
+    console.error(colorize.error('Usage: claude-cmd agent info <name>'));
+    process.exit(1);
+  }
+
+  const agent = fs.getSubAgent(name);
+  if (!agent) {
+    console.error(colorize.error(`Agent '${name}' not found in ~/.claude/agents/ or ./.claude/agents/`));
+    process.exit(1);
+  }
+
+  console.log(`\nAgent: ${agent.name}`);
+  console.log(`Location: ${agent.location === 'global' ? '~/.claude/agents/' : './.claude/agents/'}`);
+  console.log(`File: ${agent.filePath}`);
+  console.log(`Description: ${agent.description}`);
+
+  // Read model from parsed frontmatter (SubAgent type doesn't expose it, re-parse)
+  const parsed = fs.parseSubAgentFile(agent.filePath);
+  if (parsed.frontMatter.model) console.log(`Model: ${parsed.frontMatter.model}`);
+  if (agent.author) console.log(`Author: ${agent.author}`);
+  if (agent.version) console.log(`Version: ${agent.version}`);
+  if (agent.tools && agent.tools.length > 0) console.log(`Tools: ${agent.tools.join(', ')}`);
+
+  const preview = agent.systemPrompt.split('\n').slice(0, 5).join('\n');
+  const truncated = agent.systemPrompt.split('\n').length > 5;
+  console.log(`\nSystem Prompt Preview:`);
+  console.log(preview);
+  if (truncated) console.log('  ...(truncated)');
+}
+
 async function memoryCommand(args: string[]): Promise<void> {
   const subCmd = args[0];
   const scopeIdx = args.indexOf('--scope');
@@ -275,6 +427,11 @@ COMMANDS:
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
   agent init                    Scaffold a new Claude Code agent template interactively
   agent init --name <n>         Scaffold non-interactively (also: --description, --model, --tools, --global/--local)
+  agent list                    List installed agents (global ~/.claude/agents/ and project .claude/agents/)
+  agent validate <name>         Validate an agent spec against Claude Code schema
+  agent install <name>          Install a community agent from the registry
+  agent install <name> --local  Install to project ./.claude/agents/ instead of global
+  agent info <name>             Show agent capabilities, model, tools, and system prompt preview
   memory list                   List all auto-memory files (global + project scopes)
   memory list --scope global    List only global memory files
   memory list --scope project   List only project memory files
@@ -316,6 +473,11 @@ EXAMPLES:
   claude-cmd agent init                             Scaffold a new agent template interactively
   claude-cmd agent init --name my-agent --description "My agent" --model claude-opus-4-5
   claude-cmd agent init --name my-agent --tools Read,Edit,Bash --global
+  claude-cmd agent list                             List all installed agents (global + project)
+  claude-cmd agent validate my-agent               Validate agent spec against Claude Code schema
+  claude-cmd agent install code-reviewer            Install community agent from registry
+  claude-cmd agent install code-reviewer --local   Install to project .claude/agents/
+  claude-cmd agent info my-agent                   Show agent details (model, tools, prompt preview)
   claude-cmd memory list                                List all Claude memory files
   claude-cmd memory list --scope global                 List only global memory files
   claude-cmd memory show --scope project                Show project memory file contents
@@ -550,6 +712,14 @@ async function main(): Promise<void> {
         await pluginInit(filteredArgs.slice(2));
       } else if (filteredArgs[0] === 'agent' && filteredArgs[1] === 'init') {
         await agentInit(filteredArgs.slice(2));
+      } else if (filteredArgs[0] === 'agent' && filteredArgs[1] === 'list') {
+        await agentList();
+      } else if (filteredArgs[0] === 'agent' && filteredArgs[1] === 'validate') {
+        await agentValidate(filteredArgs[2]);
+      } else if (filteredArgs[0] === 'agent' && filteredArgs[1] === 'install') {
+        await agentInstall(filteredArgs.slice(2));
+      } else if (filteredArgs[0] === 'agent' && filteredArgs[1] === 'info') {
+        await agentInfo(filteredArgs[2]);
       } else if (filteredArgs[0] === 'login') {
         const tokenIdx = filteredArgs.indexOf('--token');
         const token = tokenIdx !== -1 ? filteredArgs[tokenIdx + 1] : undefined;
