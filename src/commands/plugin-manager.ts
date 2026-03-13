@@ -3,11 +3,12 @@ import * as path from 'path';
 import * as os from 'os';
 import { select } from '@inquirer/prompts';
 import { colorize } from '../utils/colors';
+import { ClaudeCommandAPI } from '../core/api';
 
 export type Scope = 'user' | 'project' | 'local';
 
 export interface PluginSource {
-  type: 'registry' | 'github' | 'local';
+  type: 'registry' | 'github' | 'local' | 'anthropic';
   ref: string;
 }
 
@@ -33,17 +34,364 @@ interface InstalledManifest {
   plugins: InstalledPlugin[];
 }
 
+// ── SourceAdapter types ──────────────────────────────────────────────────────
+
+export interface PluginManifest {
+  name: string;
+  version: string;
+  description?: string;
+  author?: string;
+  skills: string[];
+  agents: string[];
+  files: PluginFile[];
+}
+
+export interface PluginFile {
+  path: string; // relative path within the skill/plugin
+  content: string;
+}
+
+export interface InstallOptions {
+  crossClientWrite?: boolean; // default: true
+}
+
+export interface SourceAdapter {
+  name: string;
+  canResolve(input: string): boolean;
+  resolve(input: string): Promise<PluginManifest>;
+  fetch(manifest: PluginManifest, destDir: string): Promise<void>;
+}
+
+// ── AnthropicMarketplaceAdapter ──────────────────────────────────────────────
+
+interface MarketplaceEntry {
+  name: string;
+  description?: string;
+  path: string; // directory path within the repo
+  version?: string;
+}
+
+interface MarketplaceJson {
+  skills?: MarketplaceEntry[];
+  plugins?: MarketplaceEntry[];
+}
+
+interface GitHubTreeItem {
+  path: string;
+  type: string;
+  url: string;
+  sha: string;
+}
+
+interface GitHubTreeResponse {
+  tree: GitHubTreeItem[];
+}
+
+export class AnthropicMarketplaceAdapter implements SourceAdapter {
+  name = 'AnthropicMarketplaceAdapter';
+
+  private readonly marketplaceUrl =
+    'https://raw.githubusercontent.com/anthropics/skills/main/.claude-plugin/marketplace.json';
+  private readonly rawBase = 'https://raw.githubusercontent.com/anthropics/skills/main';
+  private readonly treesApiUrl =
+    'https://api.github.com/repos/anthropics/skills/git/trees/main?recursive=1';
+  private readonly cacheDir = path.join(os.homedir(), '.claude', '.cache');
+  private readonly cacheFile = path.join(
+    os.homedir(),
+    '.claude',
+    '.cache',
+    'anthropic-marketplace-v1.json',
+  );
+  private readonly cacheETagFile = path.join(
+    os.homedir(),
+    '.claude',
+    '.cache',
+    'anthropic-marketplace-v1.etag',
+  );
+  private readonly CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+
+  canResolve(input: string): boolean {
+    return input.startsWith('@anthropic/');
+  }
+
+  private ensureCacheDir(): void {
+    fs.mkdirSync(this.cacheDir, { recursive: true });
+  }
+
+  private readCached(): { data: MarketplaceJson; etag: string | null; ts: number } | null {
+    try {
+      if (!fs.existsSync(this.cacheFile)) return null;
+      const stat = fs.statSync(this.cacheFile);
+      const ts = stat.mtimeMs;
+      if (Date.now() - ts > this.CACHE_TTL) return null;
+      const data = JSON.parse(fs.readFileSync(this.cacheFile, 'utf-8')) as MarketplaceJson;
+      const etag = fs.existsSync(this.cacheETagFile)
+        ? fs.readFileSync(this.cacheETagFile, 'utf-8').trim()
+        : null;
+      return { data, etag, ts };
+    } catch {
+      return null;
+    }
+  }
+
+  private writeCached(data: MarketplaceJson, etag: string | null): void {
+    this.ensureCacheDir();
+    fs.writeFileSync(this.cacheFile, JSON.stringify(data, null, 2));
+    if (etag) fs.writeFileSync(this.cacheETagFile, etag);
+  }
+
+  private async fetchMarketplace(): Promise<MarketplaceJson> {
+    const cached = this.readCached();
+    const headers: Record<string, string> = { 'User-Agent': 'claude-cmd' };
+    if (cached?.etag) {
+      headers['If-None-Match'] = cached.etag;
+    }
+
+    const response = await fetch(this.marketplaceUrl, { headers });
+
+    if (response.status === 304 && cached) {
+      return cached.data;
+    }
+
+    if (!response.ok) {
+      if (cached) {
+        // Stale cache as fallback
+        return cached.data;
+      }
+      throw new Error(`Failed to fetch Anthropic marketplace (${response.status}): ${response.statusText}`);
+    }
+
+    const etag = response.headers.get('etag');
+    const data = (await response.json()) as MarketplaceJson;
+    this.writeCached(data, etag);
+    return data;
+  }
+
+  async resolve(input: string): Promise<PluginManifest> {
+    const skillName = input.replace(/^@anthropic\//, '');
+    const marketplace = await this.fetchMarketplace();
+    const entries: MarketplaceEntry[] = [
+      ...(marketplace.skills ?? []),
+      ...(marketplace.plugins ?? []),
+    ];
+
+    // Find matching entry by name or path basename
+    const entry = entries.find(
+      (e) => e.name === skillName || path.basename(e.path) === skillName,
+    );
+
+    if (!entry) {
+      throw new Error(
+        `Skill '@anthropic/${skillName}' not found in Anthropic marketplace. Available: ${entries.map((e) => e.name || path.basename(e.path)).join(', ')}`,
+      );
+    }
+
+    // Enumerate files in the skill directory via GitHub Trees API
+    const treeResp = await fetch(this.treesApiUrl, {
+      headers: { 'User-Agent': 'claude-cmd' },
+    });
+    if (!treeResp.ok) {
+      throw new Error(`Failed to fetch GitHub tree (${treeResp.status})`);
+    }
+    const tree = ((await treeResp.json()) as GitHubTreeResponse).tree;
+
+    const skillPath = entry.path;
+    const skillFiles = tree.filter(
+      (item) => item.type === 'blob' && item.path.startsWith(skillPath + '/'),
+    );
+
+    // Download each file
+    const files: PluginFile[] = await Promise.all(
+      skillFiles.map(async (item) => {
+        const rawUrl = `${this.rawBase}/${item.path}`;
+        const resp = await fetch(rawUrl, { headers: { 'User-Agent': 'claude-cmd' } });
+        if (!resp.ok) {
+          throw new Error(`Failed to fetch file ${item.path} (${resp.status})`);
+        }
+        const content = await resp.text();
+        const relativePath = item.path.slice(skillPath.length + 1);
+        return { path: relativePath, content };
+      }),
+    );
+
+    return {
+      name: entry.name || skillName,
+      version: entry.version || '0.0.0',
+      description: entry.description,
+      skills: [entry.name || skillName],
+      agents: [],
+      files,
+    };
+  }
+
+  async fetch(manifest: PluginManifest, destDir: string): Promise<void> {
+    fs.mkdirSync(destDir, { recursive: true });
+    for (const file of manifest.files) {
+      const filePath = path.join(destDir, file.path);
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(filePath, file.content, 'utf-8');
+    }
+  }
+}
+
+// ── LocalPathAdapter ─────────────────────────────────────────────────────────
+
+export class LocalPathAdapter implements SourceAdapter {
+  name = 'LocalPathAdapter';
+
+  canResolve(input: string): boolean {
+    return input.startsWith('./') || input.startsWith('/') || input.startsWith('../');
+  }
+
+  async resolve(input: string): Promise<PluginManifest> {
+    const localPath = path.resolve(input);
+    if (!fs.existsSync(localPath)) {
+      throw new Error(`Local plugin path not found: ${localPath}`);
+    }
+
+    // Try to read plugin.json
+    const pluginJsonCandidates = [
+      path.join(localPath, '.claude-plugin', 'plugin.json'),
+      path.join(localPath, 'plugin.json'),
+    ];
+
+    let pluginJson: PluginJson | null = null;
+    for (const candidate of pluginJsonCandidates) {
+      if (fs.existsSync(candidate)) {
+        pluginJson = JSON.parse(fs.readFileSync(candidate, 'utf-8')) as PluginJson;
+        break;
+      }
+    }
+
+    // Fall back to SKILL.md frontmatter name
+    const skillMdPath = path.join(localPath, 'SKILL.md');
+    let skillName = path.basename(localPath);
+    if (fs.existsSync(skillMdPath)) {
+      const content = fs.readFileSync(skillMdPath, 'utf-8');
+      const match = content.match(/^---\s*\n([\s\S]*?)\n---/);
+      if (match) {
+        const nameLine = match[1].match(/^name:\s*(.+)$/m);
+        if (nameLine) skillName = nameLine[1].trim();
+      }
+    }
+
+    const name = pluginJson?.name || skillName;
+    const version = pluginJson?.version || '0.0.0';
+
+    // Collect files: SKILL.md + scripts/ + references/ + assets/
+    const files: PluginFile[] = this.collectFiles(localPath);
+
+    return {
+      name,
+      version,
+      description: pluginJson?.description,
+      skills: pluginJson?.skills || [name],
+      agents: pluginJson?.agents || [],
+      files,
+    };
+  }
+
+  private collectFiles(baseDir: string): PluginFile[] {
+    const files: PluginFile[] = [];
+    const collect = (dir: string, relBase: string) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const rel = relBase ? `${relBase}/${entry.name}` : entry.name;
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+          collect(fullPath, rel);
+        } else {
+          files.push({ path: rel, content: fs.readFileSync(fullPath, 'utf-8') });
+        }
+      }
+    };
+    collect(baseDir, '');
+    return files;
+  }
+
+  async fetch(manifest: PluginManifest, destDir: string): Promise<void> {
+    fs.mkdirSync(destDir, { recursive: true });
+    for (const file of manifest.files) {
+      const filePath = path.join(destDir, file.path);
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(filePath, file.content, 'utf-8');
+    }
+  }
+}
+
+// ── ClaudeCmdRegistryAdapter ─────────────────────────────────────────────────
+
+export class ClaudeCmdRegistryAdapter implements SourceAdapter {
+  name = 'ClaudeCmdRegistryAdapter';
+
+  constructor(private readonly api: ClaudeCommandAPI) {}
+
+  canResolve(input: string): boolean {
+    // Bare name — no prefix
+    return !input.startsWith('@') && !input.startsWith('./') && !input.startsWith('/') && !input.startsWith('../');
+  }
+
+  async resolve(input: string): Promise<PluginManifest> {
+    const results = await this.api.searchCommands(input);
+    const cmd = results.commands.find((c) => c.name === input || c.id === input);
+
+    if (!cmd) {
+      throw new Error(`Skill '${input}' not found in claude-cmd registry.`);
+    }
+
+    // Fetch the raw content of the skill
+    if (!cmd.content) {
+      throw new Error(`Skill '${input}' has no content URL in registry.`);
+    }
+    const content = await fetch(cmd.content).then((r) => {
+      if (!r.ok) throw new Error(`Failed to fetch skill content (${r.status})`);
+      return r.text();
+    });
+
+    return {
+      name: cmd.name,
+      version: '0.0.0',
+      description: cmd.description,
+      skills: [cmd.name],
+      agents: [],
+      files: [{ path: 'SKILL.md', content }],
+    };
+  }
+
+  async fetch(manifest: PluginManifest, destDir: string): Promise<void> {
+    fs.mkdirSync(destDir, { recursive: true });
+    for (const file of manifest.files) {
+      const filePath = path.join(destDir, file.path);
+      fs.mkdirSync(path.dirname(filePath), { recursive: true });
+      fs.writeFileSync(filePath, file.content, 'utf-8');
+    }
+  }
+}
+
+// ── PluginManager ─────────────────────────────────────────────────────────────
+
 export class PluginManager {
   private readonly pluginsDir: string;
   private readonly cacheDir: string;
   private readonly manifestPath: string;
   private readonly settingsPath: string;
+  private readonly skillsDir: string;
+  private readonly agentSkillsDir: string;
+  private readonly adapters: SourceAdapter[];
 
   constructor() {
     this.pluginsDir = path.join(os.homedir(), '.claude', 'plugins');
     this.cacheDir = path.join(this.pluginsDir, 'cache');
     this.manifestPath = path.join(this.pluginsDir, 'installed.json');
     this.settingsPath = path.join(os.homedir(), '.claude', 'settings.json');
+    this.skillsDir = path.join(os.homedir(), '.claude', 'skills');
+    this.agentSkillsDir = path.join(os.homedir(), '.agents', 'skills');
+
+    const api = new ClaudeCommandAPI();
+    this.adapters = [
+      new AnthropicMarketplaceAdapter(),
+      new LocalPathAdapter(),
+      new ClaudeCmdRegistryAdapter(api),
+    ];
   }
 
   private ensurePluginsDirectory(): void {
@@ -90,6 +438,16 @@ export class PluginManager {
     fs.writeFileSync(this.settingsPath, JSON.stringify(settings, null, 2) + '\n');
   }
 
+  private isCrossClientWriteEnabled(): boolean {
+    const settings = this.readSettings();
+    const pluginSettings = settings['plugin'];
+    if (pluginSettings && typeof pluginSettings === 'object' && !Array.isArray(pluginSettings)) {
+      const crossClientWrite = (pluginSettings as Record<string, unknown>)['crossClientWrite'];
+      if (crossClientWrite === false) return false;
+    }
+    return true; // default ON
+  }
+
   private readPluginJson(pluginDir: string): PluginJson {
     // Support both .claude-plugin/plugin.json and plugin.json at root
     const candidates = [
@@ -117,57 +475,123 @@ export class PluginManager {
     }
   }
 
-  async installPlugin(source: PluginSource, scope: Scope = 'user'): Promise<void> {
-    if (source.type !== 'local') {
-      throw new Error(`Source type '${source.type}' is not yet supported. Only 'local' installs are available.`);
+  /**
+   * Install a plugin by input string (e.g. "@anthropic/pdf", "./local-path", "bare-name").
+   * Resolves adapter automatically, dual-writes to ~/.claude/skills/ and ~/.agents/skills/.
+   */
+  async installPluginByInput(input: string, options: InstallOptions = {}): Promise<void> {
+    const crossClientWrite = options.crossClientWrite ?? this.isCrossClientWriteEnabled();
+
+    const adapter = this.adapters.find((a) => a.canResolve(input));
+    if (!adapter) {
+      throw new Error(`No adapter found for input: ${input}`);
     }
 
-    const localPath = path.resolve(source.ref);
-    if (!fs.existsSync(localPath)) {
-      throw new Error(`Local plugin path not found: ${localPath}`);
+    console.log(colorize.info(`Resolving '${input}' via ${adapter.name}...`));
+    const manifest = await adapter.resolve(input);
+
+    // Primary install: ~/.claude/skills/<name>/
+    const primaryDest = path.join(this.skillsDir, manifest.name);
+    if (fs.existsSync(primaryDest)) {
+      fs.rmSync(primaryDest, { recursive: true });
+    }
+    await adapter.fetch(manifest, primaryDest);
+    console.log(colorize.success(`✓ Installed to ~/.claude/skills/${manifest.name}/`));
+
+    // Cross-client write: ~/.agents/skills/<name>/
+    if (crossClientWrite) {
+      const crossDest = path.join(this.agentSkillsDir, manifest.name);
+      if (fs.existsSync(crossDest)) {
+        fs.rmSync(crossDest, { recursive: true });
+      }
+      await adapter.fetch(manifest, crossDest);
+      console.log(colorize.success(`✓ Cross-client install to ~/.agents/skills/${manifest.name}/`));
     }
 
-    const pluginJson = this.readPluginJson(localPath);
-    const { name, version = '0.0.0', skills = [], agents = [] } = pluginJson;
-
-    if (!name) {
-      throw new Error('plugin.json is missing required field: name');
-    }
-
+    // Update installed.json manifest
     this.ensurePluginsDirectory();
-    const destDir = path.join(this.cacheDir, name);
+    const sourceType: PluginSource['type'] = input.startsWith('@anthropic/')
+      ? 'anthropic'
+      : input.startsWith('./') || input.startsWith('/')
+        ? 'local'
+        : 'registry';
 
-    // Remove existing cached version if present
-    if (fs.existsSync(destDir)) {
-      fs.rmSync(destDir, { recursive: true });
-    }
+    const installedEntry: InstalledPlugin = {
+      name: manifest.name,
+      version: manifest.version,
+      scope: 'user',
+      source: { type: sourceType, ref: input },
+      skills: manifest.skills,
+      agents: manifest.agents,
+    };
 
-    this.copyDir(localPath, destDir);
-
-    const manifest = this.readManifest();
-    const existing = manifest.plugins.findIndex(p => p.name === name);
-    const entry: InstalledPlugin = { name, version, scope, source, skills, agents };
-
+    const installedManifest = this.readManifest();
+    const existing = installedManifest.plugins.findIndex((p) => p.name === manifest.name);
     if (existing !== -1) {
-      manifest.plugins[existing] = entry;
+      installedManifest.plugins[existing] = installedEntry;
     } else {
-      manifest.plugins.push(entry);
+      installedManifest.plugins.push(installedEntry);
+    }
+    this.writeManifest(installedManifest);
+
+    console.log(colorize.success(`\nPlugin '${manifest.name}' v${manifest.version} installed successfully.`));
+    if (manifest.skills.length > 0) {
+      console.log(colorize.info(`  Skills: ${manifest.skills.join(', ')}`));
+    }
+  }
+
+  async installPlugin(source: PluginSource, scope: Scope = 'user'): Promise<void> {
+    if (source.type === 'local') {
+      // Legacy local path install
+      const localPath = path.resolve(source.ref);
+      if (!fs.existsSync(localPath)) {
+        throw new Error(`Local plugin path not found: ${localPath}`);
+      }
+
+      const pluginJson = this.readPluginJson(localPath);
+      const { name, version = '0.0.0', skills = [], agents = [] } = pluginJson;
+
+      if (!name) {
+        throw new Error('plugin.json is missing required field: name');
+      }
+
+      this.ensurePluginsDirectory();
+      const destDir = path.join(this.cacheDir, name);
+
+      if (fs.existsSync(destDir)) {
+        fs.rmSync(destDir, { recursive: true });
+      }
+
+      this.copyDir(localPath, destDir);
+
+      const manifest = this.readManifest();
+      const existing = manifest.plugins.findIndex((p) => p.name === name);
+      const entry: InstalledPlugin = { name, version, scope, source, skills, agents };
+
+      if (existing !== -1) {
+        manifest.plugins[existing] = entry;
+      } else {
+        manifest.plugins.push(entry);
+      }
+
+      this.writeManifest(manifest);
+      console.log(colorize.success(`Plugin '${name}' v${version} installed successfully.`));
+
+      if (skills.length > 0) {
+        console.log(colorize.info(`  Skills: ${skills.join(', ')}`));
+      }
+      if (agents.length > 0) {
+        console.log(colorize.info(`  Agents: ${agents.join(', ')}`));
+      }
+      return;
     }
 
-    this.writeManifest(manifest);
-    console.log(colorize.success(`Plugin '${name}' v${version} installed successfully.`));
-
-    if (skills.length > 0) {
-      console.log(colorize.info(`  Skills: ${skills.join(', ')}`));
-    }
-    if (agents.length > 0) {
-      console.log(colorize.info(`  Agents: ${agents.join(', ')}`));
-    }
+    throw new Error(`Source type '${source.type}' is not yet supported via legacy installPlugin. Use installPluginByInput instead.`);
   }
 
   async uninstallPlugin(name: string): Promise<void> {
     const manifest = this.readManifest();
-    const idx = manifest.plugins.findIndex(p => p.name === name);
+    const idx = manifest.plugins.findIndex((p) => p.name === name);
 
     if (idx === -1) {
       throw new Error(`Plugin '${name}' is not installed.`);
@@ -179,6 +603,16 @@ export class PluginManager {
     const destDir = path.join(this.cacheDir, name);
     if (fs.existsSync(destDir)) {
       fs.rmSync(destDir, { recursive: true });
+    }
+
+    // Remove from skills dirs
+    const skillsDest = path.join(this.skillsDir, name);
+    if (fs.existsSync(skillsDest)) {
+      fs.rmSync(skillsDest, { recursive: true });
+    }
+    const agentSkillsDest = path.join(this.agentSkillsDir, name);
+    if (fs.existsSync(agentSkillsDest)) {
+      fs.rmSync(agentSkillsDest, { recursive: true });
     }
 
     // Also remove from enabledPlugins if present
@@ -195,14 +629,20 @@ export class PluginManager {
 
   async updatePlugin(name: string): Promise<void> {
     const manifest = this.readManifest();
-    const plugin = manifest.plugins.find(p => p.name === name);
+    const plugin = manifest.plugins.find((p) => p.name === name);
 
     if (!plugin) {
       throw new Error(`Plugin '${name}' is not installed.`);
     }
 
     console.log(colorize.info(`Updating plugin '${name}'...`));
-    await this.installPlugin(plugin.source, plugin.scope);
+
+    // Use new adapter path for anthropic/registry sources
+    if (plugin.source.type === 'anthropic' || plugin.source.type === 'registry') {
+      await this.installPluginByInput(plugin.source.ref);
+    } else {
+      await this.installPlugin(plugin.source, plugin.scope);
+    }
   }
 
   listInstalledPlugins(): InstalledPlugin[] {
@@ -211,7 +651,7 @@ export class PluginManager {
 
   enablePlugin(name: string, scope: Scope): void {
     const manifest = this.readManifest();
-    if (!manifest.plugins.some(p => p.name === name)) {
+    if (!manifest.plugins.some((p) => p.name === name)) {
       throw new Error(`Plugin '${name}' is not installed.`);
     }
 
@@ -222,7 +662,7 @@ export class PluginManager {
     this.writeSettings(settings);
 
     // Update scope in manifest
-    const plugin = manifest.plugins.find(p => p.name === name)!;
+    const plugin = manifest.plugins.find((p) => p.name === name)!;
     plugin.scope = scope;
     this.writeManifest(manifest);
 
@@ -257,6 +697,7 @@ export class PluginManager {
         message: 'Plugin Management',
         choices: [
           { name: '📋 List installed plugins', value: 'list' },
+          { name: '📦 Install plugin', value: 'install' },
           { name: '📦 Install plugin from local path', value: 'install_local' },
           { name: '🗑️  Uninstall plugin', value: 'uninstall' },
           { name: '🔄 Update plugin', value: 'update' },
@@ -273,6 +714,11 @@ export class PluginManager {
         switch (action) {
           case 'list':
             await this.showPluginList();
+            await globalNavigator.pauseForUser();
+            break;
+
+          case 'install':
+            await this.interactiveInstall();
             await globalNavigator.pauseForUser();
             break;
 
@@ -326,7 +772,7 @@ export class PluginManager {
 
     const settings = this.readSettings();
     const enabledMap = this.getEnabledPluginsMap(settings);
-    const enabled = new Set(Object.keys(enabledMap).filter(k => enabledMap[k]));
+    const enabled = new Set(Object.keys(enabledMap).filter((k) => enabledMap[k]));
 
     console.log(colorize.highlight(`\nInstalled Plugins (${plugins.length}):\n`));
     for (const p of plugins) {
@@ -340,6 +786,19 @@ export class PluginManager {
         console.log(`    agents: ${p.agents.join(', ')}`);
       }
     }
+  }
+
+  private async interactiveInstall(): Promise<void> {
+    const { input } = await import('@inquirer/prompts');
+    const pluginInput = await input({
+      message: 'Plugin to install (e.g. @anthropic/pdf, ./local-path, or bare-name):',
+      validate: (v) => {
+        if (!v.trim()) return 'Input is required';
+        return true;
+      },
+    });
+
+    await this.installPluginByInput(pluginInput.trim());
   }
 
   private async interactiveInstallLocal(): Promise<void> {
@@ -372,7 +831,7 @@ export class PluginManager {
       return;
     }
 
-    const choices = plugins.map(p => ({ name: `${p.name} v${p.version}`, value: p.name }));
+    const choices = plugins.map((p) => ({ name: `${p.name} v${p.version}`, value: p.name }));
     choices.push({ name: '← Cancel', value: 'cancel' });
 
     const selected = await select<string>({ message: 'Select plugin to uninstall:', choices });
@@ -387,7 +846,7 @@ export class PluginManager {
       return;
     }
 
-    const choices = plugins.map(p => ({ name: `${p.name} v${p.version}`, value: p.name }));
+    const choices = plugins.map((p) => ({ name: `${p.name} v${p.version}`, value: p.name }));
     choices.push({ name: '← Cancel', value: 'cancel' });
 
     const selected = await select<string>({ message: 'Select plugin to update:', choices });
@@ -402,7 +861,7 @@ export class PluginManager {
       return;
     }
 
-    const choices = plugins.map(p => ({ name: `${p.name} v${p.version}`, value: p.name }));
+    const choices = plugins.map((p) => ({ name: `${p.name} v${p.version}`, value: p.name }));
     choices.push({ name: '← Cancel', value: 'cancel' });
 
     const selected = await select<string>({ message: `Select plugin to ${action}:`, choices });

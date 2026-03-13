@@ -7,6 +7,7 @@ import { ClaudeCommandAPI } from './core/api';
 import { colorize } from './utils/colors';
 import { validateSkillFile, printValidationResult } from './commands/skill-validator';
 import { PluginInitManager } from './commands/plugin-init-manager';
+import { PluginManager } from './commands/plugin-manager';
 import * as path from 'path';
 
 // Configuration constants
@@ -77,6 +78,8 @@ COMMANDS:
   install <command-name>        Install a command from the repository
   search <query>                Search available commands in the repository
   validate <skill-path>         Validate a SKILL.md file (use --json for machine-readable output)
+  plugin install <input>         Install a plugin (@anthropic/name, ./path, or bare-name)
+  plugin install <input> --no-cross-client  Skip cross-client (~/.agents/skills/) write
   plugin init                   Scaffold a new plugin directory interactively
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
 
@@ -92,7 +95,10 @@ EXAMPLES:
   claude-cmd install git-helper           Install the 'git-helper' command
   claude-cmd validate ./skills/foo/SKILL.md   Validate a SKILL.md file
   claude-cmd validate ./skills/foo/SKILL.md --json  Validate with JSON output
-  claude-cmd plugin init                  Scaffold a new plugin interactively
+  claude-cmd plugin install @anthropic/pdf          Install from Anthropic marketplace
+  claude-cmd plugin install ./my-skill              Install from local path
+  claude-cmd plugin install git-helper              Install from claude-cmd registry
+  claude-cmd plugin init                            Scaffold a new plugin interactively
   claude-cmd plugin init --name my-plugin --description "My plugin" --author "Me"
   claude-cmd --help                       Show this help message
 `);
@@ -109,6 +115,17 @@ async function validateSkill(skillPath: string, jsonMode: boolean): Promise<void
     process.exit(2);
   }
   // exit code 0 implicitly
+}
+
+async function pluginInstall(args: string[]): Promise<void> {
+  const input = args[0];
+  if (!input) {
+    console.error(colorize.error('Usage: claude-cmd plugin install <@anthropic/name|./path|name>'));
+    process.exit(1);
+  }
+  const noCrossClient = args.includes('--no-cross-client');
+  const manager = new PluginManager();
+  await manager.installPluginByInput(input, { crossClientWrite: !noCrossClient });
 }
 
 async function pluginInit(args: string[]): Promise<void> {
@@ -171,6 +188,8 @@ async function main(): Promise<void> {
       } else if (filteredArgs[0] === 'validate' && filteredArgs[1]) {
         const jsonMode = filteredArgs.includes('--json');
         await validateSkill(filteredArgs[1], jsonMode);
+      } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'install') {
+        await pluginInstall(filteredArgs.slice(2));
       } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'init') {
         await pluginInit(filteredArgs.slice(2));
       } else {
