@@ -11,6 +11,7 @@ import { PluginManager } from './commands/plugin-manager';
 import { login, whoami, logout } from './commands/auth-manager';
 import { publish } from './commands/publish-manager';
 import { SubAgentFrontMatter, AVAILABLE_TOOLS, DEFAULT_SUB_AGENT_TOOLS } from './types';
+import { MemoryManager } from './commands/memory-manager';
 import * as path from 'path';
 import * as os from 'os';
 
@@ -217,6 +218,34 @@ ${description}
   }
 }
 
+async function memoryCommand(args: string[]): Promise<void> {
+  const subCmd = args[0];
+  const scopeIdx = args.indexOf('--scope');
+  const scopeArg = scopeIdx !== -1 ? args[scopeIdx + 1] : undefined;
+  const scope = scopeArg === 'global' || scopeArg === 'project' ? scopeArg : undefined;
+
+  const manager = new MemoryManager();
+
+  switch (subCmd) {
+    case 'list':
+      manager.list(scope);
+      break;
+    case 'show':
+      manager.show(scope);
+      break;
+    case 'clear':
+      await manager.clear(scope);
+      break;
+    case 'stats':
+      manager.stats(scope);
+      break;
+    default:
+      console.error(colorize.error(`Unknown memory subcommand: ${subCmd || '(none)'}`));
+      console.log('Usage: claude-cmd memory <list|show|clear|stats> [--scope global|project]');
+      process.exit(1);
+  }
+}
+
 function showHelp(): void {
   console.log(`
 claude-cmd - A CLI tool to manage Claude commands
@@ -246,6 +275,12 @@ COMMANDS:
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
   agent init                    Scaffold a new Claude Code agent template interactively
   agent init --name <n>         Scaffold non-interactively (also: --description, --model, --tools, --global/--local)
+  memory list                   List all auto-memory files (global + project scopes)
+  memory list --scope global    List only global memory files
+  memory list --scope project   List only project memory files
+  memory show [--scope ...]     Display memory file contents with syntax highlighting
+  memory clear [--scope ...]    Interactively clear memory file contents
+  memory stats [--scope ...]    Show memory sizes, token counts, and last modified
   login                         Authenticate with GitHub via device flow
   login --token <pat>           Authenticate with a GitHub Personal Access Token
   whoami                        Show currently authenticated GitHub user
@@ -281,6 +316,11 @@ EXAMPLES:
   claude-cmd agent init                             Scaffold a new agent template interactively
   claude-cmd agent init --name my-agent --description "My agent" --model claude-opus-4-5
   claude-cmd agent init --name my-agent --tools Read,Edit,Bash --global
+  claude-cmd memory list                                List all Claude memory files
+  claude-cmd memory list --scope global                 List only global memory files
+  claude-cmd memory show --scope project                Show project memory file contents
+  claude-cmd memory clear --scope global                Clear global memory files (with prompt)
+  claude-cmd memory stats                               Show sizes, token counts, last modified
   claude-cmd login                                      Authenticate with GitHub (opens browser)
   claude-cmd login --token ghp_xxx                      Authenticate with a PAT
   claude-cmd whoami                                     Show authenticated user
@@ -518,6 +558,8 @@ async function main(): Promise<void> {
         whoami();
       } else if (filteredArgs[0] === 'logout') {
         logout();
+      } else if (filteredArgs[0] === 'memory') {
+        await memoryCommand(filteredArgs.slice(1));
       } else if (filteredArgs[0] === 'publish') {
         const dirIdx = filteredArgs.indexOf('--dir');
         const dir = dirIdx !== -1 ? filteredArgs[dirIdx + 1] : undefined;
