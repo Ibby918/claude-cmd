@@ -8,6 +8,8 @@ import { colorize } from './utils/colors';
 import { validateSkillFile, printValidationResult } from './commands/skill-validator';
 import { PluginInitManager } from './commands/plugin-init-manager';
 import { PluginManager } from './commands/plugin-manager';
+import { login, whoami, logout } from './commands/auth-manager';
+import { publish } from './commands/publish-manager';
 import * as path from 'path';
 import * as os from 'os';
 
@@ -90,6 +92,12 @@ COMMANDS:
   plugin remove <name>           Remove an installed plugin (prompts for confirmation)
   plugin init                   Scaffold a new plugin directory interactively
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
+  login                         Authenticate with GitHub via device flow
+  login --token <pat>           Authenticate with a GitHub Personal Access Token
+  whoami                        Show currently authenticated GitHub user
+  logout                        Remove stored authentication credentials
+  publish [--dir <path>]        Publish plugin skills to the community registry
+  publish --dry-run             Validate without uploading
 
 DESCRIPTION:
   Interactive CLI tool for managing Claude commands, configurations, and workflows.
@@ -116,6 +124,13 @@ EXAMPLES:
   claude-cmd plugin remove git-helper               Remove an installed plugin
   claude-cmd plugin init                            Scaffold a new plugin interactively
   claude-cmd plugin init --name my-plugin --description "My plugin" --author "Me"
+  claude-cmd login                                      Authenticate with GitHub (opens browser)
+  claude-cmd login --token ghp_xxx                      Authenticate with a PAT
+  claude-cmd whoami                                     Show authenticated user
+  claude-cmd logout                                     Remove stored credentials
+  claude-cmd publish                                    Publish plugin in current directory
+  claude-cmd publish --dir ./my-plugin                  Publish plugin at given path
+  claude-cmd publish --dry-run                          Validate without uploading
   claude-cmd --help                       Show this help message
 `);
 }
@@ -336,6 +351,19 @@ async function main(): Promise<void> {
         await pluginUpdate(filteredArgs.slice(2));
       } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'init') {
         await pluginInit(filteredArgs.slice(2));
+      } else if (filteredArgs[0] === 'login') {
+        const tokenIdx = filteredArgs.indexOf('--token');
+        const token = tokenIdx !== -1 ? filteredArgs[tokenIdx + 1] : undefined;
+        await login(token);
+      } else if (filteredArgs[0] === 'whoami') {
+        whoami();
+      } else if (filteredArgs[0] === 'logout') {
+        logout();
+      } else if (filteredArgs[0] === 'publish') {
+        const dirIdx = filteredArgs.indexOf('--dir');
+        const dir = dirIdx !== -1 ? filteredArgs[dirIdx + 1] : undefined;
+        const dryRun = filteredArgs.includes('--dry-run');
+        await publish({ dir, dryRun });
       } else {
         console.error(colorize.error(`Unknown command: ${filteredArgs[0]}`));
         console.log('Run "claude-cmd --help" for usage information or run without arguments for interactive mode.');
