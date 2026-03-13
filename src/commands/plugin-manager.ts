@@ -682,6 +682,163 @@ export class PluginManager {
     return this.readManifest().plugins;
   }
 
+  /**
+   * Check if a newer version is available for a plugin.
+   * Returns the new version string if an update is available, null otherwise.
+   */
+  async checkForUpdate(plugin: InstalledPlugin): Promise<string | null> {
+    if (plugin.source.type === 'local') {
+      return null; // local plugins have no remote version to compare
+    }
+    try {
+      const adapter = this.adapters.find((a) => a.canResolve(plugin.source.ref));
+      if (!adapter) return null;
+      const manifest = await adapter.resolve(plugin.source.ref);
+      if (manifest.version !== plugin.version && manifest.version !== '0.0.0') {
+        return manifest.version;
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * List installed plugins with enabled/disabled status and optional update check.
+   */
+  async listPluginsWithStatus(checkUpdates = false): Promise<Array<InstalledPlugin & { enabled: boolean; availableUpdate: string | null }>> {
+    const plugins = this.listInstalledPlugins();
+    const settings = this.readSettings();
+    const enabledMap = this.getEnabledPluginsMap(settings);
+
+    const results = await Promise.all(
+      plugins.map(async (p) => ({
+        ...p,
+        enabled: enabledMap[p.name] === true,
+        availableUpdate: checkUpdates ? await this.checkForUpdate(p) : null,
+      })),
+    );
+    return results;
+  }
+
+  /**
+   * Update a plugin with rollback support. If dryRun is true, only resolves
+   * and reports what would change without writing anything.
+   */
+  async updatePluginWithRollback(name: string, dryRun = false): Promise<void> {
+    const manifest = this.readManifest();
+    const plugin = manifest.plugins.find((p) => p.name === name);
+
+    if (!plugin) {
+      throw new Error(`Plugin '${name}' is not installed.`);
+    }
+
+    const adapter = this.adapters.find((a) => a.canResolve(plugin.source.ref));
+    if (!adapter) {
+      throw new Error(`No adapter found for plugin source: ${plugin.source.ref}`);
+    }
+
+    console.log(colorize.info(`Resolving latest version of '${name}'...`));
+    const newManifest = await adapter.resolve(plugin.source.ref);
+
+    if (newManifest.version === plugin.version) {
+      console.log(colorize.info(`Plugin '${name}' is already up to date (v${plugin.version}).`));
+      return;
+    }
+
+    console.log(colorize.info(`Update available: v${plugin.version} → v${newManifest.version}`));
+
+    if (dryRun) {
+      console.log(colorize.warning(`[dry-run] Would update '${name}' from v${plugin.version} to v${newManifest.version}`));
+      if (newManifest.files.length > 0) {
+        console.log(colorize.dim(`  Files that would be written:`));
+        for (const f of newManifest.files) {
+          console.log(colorize.dim(`    ${f.path}`));
+        }
+      }
+      return;
+    }
+
+    // Validate new SKILL.md files before touching disk
+    const skillFiles = newManifest.files.filter((f) => f.path === 'SKILL.md' || f.path.endsWith('/SKILL.md'));
+    for (const skillFile of skillFiles) {
+      const syntheticPath = path.join(this.skillsDir, name, skillFile.path);
+      const result = validateSkillContent(skillFile.content, syntheticPath);
+      if (result.errors.length > 0) {
+        result.errors.forEach((e) => {
+          const field = e.field ? ` [${e.field}]` : '';
+          console.error(colorize.error(`  ERROR${field}: ${e.message}`));
+        });
+        throw new Error(`Validation failed for '${skillFile.path}'. Update aborted (no changes made).`);
+      }
+      if (result.warnings.length > 0) {
+        result.warnings.forEach((w) => {
+          const field = w.field ? ` [${w.field}]` : '';
+          console.log(colorize.warning(`  WARN${field}: ${w.message}`));
+        });
+      }
+    }
+
+    const primaryDest = path.join(this.skillsDir, name);
+    const backupDir = path.join(this.pluginsDir, 'backups', `${name}-${plugin.version}`);
+
+    // Backup current install
+    if (fs.existsSync(primaryDest)) {
+      if (fs.existsSync(backupDir)) fs.rmSync(backupDir, { recursive: true });
+      this.copyDir(primaryDest, backupDir);
+    }
+
+    try {
+      // Write new version
+      if (fs.existsSync(primaryDest)) fs.rmSync(primaryDest, { recursive: true });
+      await adapter.fetch(newManifest, primaryDest);
+      console.log(colorize.success(`✓ Updated ~/.claude/skills/${name}/`));
+
+      // Cross-client update
+      if (this.isCrossClientWriteEnabled()) {
+        const crossDest = path.join(this.agentSkillsDir, name);
+        if (fs.existsSync(crossDest)) fs.rmSync(crossDest, { recursive: true });
+        await adapter.fetch(newManifest, crossDest);
+        console.log(colorize.success(`✓ Updated ~/.agents/skills/${name}/`));
+      }
+
+      // Update manifest
+      const updatedManifest = this.readManifest();
+      const idx = updatedManifest.plugins.findIndex((p) => p.name === name);
+      if (idx !== -1) {
+        updatedManifest.plugins[idx] = { ...plugin, version: newManifest.version, skills: newManifest.skills, agents: newManifest.agents };
+        this.writeManifest(updatedManifest);
+      }
+
+      console.log(colorize.success(`\nPlugin '${name}' updated to v${newManifest.version}.`));
+    } catch (err) {
+      // Rollback
+      console.error(colorize.error(`Update failed: ${(err as Error).message}. Rolling back...`));
+      if (fs.existsSync(backupDir)) {
+        if (fs.existsSync(primaryDest)) fs.rmSync(primaryDest, { recursive: true });
+        this.copyDir(backupDir, primaryDest);
+        console.log(colorize.warning(`Rolled back '${name}' to v${plugin.version}.`));
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Check all installed plugins for updates and return a list of those with updates available.
+   */
+  async checkAllForUpdates(): Promise<Array<{ plugin: InstalledPlugin; newVersion: string }>> {
+    const plugins = this.listInstalledPlugins();
+    const updates: Array<{ plugin: InstalledPlugin; newVersion: string }> = [];
+
+    for (const p of plugins) {
+      const newVersion = await this.checkForUpdate(p);
+      if (newVersion) {
+        updates.push({ plugin: p, newVersion });
+      }
+    }
+    return updates;
+  }
+
   enablePlugin(name: string, scope: Scope): void {
     const manifest = this.readManifest();
     if (!manifest.plugins.some((p) => p.name === name)) {
