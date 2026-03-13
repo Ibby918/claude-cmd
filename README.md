@@ -4,6 +4,8 @@
 
 # claude-cmd
 
+[![CI](https://github.com/kiliczsh/claude-cmd/actions/workflows/ci.yml/badge.svg)](https://github.com/kiliczsh/claude-cmd/actions/workflows/ci.yml)
+
 A lightweight (~46kB) and comprehensive CLI tool for managing Claude commands, configurations, and workflows. This tool helps you organize and manage custom commands for Claude AI, create project-specific configurations, and handle MCP (Model Context Protocol) servers.
 
 ## Features
