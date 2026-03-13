@@ -1,5 +1,5 @@
 ---
-allowed-tools: Task, TodoRead, Read, Write, Bash(git:*), Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(gh:*)
+allowed-tools: Task, Read, Write, Bash(git:*), Bash(fd:*), Bash(rg:*), Bash(eza:*), Bash(bat:*), Bash(jq:*), Bash(gdate:*), Bash(gh:*)
 name: "Next Steps"
 description: "Intelligent project state analyzer with priority-based task recommendations and sub-agent coordination"
 author: "wcygan"

@@ -1,5 +1,5 @@
 ---
-allowed-tools: Task, Bash, Read, Write, Edit, MultiEdit, Grep, Glob, LS
+allowed-tools: Task, Bash, Read, Write, Edit, MultiEdit, Grep, Glob
 name: "Universal Development Principles"
 description: "Comprehensive development principles and best practices for AI assistants working on any project"
 author: "rishabhsonker"

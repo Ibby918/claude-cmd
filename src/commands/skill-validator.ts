@@ -72,7 +72,13 @@ export function validateSkillContent(content: string, filePath: string): Validat
       result.errors.push({ level: 'error', field: 'allowed-tools', message: '"allowed-tools" must be a comma-separated string of tool names' });
     } else {
       const tools = allowedTools.split(',').map(t => t.trim()).filter(Boolean);
-      const unknown = tools.filter(t => !KNOWN_TOOLS.has(t) && !t.startsWith('mcp__'));
+      const unknown = tools.filter(t => {
+        if (KNOWN_TOOLS.has(t) || t.startsWith('mcp__')) return false;
+        // Allow scoped Bash restrictions like Bash(git:*), Bash(npm:*), etc.
+        const scopedMatch = t.match(/^(\w+)\(.+\)$/);
+        if (scopedMatch && KNOWN_TOOLS.has(scopedMatch[1])) return false;
+        return true;
+      });
       if (unknown.length > 0) {
         result.errors.push({ level: 'error', field: 'allowed-tools', message: `Unknown tool(s) in "allowed-tools": ${unknown.join(', ')}` });
       }

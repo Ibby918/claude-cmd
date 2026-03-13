@@ -1,5 +1,5 @@
 ---
-allowed-tools: TodoWrite, TodoRead, Bash(git:*), Bash(deno:task:*), Bash(jq:*), Bash(gdate:*), Read, Write, Task, Grep, Glob, Edit, MultiEdit
+allowed-tools: TodoWrite, Bash(git:*), Bash(deno:task:*), Bash(jq:*), Bash(gdate:*), Read, Write, Task, Grep, Glob, Edit, MultiEdit
 name: "Start"
 description: "Intelligent workflow orchestration with state management, error recovery, and sub-agent coordination"
 author: "wcygan"
