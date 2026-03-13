@@ -94,8 +94,11 @@ function parseMarkdownFile(filePath: string, relativePath: string): SkillV2 | nu
     // Use file stats for dates if not provided
     const stats = fs.statSync(filePath);
 
-    // Use relative path for ID to support nested structure
-    const commandId = relativePath.replace(/\\/g, '/').replace('.md', '');
+    // Use relative path for ID — strip /SKILL.md suffix for new directory format
+    const normalizedPath = relativePath.replace(/\\/g, '/');
+    const commandId = normalizedPath.endsWith('/SKILL.md')
+      ? normalizedPath.slice(0, -'/SKILL.md'.length)
+      : normalizedPath.replace('.md', '');
 
     const frontmatter: SkillFrontmatter = {
       description: (rawMeta['description'] as string) || description || null,
@@ -141,8 +144,17 @@ function getAllMarkdownFiles(dir: string, baseDir: string): { filePath: string; 
     const stats = fs.statSync(fullPath);
 
     if (stats.isDirectory()) {
-      results.push(...getAllMarkdownFiles(fullPath, baseDir));
-    } else if (item.endsWith('.md') && !ignoredFiles.includes(item)) {
+      // Check if this directory contains a SKILL.md (new format)
+      const skillMdPath = path.join(fullPath, 'SKILL.md');
+      if (fs.existsSync(skillMdPath)) {
+        const relativePath = path.relative(baseDir, skillMdPath);
+        results.push({ filePath: skillMdPath, relativePath });
+      } else {
+        // Recurse into subdirectories that don't have SKILL.md
+        results.push(...getAllMarkdownFiles(fullPath, baseDir));
+      }
+    } else if (item.endsWith('.md') && !ignoredFiles.includes(item) && item !== 'SKILL.md') {
+      // Legacy flat .md files (pre-migration)
       const relativePath = path.relative(baseDir, fullPath);
       results.push({ filePath: fullPath, relativePath });
     }
