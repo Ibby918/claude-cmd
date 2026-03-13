@@ -10,6 +10,7 @@ import { PluginInitManager } from './commands/plugin-init-manager';
 import { PluginManager } from './commands/plugin-manager';
 import { login, whoami, logout } from './commands/auth-manager';
 import { publish } from './commands/publish-manager';
+import { SubAgentFrontMatter, AVAILABLE_TOOLS, DEFAULT_SUB_AGENT_TOOLS } from './types';
 import * as path from 'path';
 import * as os from 'os';
 
@@ -65,6 +66,157 @@ async function searchCommands(query: string): Promise<void> {
   }
 }
 
+const CLAUDE_MODELS = [
+  'claude-opus-4-5',
+  'claude-sonnet-4-6',
+  'claude-haiku-4-5',
+  'claude-opus-4-5-20251101',
+  'claude-sonnet-4-5-20251101',
+  'claude-haiku-4-5-20251001',
+];
+
+async function agentInit(args: string[]): Promise<void> {
+  const fs = new FileSystemManager();
+
+  // Parse flags for non-interactive mode
+  const nameIdx = args.indexOf('--name');
+  const descIdx = args.indexOf('--description');
+  const modelIdx = args.indexOf('--model');
+  const toolsIdx = args.indexOf('--tools');
+  const localFlag = args.includes('--local');
+  const nonInteractive = nameIdx !== -1;
+
+  let name: string;
+  let description: string;
+  let model: string | undefined;
+  let tools: string[];
+  let targetLocation: 'global' | 'local';
+
+  if (nonInteractive) {
+    // Non-interactive mode
+    name = args[nameIdx + 1];
+    if (!name) {
+      console.error(colorize.error('Usage: claude-cmd agent init --name <name> [--description <desc>] [--model <model>] [--tools <tool1,tool2>] [--global|--local]'));
+      process.exit(1);
+    }
+    if (!/^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$/.test(name)) {
+      console.error(colorize.error('Agent name must use only lowercase letters, numbers, and hyphens (no leading/trailing hyphens).'));
+      process.exit(1);
+    }
+    description = descIdx !== -1 ? args[descIdx + 1] : `${name} agent`;
+    model = modelIdx !== -1 ? args[modelIdx + 1] : undefined;
+    const toolsRaw = toolsIdx !== -1 ? args[toolsIdx + 1] : undefined;
+    tools = toolsRaw ? toolsRaw.split(',').map(t => t.trim()).filter(t => AVAILABLE_TOOLS.includes(t)) : DEFAULT_SUB_AGENT_TOOLS;
+    targetLocation = localFlag ? 'local' : 'global';
+  } else {
+    // Interactive mode
+    const { input, select, confirm } = await import('@inquirer/prompts');
+
+    console.log(`\n${colorize.highlight('🤖 Agent Template Scaffold')}`);
+    console.log(colorize.info('Creates a new Claude Code agent in ~/.claude/agents/<name>.md\n'));
+
+    name = await input({
+      message: 'Agent name (lowercase, hyphens allowed):',
+      validate: (v) => {
+        if (!v.trim()) return 'Name is required';
+        if (!/^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$/.test(v.trim())) {
+          return 'Use only lowercase letters, numbers, and hyphens (no leading/trailing hyphens)';
+        }
+        return true;
+      }
+    });
+
+    description = await input({
+      message: 'Description (role/purpose of this agent):',
+      validate: (v) => v.trim() !== '' || 'Description is required'
+    });
+
+    const modelChoice = await select<string>({
+      message: 'Model (leave default to use Claude\'s default):',
+      choices: [
+        { name: '(default — inherit from context)', value: '' },
+        ...CLAUDE_MODELS.map(m => ({ name: m, value: m })),
+        { name: 'Other (type manually)', value: '__custom__' },
+      ]
+    });
+
+    if (modelChoice === '__custom__') {
+      model = await input({ message: 'Model ID:' });
+    } else {
+      model = modelChoice || undefined;
+    }
+
+    // Tool selection via checkboxes
+    console.log(`\n${colorize.info('Select tools for this agent:')}`);
+    const selectedTools: string[] = [];
+    for (const tool of AVAILABLE_TOOLS) {
+      const isDefault = DEFAULT_SUB_AGENT_TOOLS.includes(tool);
+      const include = await confirm({ message: `Include ${tool}?`, default: isDefault });
+      if (include) selectedTools.push(tool);
+    }
+    tools = selectedTools.length > 0 ? selectedTools : DEFAULT_SUB_AGENT_TOOLS;
+
+    const locationChoice = await select<'global' | 'local'>({
+      message: 'Installation location:',
+      choices: [
+        { name: '🌍 Global (~/.claude/agents)', value: 'global' },
+        { name: '📂 Project local (./.claude/agents)', value: 'local' },
+      ]
+    });
+    targetLocation = locationChoice;
+  }
+
+  // Build system prompt template
+  const systemPrompt = `You are ${name}, a specialized AI assistant.
+
+## Role
+${description}
+
+## Capabilities
+- [List key capabilities here]
+- [Add specific skills or knowledge areas]
+- [Define what tasks this agent handles best]
+
+## Guidelines
+- Be concise and focused on your specific role
+- Use available tools when appropriate
+- Ask for clarification when requirements are ambiguous`;
+
+  // Validate before saving
+  const issues: string[] = [];
+  if (!name.trim()) issues.push('Name is required');
+  if (!description.trim()) issues.push('Description is required');
+  if (tools.length === 0) issues.push('At least one tool must be selected');
+  const invalidTools = tools.filter(t => !AVAILABLE_TOOLS.includes(t));
+  if (invalidTools.length > 0) issues.push(`Unknown tools: ${invalidTools.join(', ')}`);
+
+  if (issues.length > 0) {
+    console.error(colorize.error('Validation failed:'));
+    issues.forEach(i => console.error(colorize.error(`  • ${i}`)));
+    process.exit(1);
+  }
+
+  const frontMatter: SubAgentFrontMatter = { name, description, tools, model };
+
+  try {
+    if (targetLocation === 'global') {
+      fs.ensureAgentsDirectory();
+    } else {
+      fs.ensureProjectAgentsDirectory();
+    }
+    const filePath = fs.saveSubAgent(name, frontMatter, systemPrompt, targetLocation);
+    const locationText = targetLocation === 'global' ? 'globally' : 'in project';
+    console.log(colorize.success(`\n✅ Agent '${name}' created ${locationText}`));
+    console.log(colorize.info(`📁 ${filePath}`));
+    console.log(colorize.info(`🛠️  Tools: ${tools.join(', ')}`));
+    if (model) console.log(colorize.info(`🧠 Model: ${model}`));
+    console.log(colorize.dim('\nEdit the system prompt in the file above to customize agent behavior.'));
+  } catch (error) {
+    console.error(colorize.error(`Failed to create agent: ${(error as Error).message}`));
+    process.exit(1);
+  }
+}
+
 function showHelp(): void {
   console.log(`
 claude-cmd - A CLI tool to manage Claude commands
@@ -92,6 +244,8 @@ COMMANDS:
   plugin remove <name>           Remove an installed plugin (prompts for confirmation)
   plugin init                   Scaffold a new plugin directory interactively
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
+  agent init                    Scaffold a new Claude Code agent template interactively
+  agent init --name <n>         Scaffold non-interactively (also: --description, --model, --tools, --global/--local)
   login                         Authenticate with GitHub via device flow
   login --token <pat>           Authenticate with a GitHub Personal Access Token
   whoami                        Show currently authenticated GitHub user
@@ -124,6 +278,9 @@ EXAMPLES:
   claude-cmd plugin remove git-helper               Remove an installed plugin
   claude-cmd plugin init                            Scaffold a new plugin interactively
   claude-cmd plugin init --name my-plugin --description "My plugin" --author "Me"
+  claude-cmd agent init                             Scaffold a new agent template interactively
+  claude-cmd agent init --name my-agent --description "My agent" --model claude-opus-4-5
+  claude-cmd agent init --name my-agent --tools Read,Edit,Bash --global
   claude-cmd login                                      Authenticate with GitHub (opens browser)
   claude-cmd login --token ghp_xxx                      Authenticate with a PAT
   claude-cmd whoami                                     Show authenticated user
@@ -351,6 +508,8 @@ async function main(): Promise<void> {
         await pluginUpdate(filteredArgs.slice(2));
       } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'init') {
         await pluginInit(filteredArgs.slice(2));
+      } else if (filteredArgs[0] === 'agent' && filteredArgs[1] === 'init') {
+        await agentInit(filteredArgs.slice(2));
       } else if (filteredArgs[0] === 'login') {
         const tokenIdx = filteredArgs.indexOf('--token');
         const token = tokenIdx !== -1 ? filteredArgs[tokenIdx + 1] : undefined;

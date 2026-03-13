@@ -323,7 +323,11 @@ export class FileSystemManager {
       const toolsArray = Array.isArray(frontMatter.tools) ? frontMatter.tools : [frontMatter.tools];
       yamlContent += `tools: [${toolsArray.join(', ')}]\n`;
     }
-    
+
+    if (frontMatter.model) {
+      yamlContent += `model: ${frontMatter.model}\n`;
+    }
+
     if (frontMatter.author) {
       yamlContent += `author: ${frontMatter.author}\n`;
     }
