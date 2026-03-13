@@ -79,6 +79,7 @@ export class ClaudeCommandCLI {
           { name: `${emoji.delete} Delete command`, value: 'delete' },
           { name: `🤖 Manage Sub-Agents`, value: 'subagents' },
           { name: `🔍 Search & Install Sub-Agents`, value: 'search_subagents' },
+          { name: `🔭 Browse & Discover Plugins`, value: 'browse_plugins' },
           { name: `🔌 Plugin Manager`, value: 'plugins' },
           { name: '--- Configuration ---', value: '--- Configuration ---' },
           { name: `${emoji.config} CLAUDE.md Management`, value: 'claudemd' },
@@ -142,6 +143,10 @@ export class ClaudeCommandCLI {
             
           case 'search_subagents':
             await this.subAgentManager.searchAndInstallSubAgents();
+            break;
+
+          case 'browse_plugins':
+            await this.pluginManager.browsePlugins();
             break;
 
           case 'plugins':

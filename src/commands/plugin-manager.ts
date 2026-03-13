@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { select, confirm } from '@inquirer/prompts';
+import { select, confirm, input } from '@inquirer/prompts';
 import { colorize } from '../utils/colors';
 import { ClaudeCommandAPI } from '../core/api';
 import { validateSkillContent } from './skill-validator';
+import { Command } from '@/types';
 
 export type Scope = 'user' | 'project' | 'local';
 
@@ -378,6 +379,7 @@ export class PluginManager {
   private readonly skillsDir: string;
   private readonly agentSkillsDir: string;
   private readonly adapters: SourceAdapter[];
+  private readonly api: ClaudeCommandAPI;
 
   constructor() {
     this.pluginsDir = path.join(os.homedir(), '.claude', 'plugins');
@@ -387,11 +389,11 @@ export class PluginManager {
     this.skillsDir = path.join(os.homedir(), '.claude', 'skills');
     this.agentSkillsDir = path.join(os.homedir(), '.agents', 'skills');
 
-    const api = new ClaudeCommandAPI();
+    this.api = new ClaudeCommandAPI();
     this.adapters = [
       new AnthropicMarketplaceAdapter(),
       new LocalPathAdapter(),
-      new ClaudeCmdRegistryAdapter(api),
+      new ClaudeCmdRegistryAdapter(this.api),
     ];
   }
 
@@ -727,6 +729,7 @@ export class PluginManager {
       const action = await NavigationUtils.enhancedSelect<string>({
         message: 'Plugin Management',
         choices: [
+          { name: '🔭 Browse & discover plugins', value: 'browse' },
           { name: '📋 List installed plugins', value: 'list' },
           { name: '📦 Install plugin', value: 'install' },
           { name: '📦 Install plugin from local path', value: 'install_local' },
@@ -743,6 +746,10 @@ export class PluginManager {
 
       try {
         switch (action) {
+          case 'browse':
+            await this.browsePlugins();
+            break;
+
           case 'list':
             await this.showPluginList();
             await globalNavigator.pauseForUser();
@@ -790,6 +797,150 @@ export class PluginManager {
         console.log(colorize.error(`Error: ${(error as Error).message}`));
         await globalNavigator.pauseForUser();
       }
+    }
+  }
+
+  // ── Discovery TUI ────────────────────────────────────────────────────────
+
+  async browsePlugins(initialQuery?: string): Promise<void> {
+    const query = initialQuery !== undefined
+      ? initialQuery
+      : await input({
+          message: '🔍 Search plugins (leave empty to browse all):',
+        });
+
+    await this.browseWithPagination(query.trim(), 0);
+  }
+
+  private async browseWithPagination(query: string, page: number): Promise<void> {
+    const limit = 10;
+    const offset = page * limit;
+
+    const label = query ? `"${query}"` : 'all plugins';
+    console.log(colorize.info(`\nFetching ${label}...`));
+
+    let results;
+    try {
+      results = await this.api.getCommands({ q: query || undefined, limit, offset });
+    } catch (err) {
+      console.log(colorize.error(`Failed to fetch registry: ${(err as Error).message}`));
+      return;
+    }
+
+    if (!results.data || results.data.length === 0) {
+      console.log(colorize.warning(page === 0 ? `No plugins found for ${label}.` : 'No more results.'));
+      return;
+    }
+
+    const { data: commands, pagination } = results;
+    const totalPages = Math.ceil((pagination?.total ?? 0) / limit);
+    const currentPage = page + 1;
+
+    console.log(colorize.highlight(`\n┌─ Registry Results ─── ${label} ── Page ${currentPage}/${totalPages} (${pagination?.total ?? 0} total)`));
+
+    const installedNames = new Set(this.listInstalledPlugins().map((p) => p.name));
+
+    const choices: Array<{ name: string; value: string }> = commands.map((cmd) => {
+      const installed = installedNames.has(cmd.name) ? colorize.success(' ✓') : '';
+      const tags = cmd.tags?.length ? colorize.dim(` [${cmd.tags.slice(0, 3).join(', ')}]`) : '';
+      return {
+        name: `${colorize.bold(cmd.name)}${installed}${tags}  ${colorize.dim(cmd.description?.slice(0, 60) ?? '')}`,
+        value: cmd.id,
+      };
+    });
+
+    if (pagination?.has_previous) {
+      choices.push({ name: '⬅️  Previous page', value: '__prev__' });
+    }
+    if (pagination?.has_next) {
+      choices.push({ name: '➡️  Next page', value: '__next__' });
+    }
+    choices.push({ name: '🔍 New search', value: '__search__' });
+    choices.push({ name: '← Back', value: '__back__' });
+
+    let selected: string;
+    try {
+      selected = await select<string>({
+        message: 'Select a plugin to view details, or navigate:',
+        choices,
+        pageSize: 15,
+      });
+    } catch {
+      return;
+    }
+
+    switch (selected) {
+      case '__prev__':
+        await this.browseWithPagination(query, page - 1);
+        break;
+      case '__next__':
+        await this.browseWithPagination(query, page + 1);
+        break;
+      case '__search__':
+        await this.browsePlugins();
+        break;
+      case '__back__':
+        return;
+      default: {
+        const cmd = commands.find((c) => c.id === selected);
+        if (cmd) {
+          const action = await this.showPluginCard(cmd);
+          if (action === 'install') {
+            await this.installPluginByInput(cmd.name);
+            await (await import('../utils/navigation')).globalNavigator.pauseForUser();
+            // Return to same page after install
+            await this.browseWithPagination(query, page);
+          } else if (action === 'back') {
+            await this.browseWithPagination(query, page);
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  private async showPluginCard(cmd: Command): Promise<'install' | 'back'> {
+    const installedNames = new Set(this.listInstalledPlugins().map((p) => p.name));
+    const isInstalled = installedNames.has(cmd.name);
+
+    console.log(colorize.highlight(`\n┌─ Plugin Details ──────────────────────────────────`));
+    console.log(`│  Name:        ${colorize.bold(cmd.name)}${isInstalled ? '  ' + colorize.success('(installed)') : ''}`);
+    if (cmd.description) {
+      console.log(`│  Description: ${cmd.description}`);
+    }
+    if (cmd.author) {
+      console.log(`│  Author:      ${cmd.author}`);
+    }
+    if (cmd.tags?.length) {
+      console.log(`│  Tags:        ${cmd.tags.join(', ')}`);
+    }
+    if (cmd.version) {
+      console.log(`│  Version:     ${cmd.version}`);
+    }
+    if (cmd.downloads !== undefined) {
+      console.log(`│  Downloads:   ${cmd.downloads}`);
+    }
+    if (cmd.frontmatter?.['allowed-tools']) {
+      console.log(`│  Tools:       ${cmd.frontmatter['allowed-tools']}`);
+    }
+    if (cmd.frontmatter?.['user-invocable'] !== null && cmd.frontmatter?.['user-invocable'] !== undefined) {
+      console.log(`│  Invocable:   ${cmd.frontmatter['user-invocable'] ? 'yes' : 'no'}`);
+    }
+    console.log(colorize.highlight(`└──────────────────────────────────────────────────`));
+    console.log('');
+
+    const choices: Array<{ name: string; value: 'install' | 'back' }> = [];
+    if (isInstalled) {
+      choices.push({ name: '🔄 Reinstall / update', value: 'install' });
+    } else {
+      choices.push({ name: '📦 Install this plugin', value: 'install' });
+    }
+    choices.push({ name: '← Back to results', value: 'back' });
+
+    try {
+      return await select<'install' | 'back'>({ message: 'Action:', choices });
+    } catch {
+      return 'back';
     }
   }
 

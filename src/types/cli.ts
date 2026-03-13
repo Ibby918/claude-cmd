@@ -11,6 +11,7 @@ export type MenuAction =
   | 'settings' 
   | 'subagents'
   | 'search_subagents'
+  | 'browse_plugins'
   | 'plugins'
   | 'help'
   | 'exit'
