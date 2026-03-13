@@ -5,6 +5,7 @@ import { CommandManager } from './commands/command-manager';
 import { FileSystemManager } from './core/filesystem';
 import { ClaudeCommandAPI } from './core/api';
 import { colorize } from './utils/colors';
+import { validateSkillFile, printValidationResult } from './commands/skill-validator';
 import * as path from 'path';
 
 // Configuration constants
@@ -69,24 +70,40 @@ USAGE:
 OPTIONS:
   -h, --help                    Show this help message
   --local                       Use local commands folder (./commands/commands.json)
-  
+
 COMMANDS:
   list                          List all installed Claude command files
   install <command-name>        Install a command from the repository
   search <query>                Search available commands in the repository
-  
+  validate <skill-path>         Validate a SKILL.md file (use --json for machine-readable output)
+
 DESCRIPTION:
   Interactive CLI tool for managing Claude commands, configurations, and workflows.
   Run without arguments to enter interactive mode with full features.
 
 EXAMPLES:
-  claude-cmd                    Launch interactive mode (recommended)
-  claude-cmd --local            Launch interactive mode with local commands
-  claude-cmd list               List all Claude command files
-  claude-cmd --local search api Search local commands for 'api'
-  claude-cmd install git-helper Install the 'git-helper' command
-  claude-cmd --help             Show this help message
+  claude-cmd                              Launch interactive mode (recommended)
+  claude-cmd --local                      Launch interactive mode with local commands
+  claude-cmd list                         List all Claude command files
+  claude-cmd --local search api          Search local commands for 'api'
+  claude-cmd install git-helper           Install the 'git-helper' command
+  claude-cmd validate ./skills/foo/SKILL.md   Validate a SKILL.md file
+  claude-cmd validate ./skills/foo/SKILL.md --json  Validate with JSON output
+  claude-cmd --help                       Show this help message
 `);
+}
+
+async function validateSkill(skillPath: string, jsonMode: boolean): Promise<void> {
+  const resolvedPath = path.resolve(skillPath);
+  const result = validateSkillFile(resolvedPath);
+  printValidationResult(result, jsonMode);
+
+  if (result.errors.length > 0) {
+    process.exit(1);
+  } else if (result.warnings.length > 0) {
+    process.exit(2);
+  }
+  // exit code 0 implicitly
 }
 
 // Parse command line arguments
@@ -125,6 +142,9 @@ async function main(): Promise<void> {
         await listCommands();
       } else if (filteredArgs[0] === 'search' && filteredArgs[1]) {
         await searchCommands(filteredArgs.slice(1).join(' '));
+      } else if (filteredArgs[0] === 'validate' && filteredArgs[1]) {
+        const jsonMode = filteredArgs.includes('--json');
+        await validateSkill(filteredArgs[1], jsonMode);
       } else {
         console.error(colorize.error(`Unknown command: ${filteredArgs[0]}`));
         console.log('Run "claude-cmd --help" for usage information or run without arguments for interactive mode.');

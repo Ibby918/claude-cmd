@@ -4,6 +4,7 @@ import { FileSystemManager } from '../core/filesystem';
 import { ClaudeCommandAPI } from '../core/api';
 import { Command } from '@/types';
 import { NavigationUtils } from '../utils/navigation';
+import { validateSkillContent } from './skill-validator';
 
 export class CommandManager {
   constructor(
@@ -358,6 +359,33 @@ export class CommandManager {
       if (!content) {
         console.log(colorize.error(`Failed to fetch content for command '${commandName}'.`));
         return false;
+      }
+
+      // Validate content before writing
+      const validation = validateSkillContent(content, fileName);
+      if (validation.errors.length > 0) {
+        console.log(colorize.warning(`⚠ Validation issues found in '${commandName}':`));
+        validation.errors.forEach(e => {
+          const field = e.field ? ` [${e.field}]` : '';
+          console.log(colorize.error(`  ERROR${field}: ${e.message}`));
+        });
+        validation.warnings.forEach(w => {
+          const field = w.field ? ` [${w.field}]` : '';
+          console.log(colorize.dim(`  WARN${field}: ${w.message}`));
+        });
+        const proceed = await confirm({
+          message: 'Install anyway despite validation errors?',
+          default: false
+        });
+        if (!proceed) {
+          console.log(colorize.info('Installation cancelled'));
+          return false;
+        }
+      } else if (validation.warnings.length > 0) {
+        validation.warnings.forEach(w => {
+          const field = w.field ? ` [${w.field}]` : '';
+          console.log(colorize.dim(`  warn${field}: ${w.message}`));
+        });
       }
 
       // Legacy write: ~/.claude/commands/<name>.md
