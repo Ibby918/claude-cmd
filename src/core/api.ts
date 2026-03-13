@@ -15,6 +15,7 @@ export class ClaudeCommandAPI {
   private isUrl: boolean;
   private cachedCommands: Command[] | null = null;
   private cacheTimestamp: number = 0;
+  private cachedETag: string | null = null;
   private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
   constructor(dataSource?: string) {
@@ -42,15 +43,26 @@ export class ClaudeCommandAPI {
       }
 
       if (this.isUrl) {
-        // Fetch from URL
-        const response = await fetch(this.commandsDataSource);
+        // Fetch from URL with ETag caching
+        const headers: Record<string, string> = {};
+        if (this.cachedETag && this.cachedCommands) {
+          headers['If-None-Match'] = this.cachedETag;
+        }
+        const response = await fetch(this.commandsDataSource, { headers });
+        if (response.status === 304 && this.cachedCommands) {
+          // Not Modified — reuse cached data, reset timer
+          this.cacheTimestamp = now;
+          return this.cachedCommands;
+        }
         if (!response.ok) {
           throw new Error(`Failed to fetch commands (${response.status}): ${response.statusText}`);
         }
+        const etag = response.headers.get('etag');
         const data = await response.json() as CommandsRegistry;
         const commands = this.normalizeRegistry(data);
         this.cachedCommands = commands;
         this.cacheTimestamp = now;
+        this.cachedETag = etag;
         return commands;
       } else {
         // Load from local file
