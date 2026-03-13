@@ -1,9 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { select } from '@inquirer/prompts';
+import { select, confirm } from '@inquirer/prompts';
 import { colorize } from '../utils/colors';
 import { ClaudeCommandAPI } from '../core/api';
+import { validateSkillContent } from './skill-validator';
 
 export type Scope = 'user' | 'project' | 'local';
 
@@ -490,6 +491,36 @@ export class PluginManager {
     console.log(colorize.info(`Resolving '${input}' via ${adapter.name}...`));
     const manifest = await adapter.resolve(input);
 
+    // Idempotent: skip if same name + version already installed
+    const existingManifest = this.readManifest();
+    const alreadyInstalled = existingManifest.plugins.find(
+      (p) => p.name === manifest.name && p.version === manifest.version,
+    );
+    if (alreadyInstalled) {
+      console.log(colorize.info(`Plugin '${manifest.name}' v${manifest.version} is already installed. Nothing to do.`));
+      return;
+    }
+
+    // Validate SKILL.md files before writing
+    const skillFiles = manifest.files.filter((f) => f.path === 'SKILL.md' || f.path.endsWith('/SKILL.md'));
+    for (const skillFile of skillFiles) {
+      const syntheticPath = path.join(this.skillsDir, manifest.name, skillFile.path);
+      const result = validateSkillContent(skillFile.content, syntheticPath);
+      if (result.errors.length > 0) {
+        result.errors.forEach((e) => {
+          const field = e.field ? ` [${e.field}]` : '';
+          console.error(colorize.error(`  ERROR${field}: ${e.message}`));
+        });
+        throw new Error(`Validation failed for '${skillFile.path}' in plugin '${manifest.name}'. Install aborted.`);
+      }
+      if (result.warnings.length > 0) {
+        result.warnings.forEach((w) => {
+          const field = w.field ? ` [${w.field}]` : '';
+          console.log(colorize.warning(`  WARN${field}: ${w.message}`));
+        });
+      }
+    }
+
     // Primary install: ~/.claude/skills/<name>/
     const primaryDest = path.join(this.skillsDir, manifest.name);
     if (fs.existsSync(primaryDest)) {
@@ -798,7 +829,121 @@ export class PluginManager {
       },
     });
 
-    await this.installPluginByInput(pluginInput.trim());
+    const trimmedInput = pluginInput.trim();
+    const adapter = this.adapters.find((a) => a.canResolve(trimmedInput));
+    if (!adapter) {
+      throw new Error(`No adapter found for input: ${trimmedInput}`);
+    }
+
+    console.log(colorize.info(`\nFetching plugin info for '${trimmedInput}'...`));
+    const manifest = await adapter.resolve(trimmedInput);
+
+    // Show info card
+    console.log(colorize.highlight(`\n┌─ Plugin Info ────────────────────────────────────`));
+    console.log(`│  Name:        ${colorize.bold(manifest.name)}`);
+    console.log(`│  Version:     ${manifest.version}`);
+    if (manifest.description) {
+      console.log(`│  Description: ${manifest.description}`);
+    }
+    if (manifest.author) {
+      console.log(`│  Author:      ${manifest.author}`);
+    }
+    console.log(`│  Skills:      ${manifest.skills.length > 0 ? manifest.skills.join(', ') : '(none)'}`);
+    if (manifest.agents.length > 0) {
+      console.log(`│  Agents:      ${manifest.agents.join(', ')}`);
+    }
+    console.log(`│  Files:       ${manifest.files.length}`);
+
+    // Show allowed-tools from SKILL.md frontmatter if present
+    const skillFile = manifest.files.find((f) => f.path === 'SKILL.md' || f.path.endsWith('/SKILL.md'));
+    if (skillFile) {
+      const toolsMatch = skillFile.content.match(/^allowed-tools:\s*(.+)$/m);
+      if (toolsMatch) {
+        console.log(`│  Allowed tools: ${toolsMatch[1].trim()}`);
+      }
+    }
+    console.log(colorize.highlight(`└──────────────────────────────────────────────────`));
+    console.log('');
+
+    const proceed = await confirm({ message: `Install '${manifest.name}'?`, default: true });
+    if (!proceed) {
+      console.log(colorize.warning('Install cancelled.'));
+      return;
+    }
+
+    // Now write files (validator runs inside installPluginByInput via resolve+fetch path,
+    // but since we already resolved, call the write path directly)
+    const crossClientWrite = this.isCrossClientWriteEnabled();
+    const existingManifest = this.readManifest();
+    const alreadyInstalled = existingManifest.plugins.find(
+      (p) => p.name === manifest.name && p.version === manifest.version,
+    );
+    if (alreadyInstalled) {
+      console.log(colorize.info(`Plugin '${manifest.name}' v${manifest.version} is already installed. Nothing to do.`));
+      return;
+    }
+
+    // Validate SKILL.md files before writing
+    const skillFiles = manifest.files.filter((f) => f.path === 'SKILL.md' || f.path.endsWith('/SKILL.md'));
+    for (const sf of skillFiles) {
+      const syntheticPath = path.join(this.skillsDir, manifest.name, sf.path);
+      const result = validateSkillContent(sf.content, syntheticPath);
+      if (result.errors.length > 0) {
+        result.errors.forEach((e) => {
+          const field = e.field ? ` [${e.field}]` : '';
+          console.error(colorize.error(`  ERROR${field}: ${e.message}`));
+        });
+        throw new Error(`Validation failed for '${sf.path}'. Install aborted.`);
+      }
+      if (result.warnings.length > 0) {
+        result.warnings.forEach((w) => {
+          const field = w.field ? ` [${w.field}]` : '';
+          console.log(colorize.warning(`  WARN${field}: ${w.message}`));
+        });
+      }
+    }
+
+    const primaryDest = path.join(this.skillsDir, manifest.name);
+    if (fs.existsSync(primaryDest)) fs.rmSync(primaryDest, { recursive: true });
+    await adapter.fetch(manifest, primaryDest);
+    console.log(colorize.success(`✓ Installed to ~/.claude/skills/${manifest.name}/`));
+
+    if (crossClientWrite) {
+      const crossDest = path.join(this.agentSkillsDir, manifest.name);
+      if (fs.existsSync(crossDest)) fs.rmSync(crossDest, { recursive: true });
+      await adapter.fetch(manifest, crossDest);
+      console.log(colorize.success(`✓ Cross-client install to ~/.agents/skills/${manifest.name}/`));
+    }
+
+    this.ensurePluginsDirectory();
+    const sourceType: PluginSource['type'] = trimmedInput.startsWith('@anthropic/')
+      ? 'anthropic'
+      : trimmedInput.startsWith('./') || trimmedInput.startsWith('/')
+        ? 'local'
+        : 'registry';
+
+    const installedEntry: InstalledPlugin = {
+      name: manifest.name,
+      version: manifest.version,
+      scope: 'user',
+      source: { type: sourceType, ref: trimmedInput },
+      skills: manifest.skills,
+      agents: manifest.agents,
+    };
+
+    const updatedManifest = this.readManifest();
+    const existingIdx = updatedManifest.plugins.findIndex((p) => p.name === manifest.name);
+    if (existingIdx !== -1) {
+      updatedManifest.plugins[existingIdx] = installedEntry;
+    } else {
+      updatedManifest.plugins.push(installedEntry);
+    }
+    this.writeManifest(updatedManifest);
+
+    console.log(colorize.success(`\nPlugin '${manifest.name}' v${manifest.version} installed successfully.`));
+    if (manifest.skills.length > 0) {
+      console.log(colorize.info(`  Skills: ${manifest.skills.join(', ')}`));
+    }
   }
 
   private async interactiveInstallLocal(): Promise<void> {

@@ -79,6 +79,7 @@ COMMANDS:
   search <query>                Search available commands in the repository
   validate <skill-path>         Validate a SKILL.md file (use --json for machine-readable output)
   plugin install <input>         Install a plugin (@anthropic/name, ./path, or bare-name)
+  plugin install --local <path>  Install a plugin from local directory
   plugin install <input> --no-cross-client  Skip cross-client (~/.agents/skills/) write
   plugin init                   Scaffold a new plugin directory interactively
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
@@ -97,6 +98,7 @@ EXAMPLES:
   claude-cmd validate ./skills/foo/SKILL.md --json  Validate with JSON output
   claude-cmd plugin install @anthropic/pdf          Install from Anthropic marketplace
   claude-cmd plugin install ./my-skill              Install from local path
+  claude-cmd plugin install --local ./my-skill      Install from local path (--local flag)
   claude-cmd plugin install git-helper              Install from claude-cmd registry
   claude-cmd plugin init                            Scaffold a new plugin interactively
   claude-cmd plugin init --name my-plugin --description "My plugin" --author "Me"
@@ -118,12 +120,26 @@ async function validateSkill(skillPath: string, jsonMode: boolean): Promise<void
 }
 
 async function pluginInstall(args: string[]): Promise<void> {
-  const input = args[0];
+  const noCrossClient = args.includes('--no-cross-client');
+  const localIdx = args.indexOf('--local');
+
+  let input: string | undefined;
+  if (localIdx !== -1) {
+    // --local <path> → resolve and pass as absolute path
+    const localPath = args[localIdx + 1];
+    if (!localPath) {
+      console.error(colorize.error('Usage: claude-cmd plugin install --local <path>'));
+      process.exit(1);
+    }
+    input = path.resolve(localPath);
+  } else {
+    input = args.find((a) => !a.startsWith('--'));
+  }
+
   if (!input) {
-    console.error(colorize.error('Usage: claude-cmd plugin install <@anthropic/name|./path|name>'));
+    console.error(colorize.error('Usage: claude-cmd plugin install <@anthropic/name|./path|--local <path>|name>'));
     process.exit(1);
   }
-  const noCrossClient = args.includes('--no-cross-client');
   const manager = new PluginManager();
   await manager.installPluginByInput(input, { crossClientWrite: !noCrossClient });
 }
