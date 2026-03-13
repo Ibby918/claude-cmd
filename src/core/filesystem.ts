@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
+import * as yaml from 'js-yaml';
 import { ClaudeConfig, SubAgent, SubAgentFrontMatter, ParsedSubAgent } from '../types';
 
 export class FileSystemManager {
@@ -241,7 +242,7 @@ export class FileSystemManager {
     const [, yamlContent, systemPrompt] = match;
     
     try {
-      const frontMatter = this.parseYaml(yamlContent) as SubAgentFrontMatter;
+      const frontMatter = yaml.load(yamlContent) as SubAgentFrontMatter;
       return {
         frontMatter,
         systemPrompt: systemPrompt.trim()
@@ -249,37 +250,6 @@ export class FileSystemManager {
     } catch (error) {
       throw new Error(`Failed to parse YAML frontmatter: ${(error as Error).message}`);
     }
-  }
-
-  private parseYaml(yamlContent: string): any {
-    const result: any = {};
-    const lines = yamlContent.split('\n');
-
-    for (const line of lines) {
-      const trimmedLine = line.trim();
-      if (!trimmedLine || trimmedLine.startsWith('#')) {
-        continue;
-      }
-
-      const colonIndex = trimmedLine.indexOf(':');
-      if (colonIndex === -1) {
-        continue;
-      }
-
-      const key = trimmedLine.substring(0, colonIndex).trim();
-      const value = trimmedLine.substring(colonIndex + 1).trim();
-
-      if (key === 'tools' && value.startsWith('[') && value.endsWith(']')) {
-        // Parse array format: [tool1, tool2, tool3]
-        const arrayContent = value.slice(1, -1);
-        result[key] = arrayContent.split(',').map(item => item.trim().replace(/['"]/g, ''));
-      } else {
-        // Remove quotes if present
-        result[key] = value.replace(/^['"]|['"]$/g, '');
-      }
-    }
-
-    return result;
   }
 
   saveSubAgent(name: string, frontMatter: SubAgentFrontMatter, systemPrompt: string, targetLocation: 'global' | 'local' = 'global'): string {
