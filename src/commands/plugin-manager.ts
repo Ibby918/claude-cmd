@@ -1132,6 +1132,25 @@ export class PluginManager {
 
     const selected = await select<string>({ message: 'Select plugin to uninstall:', choices });
     if (selected === 'cancel') return;
+
+    const plugin = plugins.find((p) => p.name === selected)!;
+    const pluginPath = path.join(os.homedir(), '.claude', 'skills', plugin.name);
+
+    console.log('');
+    console.log(colorize.highlight(`┌─ Plugin Remove ──────────────────────────────────`));
+    console.log(`│  Name:    ${colorize.bold(plugin.name)}`);
+    console.log(`│  Version: ${plugin.version}`);
+    console.log(`│  Path:    ${pluginPath}`);
+    console.log(`│  Skills:  ${plugin.skills.length > 0 ? plugin.skills.join(', ') : '(none)'}`);
+    console.log(colorize.highlight(`└──────────────────────────────────────────────────`));
+    console.log('');
+
+    const proceed = await confirm({ message: `Remove plugin '${plugin.name}'?`, default: false });
+    if (!proceed) {
+      console.log(colorize.warning('Remove cancelled.'));
+      return;
+    }
+
     await this.uninstallPlugin(selected);
   }
 

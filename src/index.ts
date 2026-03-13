@@ -9,6 +9,7 @@ import { validateSkillFile, printValidationResult } from './commands/skill-valid
 import { PluginInitManager } from './commands/plugin-init-manager';
 import { PluginManager } from './commands/plugin-manager';
 import * as path from 'path';
+import * as os from 'os';
 
 // Configuration constants
 const DEFAULT_COMMANDS_URL = 'https://raw.githubusercontent.com/kiliczsh/claude-cmd/main/commands/commands.json';
@@ -81,6 +82,7 @@ COMMANDS:
   plugin install <input>         Install a plugin (@anthropic/name, ./path, or bare-name)
   plugin install --local <path>  Install a plugin from local directory
   plugin install <input> --no-cross-client  Skip cross-client (~/.agents/skills/) write
+  plugin remove <name>           Remove an installed plugin (prompts for confirmation)
   plugin init                   Scaffold a new plugin directory interactively
   plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
 
@@ -100,6 +102,7 @@ EXAMPLES:
   claude-cmd plugin install ./my-skill              Install from local path
   claude-cmd plugin install --local ./my-skill      Install from local path (--local flag)
   claude-cmd plugin install git-helper              Install from claude-cmd registry
+  claude-cmd plugin remove git-helper               Remove an installed plugin
   claude-cmd plugin init                            Scaffold a new plugin interactively
   claude-cmd plugin init --name my-plugin --description "My plugin" --author "Me"
   claude-cmd --help                       Show this help message
@@ -142,6 +145,42 @@ async function pluginInstall(args: string[]): Promise<void> {
   }
   const manager = new PluginManager();
   await manager.installPluginByInput(input, { crossClientWrite: !noCrossClient });
+}
+
+async function pluginRemove(args: string[]): Promise<void> {
+  const name = args.find((a) => !a.startsWith('--'));
+  if (!name) {
+    console.error(colorize.error('Usage: claude-cmd plugin remove <name>'));
+    process.exit(1);
+  }
+
+  const manager = new PluginManager();
+  const plugins = manager.listInstalledPlugins();
+  const plugin = plugins.find((p) => p.name === name);
+
+  if (!plugin) {
+    console.error(colorize.error(`Plugin '${name}' is not installed.`));
+    process.exit(1);
+  }
+
+  const { confirm } = await import('@inquirer/prompts');
+  const pluginPath = path.join(os.homedir(), '.claude', 'skills', plugin.name);
+
+  console.log(colorize.highlight(`\n┌─ Plugin Remove ──────────────────────────────────`));
+  console.log(`│  Name:    ${colorize.bold(plugin.name)}`);
+  console.log(`│  Version: ${plugin.version}`);
+  console.log(`│  Path:    ${pluginPath}`);
+  console.log(`│  Skills:  ${plugin.skills.length > 0 ? plugin.skills.join(', ') : '(none)'}`);
+  console.log(colorize.highlight(`└──────────────────────────────────────────────────`));
+  console.log('');
+
+  const proceed = await confirm({ message: `Remove plugin '${plugin.name}'?`, default: false });
+  if (!proceed) {
+    console.log(colorize.warning('Remove cancelled.'));
+    return;
+  }
+
+  await manager.uninstallPlugin(name);
 }
 
 async function pluginInit(args: string[]): Promise<void> {
@@ -206,6 +245,8 @@ async function main(): Promise<void> {
         await validateSkill(filteredArgs[1], jsonMode);
       } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'install') {
         await pluginInstall(filteredArgs.slice(2));
+      } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'remove' && filteredArgs[2]) {
+        await pluginRemove(filteredArgs.slice(2));
       } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'init') {
         await pluginInit(filteredArgs.slice(2));
       } else {
