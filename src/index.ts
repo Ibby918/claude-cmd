@@ -6,6 +6,7 @@ import { FileSystemManager } from './core/filesystem';
 import { ClaudeCommandAPI } from './core/api';
 import { colorize } from './utils/colors';
 import { validateSkillFile, printValidationResult } from './commands/skill-validator';
+import { PluginInitManager } from './commands/plugin-init-manager';
 import * as path from 'path';
 
 // Configuration constants
@@ -76,6 +77,8 @@ COMMANDS:
   install <command-name>        Install a command from the repository
   search <query>                Search available commands in the repository
   validate <skill-path>         Validate a SKILL.md file (use --json for machine-readable output)
+  plugin init                   Scaffold a new plugin directory interactively
+  plugin init --name <n>        Scaffold non-interactively (also: --description, --author, --skill)
 
 DESCRIPTION:
   Interactive CLI tool for managing Claude commands, configurations, and workflows.
@@ -89,6 +92,8 @@ EXAMPLES:
   claude-cmd install git-helper           Install the 'git-helper' command
   claude-cmd validate ./skills/foo/SKILL.md   Validate a SKILL.md file
   claude-cmd validate ./skills/foo/SKILL.md --json  Validate with JSON output
+  claude-cmd plugin init                  Scaffold a new plugin interactively
+  claude-cmd plugin init --name my-plugin --description "My plugin" --author "Me"
   claude-cmd --help                       Show this help message
 `);
 }
@@ -104,6 +109,27 @@ async function validateSkill(skillPath: string, jsonMode: boolean): Promise<void
     process.exit(2);
   }
   // exit code 0 implicitly
+}
+
+async function pluginInit(args: string[]): Promise<void> {
+  const manager = new PluginInitManager();
+
+  // Parse flags
+  const nameIdx = args.indexOf('--name');
+  const descIdx = args.indexOf('--description');
+  const authorIdx = args.indexOf('--author');
+  const skillIdx = args.indexOf('--skill');
+  const nonInteractive = nameIdx !== -1;
+
+  const opts = {
+    name: nameIdx !== -1 ? args[nameIdx + 1] : undefined,
+    description: descIdx !== -1 ? args[descIdx + 1] : undefined,
+    author: authorIdx !== -1 ? args[authorIdx + 1] : undefined,
+    skills: skillIdx !== -1 ? [args[skillIdx + 1]] : undefined,
+    nonInteractive,
+  };
+
+  await manager.initPlugin(opts);
 }
 
 // Parse command line arguments
@@ -145,6 +171,8 @@ async function main(): Promise<void> {
       } else if (filteredArgs[0] === 'validate' && filteredArgs[1]) {
         const jsonMode = filteredArgs.includes('--json');
         await validateSkill(filteredArgs[1], jsonMode);
+      } else if (filteredArgs[0] === 'plugin' && filteredArgs[1] === 'init') {
+        await pluginInit(filteredArgs.slice(2));
       } else {
         console.error(colorize.error(`Unknown command: ${filteredArgs[0]}`));
         console.log('Run "claude-cmd --help" for usage information or run without arguments for interactive mode.');
