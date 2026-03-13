@@ -199,4 +199,46 @@ describe("FileSystemManager - file operations", () => {
     expect(fsManager.fileExists(testFile)).toBe(true);
     expect(fsManager.fileExists(path.join(tmpDir, "missing.txt"))).toBe(false);
   });
+
+  test("ensureSkillsDirectory creates skills dir", () => {
+    const skillsDir = path.join(tmpDir, "skills");
+    (fsManager as any).skillsDir = skillsDir;
+    expect(fs.existsSync(skillsDir)).toBe(false);
+    fsManager.ensureSkillsDirectory();
+    expect(fs.existsSync(skillsDir)).toBe(true);
+  });
+
+  test("saveSkill writes SKILL.md with frontmatter and content", () => {
+    const skillsDir = path.join(tmpDir, "skills");
+    (fsManager as any).skillsDir = skillsDir;
+
+    const frontmatter = {
+      name: "my-skill",
+      description: "A test skill",
+      author: "tester",
+      version: "1.0.0",
+      tags: ["test", "demo"],
+    };
+    const content = "Do something useful.";
+
+    const filePath = fsManager.saveSkill("my-skill", frontmatter, content);
+
+    expect(fs.existsSync(filePath)).toBe(true);
+    const written = fs.readFileSync(filePath, "utf8");
+    expect(written).toContain("name: my-skill");
+    expect(written).toContain("description: A test skill");
+    expect(written).toContain("author: tester");
+    expect(written).toContain("Do something useful.");
+    expect(filePath).toContain(path.join("my-skill", "SKILL.md"));
+  });
+
+  test("saveSkill creates skill subdirectory", () => {
+    const skillsDir = path.join(tmpDir, "skills");
+    (fsManager as any).skillsDir = skillsDir;
+
+    fsManager.saveSkill("new-skill", { name: "new-skill", description: "desc" }, "body");
+
+    expect(fs.existsSync(path.join(skillsDir, "new-skill"))).toBe(true);
+    expect(fs.existsSync(path.join(skillsDir, "new-skill", "SKILL.md"))).toBe(true);
+  });
 });

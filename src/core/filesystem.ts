@@ -4,10 +4,20 @@ import * as os from 'os';
 import * as yaml from 'js-yaml';
 import { ClaudeConfig, SubAgent, SubAgentFrontMatter, ParsedSubAgent } from '../types';
 
+export interface SkillFrontmatter {
+  name: string;
+  description: string;
+  author?: string;
+  version?: string;
+  tags?: string[];
+  [key: string]: unknown;
+}
+
 export class FileSystemManager {
   public readonly claudeDir: string;
   public readonly commandsDir: string;
   public readonly agentsDir: string;
+  public readonly skillsDir: string;
   public readonly configFile: string;
   public readonly projectClaudeDir: string;
   public readonly projectCommandsDir: string;
@@ -17,6 +27,7 @@ export class FileSystemManager {
     this.claudeDir = path.join(os.homedir(), '.claude');
     this.commandsDir = path.join(this.claudeDir, 'commands');
     this.agentsDir = path.join(this.claudeDir, 'agents');
+    this.skillsDir = path.join(this.claudeDir, 'skills');
     this.configFile = path.join(this.claudeDir, 'settings.json');
     this.projectClaudeDir = path.join(process.cwd(), '.claude');
     this.projectCommandsDir = path.join(this.projectClaudeDir, 'commands');
@@ -200,6 +211,36 @@ export class FileSystemManager {
     if (!fs.existsSync(this.projectAgentsDir)) {
       fs.mkdirSync(this.projectAgentsDir, { recursive: true });
     }
+  }
+
+  ensureSkillsDirectory(): void {
+    if (!fs.existsSync(this.skillsDir)) {
+      fs.mkdirSync(this.skillsDir, { recursive: true });
+    }
+  }
+
+  saveSkill(name: string, frontmatter: SkillFrontmatter, content: string): string {
+    const skillDir = path.join(this.skillsDir, name);
+    const filePath = path.join(skillDir, 'SKILL.md');
+
+    if (!fs.existsSync(skillDir)) {
+      fs.mkdirSync(skillDir, { recursive: true });
+    }
+
+    const yamlContent = yaml.dump(frontmatter, { lineWidth: -1 });
+    const fileContent = `---\n${yamlContent}---\n\n${content}`;
+
+    try {
+      fs.writeFileSync(filePath, fileContent, 'utf8');
+      return filePath;
+    } catch (error) {
+      throw new Error(`Failed to save skill: ${(error as Error).message}`);
+    }
+  }
+
+  supportsSkills(): boolean {
+    const config = this.getClaudeConfig();
+    return !!(config as ClaudeConfig & { enableSkills?: boolean }).enableSkills;
   }
 
   listInstalledSubAgents(): string[] {
