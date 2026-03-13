@@ -1,4 +1,4 @@
-import { Command, SearchResult, ApiResponse } from '@/types';
+import { Command, CommandsRegistry, CommandsRegistryV2, SearchResult, ApiResponse } from '@/types';
 import * as fs from 'fs';
 
 export interface CommandSearchParams {
@@ -23,6 +23,16 @@ export class ClaudeCommandAPI {
     this.isUrl = this.commandsDataSource.startsWith('http://') || this.commandsDataSource.startsWith('https://');
   }
 
+  /** Normalize a v1 (array) or v2 (versioned object) registry to a flat Command array */
+  private normalizeRegistry(data: CommandsRegistry): Command[] {
+    if (Array.isArray(data)) {
+      // v1: raw array
+      return data;
+    }
+    // v2: { version: 2, skills: [...] }
+    return (data as CommandsRegistryV2).skills;
+  }
+
   private async loadCommandsData(): Promise<Command[]> {
     try {
       // Check cache first
@@ -37,15 +47,17 @@ export class ClaudeCommandAPI {
         if (!response.ok) {
           throw new Error(`Failed to fetch commands (${response.status}): ${response.statusText}`);
         }
-        const data = await response.json() as Command[];
-        this.cachedCommands = data;
+        const data = await response.json() as CommandsRegistry;
+        const commands = this.normalizeRegistry(data);
+        this.cachedCommands = commands;
         this.cacheTimestamp = now;
-        return data;
+        return commands;
       } else {
         // Load from local file
         if (fs.existsSync(this.commandsDataSource)) {
           const data = fs.readFileSync(this.commandsDataSource, 'utf-8');
-          const commands = JSON.parse(data) as Command[];
+          const parsed = JSON.parse(data) as CommandsRegistry;
+          const commands = this.normalizeRegistry(parsed);
           this.cachedCommands = commands;
           this.cacheTimestamp = now;
           return commands;
