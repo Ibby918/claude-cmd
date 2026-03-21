@@ -1,80 +1,64 @@
 ---
 name: claude-cmd
-description: >
-  Use when the user wants to find, install, or manage Claude Code commands from the community
-  repository (184+ available). Trigger phrases: "find a command for X", "is there a Claude
-  command that does Y", "install a command", "search for Claude commands", "set up CLAUDE.md",
-  "create a project config", "initialise a new project", "manage MCP servers via CLI".
-  Do NOT trigger for: general Claude usage questions, built-in Claude capabilities, writing
-  code, or anything not explicitly about managing commands/configs. This is a management
-  tool — not a coding assistant.
+description: Manages Claude Code commands, CLAUDE.md files, and MCP server configs. Use when the user wants to browse or install community commands, scaffold a CLAUDE.md, set up a new project config, or manage MCP servers.
 ---
 
-# Claude CMD — Claude Code Commands Manager
+# Claude CMD
 
-Manages Claude Code slash commands, CLAUDE.md project configs, and MCP server listings.
-Run `npm install -g claude-cmd@latest` if not already installed.
+Manage Claude Code commands, configurations, and MCP servers via the `claude-cmd` CLI.
+184+ community commands are available from the online registry.
+
+**Before running any `claude-cmd` command, ensure the npm package is installed:**
+```bash
+npm install -g claude-cmd@latest
+```
 
 ## Workflow
 
-1. **Start interactive mode** (recommended for first-time or exploratory use):
+### Finding and installing community commands
+
+1. Search the registry:
+   ```bash
+   claude-cmd search <topic>
+   ```
+2. Review results. Install the best match:
+   ```bash
+   claude-cmd install <command-name>
+   ```
+3. Confirm install with:
+   ```bash
+   claude-cmd list
+   ```
+
+### Setting up a CLAUDE.md for a project
+
+1. Navigate to the project root, then run:
    ```bash
    claude-cmd
    ```
-   Choose from: Command Management / CLAUDE.md / Security / MCP Servers / Project Init
+2. Select **CLAUDE.md Management** → choose template matching project type (Node.js, React, Python, Generic).
+3. Review the generated file and edit as needed.
 
-2. **Direct search** (when user knows what they want):
-   ```bash
-   claude-cmd search <topic>        # e.g. claude-cmd search git
-   claude-cmd search <topic> --local
-   ```
+### Managing MCP servers
 
-3. **Install a found command**:
-   ```bash
-   claude-cmd install <command-name>
-   claude-cmd list                  # verify it was installed
-   ```
+1. Run `claude-cmd` and select **MCP Server Management**.
+2. View currently configured servers and their status.
 
-4. **Set up a CLAUDE.md** for a new project:
-   ```bash
-   cd /path/to/project
-   claude-cmd   # → CLAUDE.md Management → choose template
-   ```
-   Templates: Node.js, React, Python, Generic. Supports `CLAUDE.local.md` overrides (gitignored).
-
-5. **Configure security profile** when user needs to lock down permissions:
-   ```bash
-   claude-cmd   # → Security & Permissions → Strict / Moderate / Permissive
-   ```
-
-## Commands
+### Full interactive menu
 
 ```bash
-claude-cmd                    # Interactive menu
-claude-cmd list               # List installed commands
-claude-cmd search <query>     # Search 184+ community commands
-claude-cmd install <n>        # Install by name
-claude-cmd --local search <q> # Search local repo only
-claude-cmd --version
-claude-cmd --help
+claude-cmd          # Opens interactive menu covering all features
+claude-cmd list     # List installed commands only
+claude-cmd --help   # Full CLI reference
 ```
 
-## File Locations
+## Reference
 
-```
-~/.claude/commands/     # All installed commands live here
-~/.claude/settings.json # Global config
-~/.claude/CLAUDE.md     # Global Claude instructions
-project/CLAUDE.md       # Project-specific (created by this tool)
-project/CLAUDE.local.md # Local overrides (gitignored)
-```
-
-## Common Mistakes
-
-- **Don't run `claude-cmd` from wrong directory** when creating project CLAUDE.md — always `cd` to the project root first
-- **Don't confuse community commands with built-in `/` commands** — community commands are installed to `~/.claude/commands/` and appear as `/project:command-name`
-- **Check `claude-cmd list`** after install to confirm it registered correctly
-
-## Decision Guide
-
-Use `claude-cmd` when the user wants to **manage** Claude — not when they want Claude to **do** something. If the user says "help me build X", use GSD instead.
+| Command | Action |
+|---|---|
+| `claude-cmd search <q>` | Search 184+ community commands |
+| `claude-cmd install <n>` | Install a command globally |
+| `claude-cmd --local search <q>` | Search local repo only |
+| `claude-cmd --local install <n>` | Install locally |
+| `claude-cmd list` | List installed commands |
+| `claude-cmd --version` | Show version |
