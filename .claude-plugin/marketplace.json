@@ -1,0 +1,14 @@
+{
+    "description":  "Claude Code commands manager. Browse and install 184+ commands. Requires: npm install -g claude-cmd@latest",
+    "name":  "claude-cmd",
+    "display_name":  "Claude CMD",
+    "plugins":  [
+                    {
+                        "path":  ".",
+                        "description":  "Claude Code commands manager. Browse and install 184+ commands. Requires: npm install -g claude-cmd@latest",
+                        "name":  "claude-cmd",
+                        "display_name":  "Claude CMD"
+                    }
+                ],
+    "version":  "1.0.0"
+}
