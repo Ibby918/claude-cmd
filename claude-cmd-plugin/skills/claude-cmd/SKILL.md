@@ -1,90 +1,80 @@
 ---
 name: claude-cmd
 description: >
-  Use this skill whenever the user wants to browse, search, install, or manage Claude Code
-  commands from the community repository. Trigger when the user says things like "find a
-  command for X", "is there a Claude command that does Y", "install a command", "manage my
-  Claude commands", "set up a CLAUDE.md", "create a project configuration", or "manage MCP
-  servers". Also trigger for any request to scaffold a new Claude Code project with templates
-  (Node.js, React, Python, etc.) or configure security profiles. Skip for general Claude Code
-  usage questions that don't involve command management, and skip when the user is asking
-  about Claude's built-in capabilities rather than community commands.
+  Use when the user wants to find, install, or manage Claude Code commands from the community
+  repository (184+ available). Trigger phrases: "find a command for X", "is there a Claude
+  command that does Y", "install a command", "search for Claude commands", "set up CLAUDE.md",
+  "create a project config", "initialise a new project", "manage MCP servers via CLI".
+  Do NOT trigger for: general Claude usage questions, built-in Claude capabilities, writing
+  code, or anything not explicitly about managing commands/configs. This is a management
+  tool — not a coding assistant.
 ---
 
 # Claude CMD — Claude Code Commands Manager
 
-A lightweight CLI tool for managing Claude commands, CLAUDE.md configurations, and MCP servers.
-184+ community commands available from the online repository.
+Manages Claude Code slash commands, CLAUDE.md project configs, and MCP server listings.
+Run `npm install -g claude-cmd@latest` if not already installed.
 
-## Prerequisites
+## Workflow
+
+1. **Start interactive mode** (recommended for first-time or exploratory use):
+   ```bash
+   claude-cmd
+   ```
+   Choose from: Command Management / CLAUDE.md / Security / MCP Servers / Project Init
+
+2. **Direct search** (when user knows what they want):
+   ```bash
+   claude-cmd search <topic>        # e.g. claude-cmd search git
+   claude-cmd search <topic> --local
+   ```
+
+3. **Install a found command**:
+   ```bash
+   claude-cmd install <command-name>
+   claude-cmd list                  # verify it was installed
+   ```
+
+4. **Set up a CLAUDE.md** for a new project:
+   ```bash
+   cd /path/to/project
+   claude-cmd   # → CLAUDE.md Management → choose template
+   ```
+   Templates: Node.js, React, Python, Generic. Supports `CLAUDE.local.md` overrides (gitignored).
+
+5. **Configure security profile** when user needs to lock down permissions:
+   ```bash
+   claude-cmd   # → Security & Permissions → Strict / Moderate / Permissive
+   ```
+
+## Commands
 
 ```bash
-npm install -g claude-cmd@latest
+claude-cmd                    # Interactive menu
+claude-cmd list               # List installed commands
+claude-cmd search <query>     # Search 184+ community commands
+claude-cmd install <n>        # Install by name
+claude-cmd --local search <q> # Search local repo only
+claude-cmd --version
+claude-cmd --help
 ```
 
-Verify install: `claude-cmd --version`
-
-## Core Usage
-
-```bash
-claude-cmd                        # Launch interactive menu (recommended)
-claude-cmd list                   # List all installed commands
-claude-cmd search <query>         # Search 184+ community commands
-claude-cmd install <name>         # Install a specific command
-claude-cmd --local search <q>     # Search local command repository
-claude-cmd --version              # Show version
-claude-cmd --help                 # Full help
-```
-
-## Interactive Menu Options
-
-When you run `claude-cmd` without arguments, you get a full interactive menu covering:
-
-- **Command Management** — Browse, search and install from 184+ commands
-- **CLAUDE.md Management** — Create project-specific Claude instructions with templates
-- **Security & Permissions** — Configure strict/moderate/permissive security profiles
-- **MCP Server Management** — List and view locally configured MCP servers
-- **Project Initialisation** — Quick setup for new Claude Code projects
-
-## CLAUDE.md Templates Available
-
-| Template | Best for |
-|---|---|
-| Node.js | Express APIs, npm projects |
-| React | Frontend SPA projects |
-| Python | Scripts, data projects, FastAPI |
-| Generic | Any project type |
-
-Templates include local override support via `CLAUDE.local.md` (gitignored).
-
-## File Structure Managed
+## File Locations
 
 ```
-~/.claude/
-├── commands/           # Installed community commands
-├── settings.json       # Global Claude Code config
-└── CLAUDE.md           # Global Claude instructions
-
-project/
-├── CLAUDE.md           # Project-specific instructions
-└── CLAUDE.local.md     # Local overrides (gitignored)
+~/.claude/commands/     # All installed commands live here
+~/.claude/settings.json # Global config
+~/.claude/CLAUDE.md     # Global Claude instructions
+project/CLAUDE.md       # Project-specific (created by this tool)
+project/CLAUDE.local.md # Local overrides (gitignored)
 ```
 
-## Common Workflows
+## Common Mistakes
 
-**Find and install a git workflow command:**
-```bash
-claude-cmd search git
-claude-cmd install git-helper
-```
+- **Don't run `claude-cmd` from wrong directory** when creating project CLAUDE.md — always `cd` to the project root first
+- **Don't confuse community commands with built-in `/` commands** — community commands are installed to `~/.claude/commands/` and appear as `/project:command-name`
+- **Check `claude-cmd list`** after install to confirm it registered correctly
 
-**Set up a Python project:**
-```bash
-cd my-python-project
-claude-cmd  # → Project Initialisation → Python template
-```
+## Decision Guide
 
-**Configure strict security for production work:**
-```bash
-claude-cmd  # → Security & Permissions → Strict profile
-```
+Use `claude-cmd` when the user wants to **manage** Claude — not when they want Claude to **do** something. If the user says "help me build X", use GSD instead.
