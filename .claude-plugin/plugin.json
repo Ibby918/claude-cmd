@@ -1,5 +1,8 @@
-{
+﻿{
   "name": "claude-cmd",
-  "description": "Claude Code commands manager. Browse and install 184+ commands, manage CLAUDE.md files and MCP servers. Requires: npm install -g claude-cmd@latest",
-  "author": { "name": "kiliczsh" }
+  "description": "Claude Code commands manager. Browse and install 184+ commands, manage CLAUDE.md files and MCP servers.",
+  "author": {
+    "name": "kiliczsh"
+  },
+  "homepage": "https://github.com/Ibby918/claude-cmd"
 }

@@ -1,0 +1,22 @@
+﻿{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-cmd",
+  "owner": {
+    "name": "kiliczsh"
+  },
+  "metadata": {
+    "description": "Claude Code commands manager. Browse and install 184+ commands, manage CLAUDE.md files and MCP servers."
+  },
+  "plugins": [
+    {
+      "name": "claude-cmd",
+      "source": "./claude-cmd-plugin",
+      "description": "Claude Code commands manager. Browse and install 184+ commands, manage CLAUDE.md files and MCP servers.",
+      "author": {
+        "name": "kiliczsh"
+      },
+      "category": "development",
+      "homepage": "https://github.com/Ibby918/claude-cmd"
+    }
+  ]
+}
